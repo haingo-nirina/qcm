@@ -42,7 +42,7 @@ export interface BaseDemo {
 /** À incrémenter si la forme des données change : les anciennes sauvegardes sont alors ignorées. */
 const VERSION = 1;
 const CLE = "qcm-demo-v1";
-const EVENEMENT = "qcm-demo-change";
+export const EVENEMENT = "qcm-demo-change";
 
 function graine(): BaseDemo {
   return structuredClone({

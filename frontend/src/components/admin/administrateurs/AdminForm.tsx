@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useToast } from "@/components/admin/ui/Toaster";
-import { creerAdministrateur } from "@/services/administrateurs";
+import { creerAdministrateur, LONGUEUR_MIN_MOT_DE_PASSE } from "@/services/administrateurs";
 import type { RoleAdmin } from "@/types";
 
 type Erreurs = Partial<Record<"nom" | "email" | "mdp", string>>;
@@ -33,7 +33,7 @@ export function AdminForm({ onFermer }: { onFermer: () => void }) {
     const e: Erreurs = {};
     if (nom.trim().length < 2) e.nom = "Le nom est obligatoire.";
     if (!EMAIL.test(email.trim())) e.email = "Saisissez une adresse e-mail valide.";
-    if (mdp.length < 8) e.mdp = "8 caractères minimum.";
+    if (mdp.length < LONGUEUR_MIN_MOT_DE_PASSE) e.mdp = `${LONGUEUR_MIN_MOT_DE_PASSE} caractères minimum.`;
     setErreurs(e);
     const premier = (["nom", "email", "mdp"] as const).find((k) => e[k]);
     if (premier) return { nom: nomRef, email: emailRef, mdp: mdpRef }[premier].current?.focus();
@@ -101,7 +101,7 @@ export function AdminForm({ onFermer }: { onFermer: () => void }) {
               className="bo-field"
               type={voirMdp ? "text" : "password"}
               autoComplete="new-password"
-              minLength={8}
+              minLength={LONGUEUR_MIN_MOT_DE_PASSE}
               ref={mdpRef}
               value={mdp}
               {...champ("mdp")}

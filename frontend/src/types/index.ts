@@ -199,10 +199,9 @@ export interface AdministrateurSaisie {
   mot_de_passe?: string;
 }
 
+/** Session du back-office (le jeton reste dans un cookie httpOnly, jamais exposé au JavaScript). */
 export interface SessionAdmin {
   administrateur: Administrateur;
-  /** Jeton renvoyé par l'API (simulé) */
-  jeton: string;
   expire_le: DateISO;
 }
 

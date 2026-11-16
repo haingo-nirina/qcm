@@ -1,0 +1,256 @@
+// Schéma calqué sur frontend/src/types/index.ts
+// Les noms de colonnes sont en snake_case, identiques aux types du frontend,
+// pour que l'API renvoie directement les objets attendus.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/* ---------- pays / points_depart ---------- */
+
+model Pays {
+  id   Int    @id @default(autoincrement())
+  /// Code ISO 3166-1 alpha-2 (CN, AE, IN, ID)
+  code String @unique @db.Char(2)
+  nom  String
+
+  points_depart PointDepart[]
+
+  @@map("pays")
+}
+
+model PointDepart {
+  id      Int    @id @default(autoincrement())
+  pays_id Int
+  nom     String
+
+  pays    Pays             @relation(fields: [pays_id], references: [id], onDelete: Restrict)
+  departs DepartGroupage[]
+
+  @@unique([pays_id, nom])
+  @@map("points_depart")
+}
+
+/* ---------- departs_groupage ---------- */
+
+enum StatutDepart {
+  ouvert
+  bientot_complet
+  ferme
+
+  @@map("statut_depart")
+}
+
+model DepartGroupage {
+  id              Int          @id @default(autoincrement())
+  point_depart_id Int
+  date_cloture    DateTime     @db.Date
+  arrivee_estimee DateTime     @db.Date
+  statut          StatutDepart @default(ouvert)
+  visible         Boolean      @default(true)
+  created_at      DateTime     @default(now()) @db.Timestamptz(3)
+  updated_at      DateTime     @updatedAt @db.Timestamptz(3)
+
+  point_depart   PointDepart    @relation(fields: [point_depart_id], references: [id], onDelete: Restrict)
+  demandes_devis DemandeDevis[]
+
+  @@index([visible, date_cloture])
+  @@map("departs_groupage")
+}
+
+/* ---------- utilisateurs / comptes_sociaux ---------- */
+
+model Utilisateur {
+  id                 Int      @id @default(autoincrement())
+  nom                String
+  email              String   @unique
+  telephone_whatsapp String?
+  photo_url          String?
+  /// Auteur bloqué par la modération : il ne peut plus commenter
+  bloque             Boolean  @default(false)
+  created_at         DateTime @default(now()) @db.Timestamptz(3)
+
+  comptes_sociaux CompteSocial[]
+  commentaires    Commentaire[]
+
+  @@map("utilisateurs")
+}
+
+enum FournisseurConnexion {
+  facebook
+  google
+  email
+
+  @@map("fournisseur_connexion")
+}
+
+model CompteSocial {
+  id                  Int                  @id @default(autoincrement())
+  utilisateur_id      Int
+  fournisseur         FournisseurConnexion
+  /// Identifiant chez Facebook / Google, ou l'e-mail pour une inscription classique
+  identifiant_externe String
+  /// Uniquement pour le fournisseur « email »
+  mot_de_passe_hash   String?
+  created_at          DateTime             @default(now()) @db.Timestamptz(3)
+
+  utilisateur Utilisateur @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade)
+
+  @@unique([fournisseur, identifiant_externe])
+  @@index([utilisateur_id])
+  @@map("comptes_sociaux")
+}
+
+/* ---------- publications ---------- */
+
+enum CategoriePublication {
+  arrivage
+  depart_groupage
+  evenement
+  actualite
+
+  @@map("categorie_publication")
+}
+
+enum StatutPublication {
+  brouillon
+  publie
+
+  @@map("statut_publication")
+}
+
+model Publication {
+  id                   Int                  @id @default(autoincrement())
+  titre                String
+  slug                 String               @unique
+  categorie            CategoriePublication
+  contenu              String
+  image_url            String?
+  statut               StatutPublication    @default(brouillon)
+  /// « Autoriser les commentaires »
+  commentaires_ouverts Boolean              @default(true)
+  /// « Valider les commentaires avant affichage »
+  commentaires_moderes Boolean              @default(true)
+  publie_le            DateTime?            @db.Timestamptz(3)
+  created_at           DateTime             @default(now()) @db.Timestamptz(3)
+  updated_at           DateTime             @updatedAt @db.Timestamptz(3)
+
+  commentaires Commentaire[]
+
+  @@index([statut, publie_le])
+  @@map("publications")
+}
+
+/* ---------- commentaires ---------- */
+
+enum StatutCommentaire {
+  en_attente
+  publie
+  refuse
+
+  @@map("statut_commentaire")
+}
+
+model Commentaire {
+  id             Int               @id @default(autoincrement())
+  publication_id Int
+  utilisateur_id Int
+  contenu        String
+  statut         StatutCommentaire @default(en_attente)
+  /// Réponse officielle de l'équipe QCM
+  reponse_qcm    String?
+  reponse_le     DateTime?         @db.Timestamptz(3)
+  created_at     DateTime          @default(now()) @db.Timestamptz(3)
+
+  publication Publication @relation(fields: [publication_id], references: [id], onDelete: Cascade)
+  utilisateur Utilisateur @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade)
+
+  @@index([publication_id, statut])
+  @@index([statut, created_at])
+  @@map("commentaires")
+}
+
+/* ---------- demandes_devis ---------- */
+
+enum SourceDevis {
+  formulaire
+  whatsapp
+
+  @@map("source_devis")
+}
+
+enum StatutDevis {
+  nouvelle
+  traitee
+
+  @@map("statut_devis")
+}
+
+model DemandeDevis {
+  id         Int         @id @default(autoincrement())
+  nom_client String
+  telephone  String
+  entreprise String?
+  message    String?
+  depart_id  Int?
+  source     SourceDevis @default(formulaire)
+  statut     StatutDevis @default(nouvelle)
+  created_at DateTime    @default(now()) @db.Timestamptz(3)
+  traitee_le DateTime?   @db.Timestamptz(3)
+
+  depart DepartGroupage? @relation(fields: [depart_id], references: [id], onDelete: SetNull)
+
+  @@index([statut, created_at])
+  @@map("demandes_devis")
+}
+
+/* ---------- administrateurs ---------- */
+
+enum RoleAdmin {
+  admin
+  moderateur
+
+  @@map("role_admin")
+}
+
+model Administrateur {
+  id                 Int       @id @default(autoincrement())
+  nom                String
+  email              String    @unique
+  /// Jamais renvoyé par l'API
+  mot_de_passe_hash  String
+  role               RoleAdmin @default(moderateur)
+  actif              Boolean   @default(true)
+  derniere_connexion DateTime? @db.Timestamptz(3)
+  created_at         DateTime  @default(now()) @db.Timestamptz(3)
+
+  sessions SessionAdmin[]
+
+  @@map("administrateurs")
+}
+
+/// Session du back-office. Seule l'empreinte SHA-256 du jeton est stockée :
+/// une fuite de la base ne permet pas de se connecter.
+model SessionAdmin {
+  id                Int      @id @default(autoincrement())
+  administrateur_id Int
+  jeton_hash        String   @unique @db.Char(64)
+  expire_le         DateTime @db.Timestamptz(3)
+  /// true : cookie persistant (« Rester connecté »)
+  persistante       Boolean  @default(false)
+  ip                String?
+  user_agent        String?
+  created_at        DateTime @default(now()) @db.Timestamptz(3)
+
+  administrateur Administrateur @relation(fields: [administrateur_id], references: [id], onDelete: Cascade)
+
+  @@index([administrateur_id])
+  @@index([expire_le])
+  @@map("sessions_admin")
+}

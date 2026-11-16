@@ -1,4 +1,4 @@
-import { abonnerBase } from "@/mocks/store";
+import { abonnerBase, EVENEMENT } from "@/mocks/store";
 
 /**
  * Prévient les écrans quand les données changent (dans cet onglet ou un autre),
@@ -9,4 +9,9 @@ import { abonnerBase } from "@/mocks/store";
  */
 export function abonnerChangements(rappel: () => void): () => void {
   return abonnerBase(rappel);
+}
+
+/** À appeler après une modification faite via l'API : les écrans abonnés rechargent leurs données. */
+export function signalerChangement(): void {
+  if (typeof window !== "undefined") window.dispatchEvent(new Event(EVENEMENT));
 }
