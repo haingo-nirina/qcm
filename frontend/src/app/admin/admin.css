@@ -1,0 +1,345 @@
+/* ==========================================================================
+   Back-office QCM : classes reprises de la maquette (préfixe « bo- »).
+   Chargé uniquement sous /admin : n'alourdit pas le site public.
+   ========================================================================== */
+
+@layer components {
+  .bo {
+    --bo-nuit: #061a47;
+    --bo-navy: #0a2463;
+    --bo-blue: #1e56c8;
+    --bo-orange: #f58a07;
+    /* Orange foncé des liens « Modérer → » : #C25E00 de la maquette assombri pour un contraste AA sur blanc */
+    --bo-orange-texte: #b35500;
+    --bo-fond: #f4f6fb;
+    --bo-ligne: #e3e9f5;
+    --bo-ligne-douce: #eef2fa;
+    --bo-texte: #0b1b3f;
+    --bo-corps: #2b3a58;
+    --bo-gris: #5a6987;
+    background: var(--bo-fond);
+    color: var(--bo-texte);
+    font-family: var(--font-sans);
+    min-height: 100dvh;
+  }
+  .bo h1,
+  .bo h2,
+  .bo h3 {
+    font-family: var(--font-display);
+  }
+  .bo a {
+    color: var(--bo-blue);
+  }
+  .bo a:hover {
+    color: #c25e00;
+  }
+
+  /* Menu latéral */
+  .bo-mi {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 46px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 0;
+    background: none;
+    color: #c7d3ee !important;
+    font: 500 15px var(--font-sans);
+    cursor: pointer;
+    text-align: left;
+    text-decoration: none;
+    transition:
+      background 0.2s,
+      color 0.2s;
+  }
+  .bo-mi:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff !important;
+  }
+  .bo-mi[aria-current="page"] {
+    background: var(--bo-orange);
+    color: var(--bo-nuit) !important;
+    font-weight: 600;
+  }
+  .bo-badge {
+    margin-left: auto;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 7px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .bo-mi[aria-current="page"] .bo-badge {
+    background: var(--bo-nuit);
+  }
+
+  /* Cartes */
+  .bo-card {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid var(--bo-ligne);
+  }
+  .bo-kpi {
+    transition:
+      transform 0.2s,
+      box-shadow 0.2s,
+      border-color 0.2s;
+  }
+  .bo-kpi:hover {
+    transform: translateY(-2px);
+    border-color: #c9d5ec;
+    box-shadow: 0 12px 30px rgba(10, 36, 99, 0.08);
+  }
+
+  /* Boutons */
+  .bo-b {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 0;
+    cursor: pointer;
+    font: 600 14px var(--font-sans);
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background 0.2s,
+      transform 0.2s;
+  }
+  .bo-b:hover {
+    transform: translateY(-1px);
+  }
+  .bo-b:disabled,
+  .bo-b[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .bo-b-n {
+    background: var(--bo-navy);
+    color: #ffffff !important;
+  }
+  .bo-b-n:hover {
+    background: var(--bo-blue);
+  }
+  .bo-b-o {
+    background: var(--bo-orange);
+    color: var(--bo-nuit) !important;
+  }
+  .bo-b-o:hover {
+    background: #ff9f2e;
+  }
+  .bo-b-g {
+    background: #e6f7ec;
+    color: #157f3b !important;
+  }
+  .bo-b-g:hover {
+    background: #d3f0dd;
+  }
+  .bo-b-r {
+    background: #fdecec;
+    color: #b42318 !important;
+  }
+  .bo-b-r:hover {
+    background: #fadada;
+  }
+  .bo-b-l {
+    background: #eef2fa;
+    color: var(--bo-navy) !important;
+  }
+  .bo-b-l:hover {
+    background: #e1e8f6;
+  }
+  .bo-b-rouge {
+    background: #b42318;
+    color: #ffffff !important;
+  }
+  .bo-b-rouge:hover {
+    background: #8f1c13;
+  }
+
+  /* Onglets de filtre */
+  .bo-tab {
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 10px;
+    border: 1.5px solid var(--bo-ligne);
+    background: #ffffff;
+    color: #44526e;
+    font: 600 14px var(--font-sans);
+    cursor: pointer;
+  }
+  .bo-tab:hover {
+    border-color: #c9d5ec;
+  }
+  .bo-tab[aria-pressed="true"] {
+    background: var(--bo-navy);
+    border-color: var(--bo-navy);
+    color: #ffffff;
+  }
+
+  /* Champs */
+  .bo-field {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1.5px solid #d5deef;
+    background: #f7f9fd;
+    font: inherit;
+    font-weight: 400;
+    color: var(--bo-texte);
+  }
+  .bo-field::placeholder {
+    color: #6b7896;
+  }
+  .bo-field:focus {
+    outline: none;
+    border-color: var(--bo-blue);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(30, 86, 200, 0.15);
+  }
+  .bo-field:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .bo-field[aria-invalid="true"] {
+    border-color: #b42318;
+  }
+  .bo-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--bo-corps);
+  }
+  .bo-erreur {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #b42318;
+  }
+  .bo-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .bo-check input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--bo-navy);
+  }
+
+  /* Tableaux */
+  .bo-tb {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 720px;
+  }
+  .bo-tb th {
+    text-align: left;
+    padding: 12px 16px;
+    color: var(--bo-gris);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: #f7f9fd;
+    border-bottom: 1px solid var(--bo-ligne);
+  }
+  .bo-tb td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--bo-ligne-douce);
+    vertical-align: middle;
+  }
+  .bo-tb tbody tr:hover td {
+    background: #fafbfe;
+  }
+  .bo-tb tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .bo-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .bo-fade {
+    animation: bo-fade 0.35s ease both;
+  }
+
+  /* Chargement */
+  .bo-skel {
+    border-radius: 8px;
+    background: linear-gradient(90deg, #eef2fa 25%, #e3e9f5 50%, #eef2fa 75%);
+    background-size: 200% 100%;
+    animation: bo-shimmer 1.4s linear infinite;
+  }
+
+  /* Fenêtre de confirmation */
+  .bo-dialog::backdrop {
+    background: rgba(6, 26, 71, 0.55);
+  }
+
+  .bo :focus-visible {
+    outline: 3px solid var(--bo-orange);
+    outline-offset: 2px;
+  }
+}
+
+@keyframes bo-fade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes bo-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@keyframes bo-toast {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bo-fade,
+  .bo-skel {
+    animation: none;
+  }
+  .bo-b:hover,
+  .bo-kpi:hover {
+    transform: none;
+  }
+}

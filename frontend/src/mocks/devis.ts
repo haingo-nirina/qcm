@@ -1,0 +1,53 @@
+import type { DemandeDevisEnregistree } from "@/types";
+
+/** Données d'exemple : elles seront remplacées par la table demandes_devis via l'API. */
+export const demandesDevisMock: DemandeDevisEnregistree[] = [
+  {
+    id: 1,
+    nom_client: "Client exemple F",
+    telephone: "+261 34 00 000 01",
+    entreprise: "Entreprise exemple 1",
+    message: "Import de 2 m³ de vêtements depuis Guangzhou.",
+    depart_id: 1,
+    source: "formulaire",
+    statut: "nouvelle",
+    created_at: "2026-11-11T10:15:00+03:00",
+    traitee_le: null,
+  },
+  {
+    id: 2,
+    nom_client: "Client exemple G",
+    telephone: "+261 33 00 000 02",
+    entreprise: "Entreprise exemple 2",
+    message: "Paiement fournisseur à Dubaï + fret maritime.",
+    depart_id: null,
+    source: "formulaire",
+    statut: "nouvelle",
+    created_at: "2026-11-11T09:00:00+03:00",
+    traitee_le: null,
+  },
+  {
+    id: 3,
+    nom_client: "Client exemple H",
+    telephone: "+261 32 00 000 03",
+    entreprise: "Entreprise exemple 3",
+    message: "Devis pour mobilier depuis Jakarta.",
+    depart_id: null,
+    source: "whatsapp",
+    statut: "traitee",
+    created_at: "2026-11-09T14:30:00+03:00",
+    traitee_le: "2026-11-10T09:00:00+03:00",
+  },
+  {
+    id: 4,
+    nom_client: "Client exemple I",
+    telephone: "+261 34 00 000 04",
+    entreprise: null,
+    message: "Je veux participer au prochain voyage d’affaires.",
+    depart_id: null,
+    source: "formulaire",
+    statut: "nouvelle",
+    created_at: "2026-11-08T16:45:00+03:00",
+    traitee_le: null,
+  },
+];
