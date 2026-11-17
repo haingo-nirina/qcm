@@ -1,6 +1,7 @@
 import type { CompteursTableauDeBord } from "@/types";
 import { getCompteursCommentaires } from "./commentaires";
 import { getDeparts } from "./departs";
+import { getCompteursExperiences } from "./experiences-clients";
 import { getCompteursDevis } from "./devis";
 import { getPublications } from "./publications";
 
@@ -11,14 +12,16 @@ import { getPublications } from "./publications";
  */
 export async function getCompteurs(): Promise<CompteursTableauDeBord> {
   // Échoue en 401 si la session a expiré (contrôle fait par l'API)
-  const [devis, departs, publications, commentaires] = await Promise.all([
+  const [devis, departs, publications, commentaires, experiences] = await Promise.all([
     getCompteursDevis(),
     getDeparts(),
     getPublications(),
     getCompteursCommentaires(),
+    getCompteursExperiences(),
   ]);
   return {
     commentaires_en_attente: commentaires.en_attente,
+    experiences_en_attente: experiences.en_attente,
     devis_nouveaux: devis.nouvelle,
     departs_ouverts: departs.filter((d) => d.statut !== "ferme").length,
     publications_en_ligne: publications.length,

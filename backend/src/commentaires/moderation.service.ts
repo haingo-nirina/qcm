@@ -72,12 +72,19 @@ export class ModerationService {
     return formater(c);
   }
 
-  /** Bloque l'auteur : il ne peut plus commenter et ses commentaires en attente sont refusés. */
+  /**
+   * Bloque l'auteur : il ne peut plus commenter ni partager d'expérience,
+   * et ses commentaires et expériences en attente sont refusés.
+   */
   async bloquer(utilisateurId: number) {
     await this.prisma
       .$transaction([
         this.prisma.utilisateur.update({ where: { id: utilisateurId }, data: { bloque: true } }),
         this.prisma.commentaire.updateMany({
+          where: { utilisateur_id: utilisateurId, statut: 'en_attente' },
+          data: { statut: 'refuse' },
+        }),
+        this.prisma.experienceClient.updateMany({
           where: { utilisateur_id: utilisateurId, statut: 'en_attente' },
           data: { statut: 'refuse' },
         }),

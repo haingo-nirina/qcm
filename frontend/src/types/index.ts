@@ -141,6 +141,34 @@ export interface NouveauCommentaire {
   contenu: string;
 }
 
+/* ---------- experiences_clients ---------- */
+
+/** Témoignage de la page « Expérience client » (même cycle de validation qu'un commentaire). */
+export interface ExperienceClient {
+  id: Id;
+  utilisateur_id: Id;
+  texte: string;
+  /** Entreprise du client (facultative) */
+  entreprise: string | null;
+  statut: StatutCommentaire;
+  created_at: DateISO;
+}
+
+export interface ExperienceClientPublique extends ExperienceClient {
+  utilisateur: AuteurPublic;
+}
+
+/** Expérience vue par la modération : auteur avec son état de blocage et son moyen de connexion. */
+export interface ExperienceClientAdmin extends ExperienceClient {
+  utilisateur: Pick<Utilisateur, "id" | "nom" | "photo_url" | "bloque">;
+  fournisseur: FournisseurConnexion;
+}
+
+export interface NouvelleExperience {
+  texte: string;
+  entreprise?: string;
+}
+
 /* ---------- demandes_devis ---------- */
 
 export type SourceDevis = "formulaire" | "whatsapp";
@@ -209,6 +237,7 @@ export interface SessionAdmin {
 
 export interface CompteursTableauDeBord {
   commentaires_en_attente: number;
+  experiences_en_attente: number;
   devis_nouveaux: number;
   departs_ouverts: number;
   publications_en_ligne: number;

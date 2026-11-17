@@ -26,6 +26,10 @@ const nextConfig: NextConfig = {
     ],
   },
   partialPrefetching: true,
+  // Ancienne page « Avis & FAQ » scindée en /experience-client et /faq.
+  async redirects() {
+    return [{ source: "/avis-faq", destination: "/experience-client", permanent: true }];
+  },
   turbopack: {
     rules: {
       "*.css": {

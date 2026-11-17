@@ -43,7 +43,8 @@ Un seul `next dev` peut tourner à la fois par projet : si le port est occupé, 
 | `/services` | Services | 5 services détaillés, processus en 5 étapes |
 | `/destinations` | Destinations | Onglets pays (clavier : ↑ ↓ Début Fin), ancre partageable `#chine`, `#dubai`, `#inde`, `#indonesie` |
 | `/a-propos` | À propos | Engagements, équipe, partenaires qui défilent, dépôt + carte |
-| `/avis-faq` | Avis & FAQ | Témoignages, FAQ en accordéon (+ données structurées FAQPage) |
+| `/experience-client` | Expérience client | Expériences validées (API) ; « Partager mon expérience » : connexion Google puis formulaire, publiée après validation |
+| `/faq` | FAQ | FAQ en accordéon (+ données structurées FAQPage) |
 | `/contact` | Contact | Formulaire de devis, « Devis via WhatsApp » pré-rempli avec les champs |
 | `/publications` | Publications | Commentaires validés et « Réponse officielle », connexion simulée, commentaire « En attente de validation » |
 
@@ -60,7 +61,7 @@ src/
 │  ├─ globals.css       Couleurs (@theme), boutons, cartes, animations, prefers-reduced-motion
 │  ├─ (site)/           Site public (groupe de routes : n'apparaît pas dans l'URL)
 │  │  ├─ layout.tsx     En-tête, pied de page, bouton WhatsApp flottant
-│  │  └─ page.tsx, services/, destinations/, a-propos/, avis-faq/, contact/, publications/
+│  │  └─ page.tsx, services/, destinations/, a-propos/, experience-client/, faq/, contact/, publications/
 │  └─ admin/            Back-office (voir § 9)
 │     ├─ layout.tsx     noindex, toasts, fenêtre de confirmation, admin.css
 │     ├─ admin.css      Classes de la maquette du back-office (préfixe « bo- »)
@@ -69,7 +70,7 @@ src/
 ├─ components/
 │  ├─ layout/           SiteHeader (menu + hamburger), PageHero, SiteFooter, WhatsAppFloat
 │  ├─ ui/               Icon, SectionHeading, CtaBanner, StatusBadge, MapPlaceholder, RevealOnScroll…
-│  ├─ home/ services/ destinations/ about/ avis-faq/ contact/ publications/
+│  ├─ home/ services/ destinations/ about/ experience-client/ faq/ contact/ publications/
 │  └─ admin/            layout/ (AdminShell, AdminSidebar, LoginForm…), ui/ (Toaster, ConfirmDialog, Pill, Onglets…),
 │                       dashboard/ commentaires/ publications/ departs/ devis/ administrateurs/
 ├─ config/site.ts       ⚙️  Coordonnées : WhatsApp, téléphone, e-mail, adresses, horaires, carte
@@ -115,6 +116,8 @@ session du back-office, ce qui simplifie le contrôle d'accès côté API).
 | `getPublications()` | `services/publications.ts` | serveur + navigateur | `GET /api/publications?statut=publie` |
 | `getCommentairesPublies(id)` | `services/publications.ts` | serveur + navigateur | `GET /api/publications/:id/commentaires` (statut `publie`, `utilisateur` = `{id, nom, photo_url}`) |
 | `ajouterCommentaire()` | `services/commentaires.ts` | navigateur | `POST /api/publications/:id/commentaires` → `en_attente` (ou `publie` si la publication n'est pas modérée) ; 403 si l'auteur est bloqué |
+| `getExperiencesPubliees()` | `services/experiences-clients.ts` | serveur + navigateur | `GET /api/experiences-clients` (statut `publie`, `utilisateur` = `{id, nom, photo_url}`) |
+| `partagerExperience()` | `services/experiences-clients.ts` | navigateur | `POST /api/experiences-clients` `{ texte, entreprise? }` → toujours `en_attente` ; 403 si bloqué, 409 si déjà une expérience en attente ou publiée |
 | `envoyerDemandeDevis()` | `services/devis.ts` | navigateur | `POST /api/demandes-devis` (`source` = `formulaire` ou `whatsapp`) |
 | `connexion()` | `services/auth.ts` | navigateur | `POST /api/auth/facebook`, `/api/auth/google`, `/api/auth/inscription` |
 
@@ -133,6 +136,9 @@ session du back-office, ce qui simplifie le contrôle d'accès côté API).
 | `refuserCommentaire(id)` / `masquerCommentaire(id)` | `services/commentaires.ts` | tous | `PATCH /api/admin/commentaires/:id` `{ statut: "refuse" }` |
 | `remettreEnAttente(id)` | `services/commentaires.ts` | tous | `PATCH /api/admin/commentaires/:id` `{ statut: "en_attente" }` |
 | `repondreCommentaire(id, reponse)` | `services/commentaires.ts` | tous | `POST /api/admin/commentaires/:id/reponse` `{ reponse }` (publie aussi le commentaire) |
+| `getExperiencesAdmin(statut, limite?)` | `services/experiences-clients.ts` | tous | `GET /api/admin/experiences-clients?statut=en_attente&limite=5` |
+| `getCompteursExperiences()` | `services/experiences-clients.ts` | tous | `GET /api/admin/experiences-clients/compteurs` |
+| `approuverExperience(id)` / `refuserExperience(id)` / `remettreExperienceEnAttente(id)` | `services/experiences-clients.ts` | tous | `PATCH /api/admin/experiences-clients/:id` `{ statut }` |
 | `bloquerAuteur(utilisateurId)` | `services/commentaires.ts` | tous | `POST /api/admin/utilisateurs/:id/blocage` |
 | `debloquerAuteur(utilisateurId)` | `services/commentaires.ts` | tous | `DELETE /api/admin/utilisateurs/:id/blocage` |
 | `getPublicationsAdmin()` | `services/publications.ts` | admin | `GET /api/admin/publications` (brouillons compris, avec `nb_commentaires` et `nb_commentaires_en_attente`) |
@@ -237,6 +243,7 @@ Ces comptes sont définis dans `src/mocks/administrateurs.ts` (mots de passe sto
 | `/admin/connexion` | public | Connexion, « Rester connecté », « Mot de passe oublié » |
 | `/admin` | admin, modérateur | Tableau de bord : 4 compteurs cliquables, commentaires à valider, nouvelles demandes de devis |
 | `/admin/commentaires` | admin, modérateur | Onglets `?onglet=en_attente\|publie\|refuse` ; approuver, refuser, répondre, masquer, remettre en attente, bloquer l'auteur |
+| `/admin/experiences-clients` | admin, modérateur | Onglets `?onglet=en_attente\|publie\|refuse` ; approuver, refuser, masquer, remettre en attente, bloquer l'auteur |
 | `/admin/publications` | admin | Tableau + formulaire (`?edition=nouvelle` ou `?edition=:id`) ; photo par glisser-déposer (JPG/PNG/WebP, 5 Mo max) |
 | `/admin/departs` | admin | Tableau, statut modifiable sur place, formulaire (`?edition=nouveau` ou `?edition=:id`) |
 | `/admin/devis` | admin, modérateur | Onglets `?onglet=nouvelles\|traitees\|toutes`, recherche `?q=`, WhatsApp, export Excel de la liste affichée |

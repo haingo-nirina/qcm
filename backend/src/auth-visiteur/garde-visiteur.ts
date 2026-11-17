@@ -25,7 +25,7 @@ export function verifierOrigine(origine: string | undefined) {
   }
 }
 
-/** Route réservée à un visiteur connecté (ex. publier un commentaire). */
+/** Route réservée à un visiteur connecté (commentaire, expérience client). */
 @Injectable()
 export class GardeVisiteur implements CanActivate {
   constructor(private readonly auth: AuthVisiteurService) {}
@@ -34,7 +34,7 @@ export class GardeVisiteur implements CanActivate {
     const req = ctx.switchToHttp().getRequest<RequeteVisiteur>();
     if (!['GET', 'HEAD', 'OPTIONS'].includes(req.method)) verifierOrigine(req.headers.origin);
     const session = await this.auth.session(cookieVisiteur(req));
-    if (!session) throw new UnauthorizedException('Connectez-vous pour commenter.');
+    if (!session) throw new UnauthorizedException('Votre session a expiré : reconnectez-vous pour continuer.');
     req.visiteur = session;
     return true;
   }

@@ -135,7 +135,7 @@ describe('Visiteurs : connexion Google et commentaires', () => {
 
   it('commenter exige d’être connecté et vient du site', async () => {
     const r = await commenter(1).send({ contenu: 'Bonjour' }).expect(401);
-    expect(r.body.message).toBe('Connectez-vous pour commenter.');
+    expect(r.body.message).toBe('Votre session a expiré : reconnectez-vous pour continuer.');
     await commenter(1, await connecter(), 'https://pirate.example').send({ contenu: 'Bonjour' }).expect(403);
   });
 

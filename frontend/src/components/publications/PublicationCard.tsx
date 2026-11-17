@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { messagesWhatsApp, siteConfig } from "@/config/site";
 import { formatDateLongue } from "@/lib/dates";
-import { lienWhatsApp } from "@/lib/whatsapp";
+import { lienPartageWhatsApp } from "@/lib/whatsapp";
 import { libellesCategorie } from "@/lib/libelles";
 import type { CommentairePublic, Publication } from "@/types";
 import { CommentForm } from "./CommentForm";
@@ -50,7 +50,7 @@ export function PublicationCard({ publication: p, commentaires, ouvertParDefaut,
   const n = commentaires.length;
   const libelle = n === 0 ? "Commenter" : n === 1 ? "1 commentaire" : `${n} commentaires`;
   const zoneId = `commentaires-${p.id}`;
-  const lienPartage = lienWhatsApp(`${messagesWhatsApp.partage(p.titre)}\n${siteConfig.url}/publications#${p.slug}`);
+  const lienPartage = lienPartageWhatsApp(`${messagesWhatsApp.partage(p.titre)}\n${siteConfig.url}/publications#${p.slug}`);
 
   return (
     <article

@@ -2,13 +2,16 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { connexionGoogle, deconnexion, getSession } from "@/services/auth";
-import type { Id, Session } from "@/types";
+import type { Session } from "@/types";
 import { LoginModal } from "./LoginModal";
 
 interface AuthContextValue {
   session: Session | null;
-  /** Ouvre la fenêtre de connexion ; après connexion, le focus ira sur le champ de cette publication. */
-  ouvrirConnexion: (publicationId: Id) => void;
+  /**
+   * Ouvre la fenêtre de connexion ; après connexion, le focus ira sur le champ `champId`.
+   * `titre` remplace « Connectez-vous pour commenter » (ex. page Expérience client).
+   */
+  ouvrirConnexion: (champId: string, titre?: string) => void;
   deconnecter: () => Promise<void>;
 }
 
@@ -27,7 +30,8 @@ export function useAuth() {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [ouverte, setOuverte] = useState(false);
-  const [cible, setCible] = useState<Id | null>(null);
+  const [cible, setCible] = useState<string | null>(null);
+  const [titre, setTitre] = useState<string | undefined>();
 
   useEffect(() => {
     let actif = true;
@@ -41,8 +45,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const ouvrirConnexion = useCallback((publicationId: Id) => {
-    setCible(publicationId);
+  const ouvrirConnexion = useCallback((champId: string, titreFenetre?: string) => {
+    setCible(champId);
+    setTitre(titreFenetre);
     setOuverte(true);
   }, []);
 
@@ -51,9 +56,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const s = await connexionGoogle(credential);
       setSession(s);
       setOuverte(false);
-      // Place le curseur dans la zone de commentaire de la publication d'origine.
+      // Place le curseur dans le champ d'origine (commentaire, expérience…).
       requestAnimationFrame(() => {
-        if (cible !== null) document.getElementById(`commentaire-${cible}`)?.focus();
+        if (cible !== null) document.getElementById(cible)?.focus();
       });
     },
     [cible],
@@ -69,7 +74,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return (
     <AuthContext.Provider value={value}>
       {children}
-      <LoginModal ouverte={ouverte} onFermer={() => setOuverte(false)} onGoogle={avecGoogle} />
+      <LoginModal ouverte={ouverte} titre={titre} onFermer={() => setOuverte(false)} onGoogle={avecGoogle} />
     </AuthContext.Provider>
   );
 }

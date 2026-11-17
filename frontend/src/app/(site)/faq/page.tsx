@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { FaqAccordion } from "@/components/avis-faq/FaqAccordion";
-import { Testimonials } from "@/components/avis-faq/Testimonials";
+import { FaqAccordion } from "@/components/faq/FaqAccordion";
 import { PageHero } from "@/components/layout/PageHero";
 import { faq } from "@/content/faq";
 import { lienWhatsApp } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
-  title: "Avis clients et FAQ",
+  title: "Questions fréquentes (FAQ)",
   description:
-    "Avis de nos clients et réponses aux questions fréquentes : devis, paiement des fournisseurs, pays d’origine, dédouanement, voyages d’affaires et délais de livraison.",
-  alternates: { canonical: "/avis-faq" },
+    "Réponses aux questions fréquentes : devis, paiement des fournisseurs, pays d’origine, dédouanement, voyages d’affaires et délais de livraison.",
+  alternates: { canonical: "/faq" },
 };
 
 /** Données structurées FAQ (résultats enrichis Google). */
@@ -23,7 +22,7 @@ const faqJsonLd = {
   })),
 };
 
-export default function AvisFaqPage() {
+export default function FaqPage() {
   return (
     <>
       <script
@@ -31,14 +30,12 @@ export default function AvisFaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd).replace(/</g, "\\u003c") }}
       />
       <PageHero
-        crumb="Avis & FAQ"
-        title="Avis clients & questions fréquentes"
-        intro="Ce que nos clients disent de nous, et les réponses aux questions qu’on nous pose le plus souvent."
+        crumb="FAQ"
+        title="Questions fréquentes"
+        intro="Les réponses aux questions qu’on nous pose le plus souvent."
         image="/assets/hero.jpg"
         position="80% 15%"
       />
-
-      <Testimonials />
 
       <section aria-labelledby="titre-faq" className="section-x bg-white py-[100px]">
         <div className="container-qcm flex flex-wrap gap-12">

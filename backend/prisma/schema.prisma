@@ -72,12 +72,13 @@ model Utilisateur {
   email              String   @unique
   telephone_whatsapp String?
   photo_url          String?
-  /// Auteur bloqué par la modération : il ne peut plus commenter
+  /// Auteur bloqué par la modération : il ne peut plus commenter ni partager d'expérience
   bloque             Boolean  @default(false)
   created_at         DateTime @default(now()) @db.Timestamptz(3)
 
   comptes_sociaux CompteSocial[]
   commentaires    Commentaire[]
+  experiences     ExperienceClient[]
   sessions        SessionUtilisateur[]
 
   @@map("utilisateurs")
@@ -191,6 +192,26 @@ model Commentaire {
   @@index([publication_id, statut])
   @@index([statut, created_at])
   @@map("commentaires")
+}
+
+/* ---------- experiences_clients ---------- */
+
+/// Témoignage laissé par un visiteur connecté sur la page « Expérience client ».
+/// Toujours créé « en_attente » : il n'est affiché qu'après validation dans le back-office.
+model ExperienceClient {
+  id             Int               @id @default(autoincrement())
+  utilisateur_id Int
+  texte          String
+  /// Entreprise du client (facultative), affichée sous son nom
+  entreprise     String?
+  statut         StatutCommentaire @default(en_attente)
+  created_at     DateTime          @default(now()) @db.Timestamptz(3)
+
+  utilisateur Utilisateur @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade)
+
+  @@index([statut, created_at])
+  @@index([utilisateur_id])
+  @@map("experiences_clients")
 }
 
 /* ---------- demandes_devis ---------- */

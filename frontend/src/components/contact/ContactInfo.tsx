@@ -34,15 +34,11 @@ export function ContactInfo() {
         <h2 className="m-0 text-[22px]">Contact QCM</h2>
         <p className="m-0 leading-[1.6] text-mist">Notre équipe vous répond du {siteConfig.horairesEquipe}.</p>
       </div>
-      {siteConfig.telephoneLien ? (
-        <a className={carte} href={`tel:${siteConfig.telephoneLien}`}>
-          <Ligne icone="telephone" label="Téléphone" valeur={siteConfig.telephone} />
+      {siteConfig.telephones.map((t) => (
+        <a key={t.lien} className={carte} href={`tel:${t.lien}`}>
+          <Ligne icone="telephone" label="Téléphone" valeur={t.affiche} />
         </a>
-      ) : (
-        <div className={carte}>
-          <Ligne icone="telephone" label="Téléphone" valeur={siteConfig.telephone} />
-        </div>
-      )}
+      ))}
       {emailValide ? (
         <a className={carte} href={`mailto:${siteConfig.email}`}>
           <Ligne icone="email" label="E-mail" valeur={siteConfig.email} />

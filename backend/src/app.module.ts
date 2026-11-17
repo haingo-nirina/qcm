@@ -12,6 +12,7 @@ import { ImagesModule } from './images/images.module.js';
 import { PublicationsModule } from './publications/publications.module.js';
 import { CommentairesModule } from './commentaires/commentaires.module.js';
 import { DepartsModule } from './departs/departs.module.js';
+import { ExperiencesClientsModule } from './experiences-clients/experiences-clients.module.js';
 import { DemandesDevisModule } from './demandes-devis/demandes-devis.module.js';
 import { HealthController } from './health/health.controller.js';
 import { PrismaModule } from './prisma/prisma.module.js';
@@ -36,6 +37,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     ImagesModule,
     PublicationsModule,
     CommentairesModule,
+    ExperiencesClientsModule,
     // Distributed tracing, auto-correlated logs, request/job metrics, error
     // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com,
     // then run `npx @nestjs/observe link` to write your key pair into .env.

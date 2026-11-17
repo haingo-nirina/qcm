@@ -14,6 +14,8 @@ const AUTRES_CONNEXIONS = false;
 
 type Props = {
   ouverte: boolean;
+  /** Titre de la fenêtre (par défaut : « Connectez-vous pour commenter ») */
+  titre?: string;
   onFermer: () => void;
   /** Jeton renvoyé par Google, à vérifier par l'API. */
   onGoogle: (credential: string) => Promise<void>;
@@ -25,7 +27,7 @@ const labelCls = "flex flex-col gap-1.5 text-sm font-semibold text-body";
  * Fenêtre « Connectez-vous pour commenter » (élément <dialog> natif : focus piégé,
  * touche Échap, arrière-plan inerte). Connexion Google réelle ; Facebook et e-mail à venir.
  */
-export function LoginModal({ ouverte, onFermer, onGoogle }: Props) {
+export function LoginModal({ ouverte, titre = "Connectez-vous pour commenter", onFermer, onGoogle }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const [mode, setMode] = useState<"inscription" | "connexion">("inscription");
   const [enCours, setEnCours] = useState<"google" | null>(null);
@@ -78,7 +80,7 @@ export function LoginModal({ ouverte, onFermer, onGoogle }: Props) {
         </button>
         <Image {...images.logo} alt="Quick Cargo Madagascar" sizes="114px" className="h-14 w-auto self-start" />
         <h2 id="titre-connexion" className="m-0 mt-1 text-[22px] text-navy">
-          Connectez-vous pour commenter
+          {titre}
         </h2>
         <p className="m-0 mb-1.5 text-sm text-subtle">Une seule fois, en quelques secondes.</p>
 

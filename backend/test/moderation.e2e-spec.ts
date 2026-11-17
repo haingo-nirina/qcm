@@ -21,6 +21,7 @@ type Com = { id: number; utilisateur_id: number; statut: string; reponse_qcm: st
 type User = { id: number; nom: string; bloque: boolean; email: string };
 let coms: Com[] = [];
 let users: User[] = [];
+let experiences: { utilisateur_id: number; statut: string }[] = [];
 const p2025 = () => new Prisma.PrismaClientKnownRequestError('absent', { code: 'P2025', clientVersion: 'test' });
 const joindre = (c: Com) => {
   const u = users.find((x) => x.id === c.utilisateur_id)!;
@@ -47,6 +48,11 @@ const prisma = {
     },
     updateMany: async ({ where, data }: { where: { utilisateur_id: number; statut: string }; data: Partial<Com> }) => {
       for (const c of coms) if (c.utilisateur_id === where.utilisateur_id && c.statut === where.statut) Object.assign(c, data);
+    },
+  },
+  experienceClient: {
+    updateMany: async ({ where, data }: { where: { utilisateur_id: number; statut: string }; data: { statut: string } }) => {
+      for (const e of experiences) if (e.utilisateur_id === where.utilisateur_id && e.statut === where.statut) Object.assign(e, data);
     },
   },
   utilisateur: {
@@ -78,6 +84,7 @@ describe('Modération des commentaires', () => {
 
   beforeEach(() => {
     users = [{ id: 7, nom: 'Rakoto', bloque: false, email: 'secret@exemple.mg' }];
+    experiences = [{ utilisateur_id: 7, statut: 'en_attente' }, { utilisateur_id: 7, statut: 'publie' }];
     const base = { utilisateur_id: 7, reponse_qcm: null, reponse_le: null, created_at: new Date() };
     coms = [
       { id: 1, statut: 'en_attente', ...base },
@@ -124,10 +131,11 @@ describe('Modération des commentaires', () => {
     expect(v.body.message).toBe('La réponse est vide.');
   });
 
-  it('bloquer refuse les commentaires en attente (pas ceux déjà publiés) ; débloquer', async () => {
+  it('bloquer refuse les commentaires et expériences en attente (pas ceux déjà publiés) ; débloquer', async () => {
     await ecrire('post', '/api/admin/utilisateurs/7/blocage').expect(204);
     expect(users[0].bloque).toBe(true);
     expect(coms.map((c) => c.statut)).toEqual(['refuse', 'refuse', 'publie']);
+    expect(experiences.map((e) => e.statut)).toEqual(['refuse', 'publie']);
     await ecrire('delete', '/api/admin/utilisateurs/7/blocage').expect(204);
     expect(users[0].bloque).toBe(false);
     await ecrire('post', '/api/admin/utilisateurs/99/blocage').expect(404);

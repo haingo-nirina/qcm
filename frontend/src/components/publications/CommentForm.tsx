@@ -30,7 +30,7 @@ export function CommentForm({
         <div className="flex min-w-0 flex-1 flex-col gap-1.5">
           <button
             type="button"
-            onClick={() => ouvrirConnexion(publicationId)}
+            onClick={() => ouvrirConnexion(`commentaire-${publicationId}`)}
             aria-label="Écrire un commentaire (connexion requise)"
             className="field min-h-[78px] w-full cursor-text text-left text-subtle transition-colors hover:border-navy"
           >

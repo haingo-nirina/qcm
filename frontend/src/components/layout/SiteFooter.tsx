@@ -40,11 +40,11 @@ export function SiteFooter() {
 
           <address className="flex flex-col gap-2.5 not-italic">
             <strong className="text-white">Contact</strong>
-            {siteConfig.telephoneLien ? (
-              <a href={`tel:${siteConfig.telephoneLien}`}>{siteConfig.telephone}</a>
-            ) : (
-              <span>{siteConfig.telephone}</span>
-            )}
+            {siteConfig.telephones.map((t) => (
+              <a key={t.lien} href={`tel:${t.lien}`}>
+                {t.affiche}
+              </a>
+            ))}
             {siteConfig.email.includes("@") && !siteConfig.email.startsWith("[") ? (
               <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
             ) : (

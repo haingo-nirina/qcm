@@ -18,6 +18,8 @@ export function AdminSidebar() {
   const pathname = usePathname();
   const { admin, compteurs, deconnecter } = useAdminSession();
   const active = rubriqueDe(pathname);
+  const aTraiter =
+    (compteurs?.commentaires_en_attente ?? 0) + (compteurs?.experiences_en_attente ?? 0) + (compteurs?.devis_nouveaux ?? 0);
   const boutonRef = useRef<HTMLButtonElement>(null);
   const [ouvert, onOuvrir] = useState(false);
   const [page, setPage] = useState(pathname);
@@ -66,9 +68,9 @@ export function AdminSidebar() {
             {ouvert ? "✕" : "☰"}
           </span>
           Menu
-          {!ouvert && (compteurs?.commentaires_en_attente ?? 0) + (compteurs?.devis_nouveaux ?? 0) > 0 && (
+          {!ouvert && aTraiter > 0 && (
             <span className="bo-badge !ml-0 !bg-[#F58A07] !text-[#061A47]">
-              {(compteurs?.commentaires_en_attente ?? 0) + (compteurs?.devis_nouveaux ?? 0)}
+              {aTraiter}
               <span className="sr-only"> éléments à traiter</span>
             </span>
           )}
