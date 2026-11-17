@@ -21,11 +21,11 @@ export default function ContactPage() {
         image="/assets/entrepot-entree.jpg"
         position="50% 55%"
         compact
-        paddingBottom={120}
+        paddingBottom={80}
       />
 
-      <section aria-label="Formulaire et coordonnées" className="section-x relative bg-page pb-[100px]">
-        <div className="container-qcm relative z-[3] -mt-20 flex flex-wrap gap-8">
+      <section aria-label="Formulaire et coordonnées" className="section-x relative bg-page pb-[100px] pt-12 sm:pt-16">
+        <div className="container-qcm relative z-[3] flex flex-wrap gap-8">
           <div className="up d3 min-w-0 flex-[1.4_1_520px] rounded-[28px] bg-white px-5 py-8 shadow-[0_30px_80px_rgba(10,36,99,.18)] sm:px-9 sm:py-10">
             <QuoteForm />
           </div>
