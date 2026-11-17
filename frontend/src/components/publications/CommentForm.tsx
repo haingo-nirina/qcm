@@ -22,12 +22,22 @@ export function CommentForm({
   const [erreur, setErreur] = useState<string | null>(null);
 
   if (!session) {
+    // Faux champ : un clic (ou Entrée / Espace au clavier) ouvre la fenêtre de connexion.
+    // C'est un bouton et non un vrai champ, pour ne pas ouvrir la fenêtre en naviguant avec Tab.
     return (
-      <div className="flex flex-wrap items-center justify-between gap-3.5 rounded-2xl border-[1.5px] border-line px-5 py-[18px]">
-        <span className="text-muted">Connectez-vous pour laisser un commentaire.</span>
-        <button type="button" className="btn btn-n" onClick={() => ouvrirConnexion(publicationId)}>
-          Commenter
-        </button>
+      <div className="flex items-start gap-3">
+        <Avatar nom="?" />
+        <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+          <button
+            type="button"
+            onClick={() => ouvrirConnexion(publicationId)}
+            aria-label="Écrire un commentaire (connexion requise)"
+            className="field min-h-[78px] w-full cursor-text text-left text-subtle transition-colors hover:border-navy"
+          >
+            Écrire un commentaire…
+          </button>
+          <span className="text-[13px] text-subtle">Connectez-vous pour publier votre commentaire.</span>
+        </div>
       </div>
     );
   }
