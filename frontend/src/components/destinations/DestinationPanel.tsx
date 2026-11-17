@@ -8,8 +8,6 @@ import { lienWhatsApp } from "@/lib/whatsapp";
 export function DestinationPanel({ destination: d }: { destination: Destination }) {
   const infos = [
     { label: "Ville / port de départ", valeur: d.villes, accent: true },
-    { label: "Produits courants", valeur: d.produits },
-    { label: "Délai indicatif", valeur: d.delai },
     { label: "Services", valeur: d.services },
   ];
 

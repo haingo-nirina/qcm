@@ -5,8 +5,6 @@ export interface Destination {
   nom: string;
   villes: string;
   description: string;
-  produits: string;
-  delai: string;
   services: string;
 }
 
@@ -18,8 +16,6 @@ export const destinations: Destination[] = [
     villes: "Yiwu · Guangzhou",
     description:
       "À Yiwu et à Guangzhou, deux grands centres du commerce de gros chinois, nous trouvons vos fournisseurs, les payons et regroupons vos marchandises en groupage maritime jusqu’à Madagascar.",
-    produits: "[Produits à préciser]",
-    delai: "[X] jours",
     services: "Sourcing · Paiement · Fret · Douane",
   },
   {
@@ -29,8 +25,6 @@ export const destinations: Destination[] = [
     villes: "Jebel Ali",
     description:
       "Depuis le port de Jebel Ali, nous sécurisons vos achats à Dubaï (électronique, matériaux, biens de consommation) et organisons l’acheminement vers Madagascar.",
-    produits: "[Produits à préciser]",
-    delai: "[X] jours",
     services: "Sourcing · Paiement · Fret · Douane",
   },
   {
@@ -40,8 +34,6 @@ export const destinations: Destination[] = [
     villes: "Ahmedabad",
     description:
       "Depuis Ahmedabad, nous trouvons vos fournisseurs indiens (textile, pièces, équipements, produits manufacturés), les payons et expédions vos marchandises jusqu’à Madagascar.",
-    produits: "[Produits à préciser]",
-    delai: "[X] jours",
     services: "Sourcing · Paiement · Fret · Douane",
   },
   {
@@ -51,8 +43,6 @@ export const destinations: Destination[] = [
     villes: "Jakarta",
     description:
       "Depuis Jakarta, nous vous mettons en relation avec des fournisseurs indonésiens fiables (mobilier, matières premières, produits alimentaires) et gérons tout le transport.",
-    produits: "[Produits à préciser]",
-    delai: "[X] jours",
     services: "Sourcing · Paiement · Fret · Douane",
   },
 ];
