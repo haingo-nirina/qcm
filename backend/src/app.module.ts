@@ -6,7 +6,12 @@ import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { AdministrateursModule } from './administrateurs/administrateurs.module.js';
+import { AuthVisiteurModule } from './auth-visiteur/auth-visiteur.module.js';
 import { AuthAdminModule } from './auth-admin/auth-admin.module.js';
+import { ImagesModule } from './images/images.module.js';
+import { PublicationsModule } from './publications/publications.module.js';
+import { CommentairesModule } from './commentaires/commentaires.module.js';
+import { DepartsModule } from './departs/departs.module.js';
 import { DemandesDevisModule } from './demandes-devis/demandes-devis.module.js';
 import { HealthController } from './health/health.controller.js';
 import { PrismaModule } from './prisma/prisma.module.js';
@@ -24,8 +29,13 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       errorMessage: 'Trop de tentatives. Patientez une minute avant de réessayer.',
     }),
     AuthAdminModule,
+    AuthVisiteurModule,
     AdministrateursModule,
     DemandesDevisModule,
+    DepartsModule,
+    ImagesModule,
+    PublicationsModule,
+    CommentairesModule,
     // Distributed tracing, auto-correlated logs, request/job metrics, error
     // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com,
     // then run `npx @nestjs/observe link` to write your key pair into .env.

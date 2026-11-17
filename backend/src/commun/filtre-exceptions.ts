@@ -36,6 +36,10 @@ export class FiltreExceptions implements ExceptionFilter {
   private formater(exception: unknown): ErreurApi {
     if (exception instanceof HttpException) {
       const statusCode = exception.getStatus();
+      // Fichier refusé par multer (limite de taille) : message d'origine en anglais
+      if (statusCode === HttpStatus.PAYLOAD_TOO_LARGE) {
+        return { statusCode, message: 'Fichier trop lourd : 5 Mo maximum.' };
+      }
       const r = exception.getResponse();
       if (typeof r === 'string') return { statusCode, message: r };
       const { message, erreurs } = r as { message?: string | string[]; erreurs?: string[] };

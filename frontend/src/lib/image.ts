@@ -16,7 +16,7 @@ export function validerImage(fichier: File): string | null {
 
 /**
  * Réduit une image dans le navigateur (côté le plus long ≤ `max` px, JPEG) et renvoie une data URL.
- * Utilisé uniquement par la démo, pour tenir dans le localStorage.
+ * N'est plus utilisé : l'API envoie les images sur Cloudinary, qui les redimensionne.
  */
 export async function reduireImage(fichier: File, max = 1600, qualite = 0.82): Promise<string> {
   const bitmap = await createImageBitmap(fichier);

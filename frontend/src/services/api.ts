@@ -23,10 +23,12 @@ type Methode = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 export async function appelApi<T>(methode: Methode, chemin: string, corps?: unknown): Promise<T> {
   let reponse: Response;
   try {
+    // FormData (envoi de fichier) : le navigateur pose lui-même l'en-tête multipart
+    const formulaire = corps instanceof FormData;
     reponse = await fetch(`${BASE}/api${chemin}`, {
       method: methode,
-      headers: corps === undefined ? undefined : { "Content-Type": "application/json" },
-      body: corps === undefined ? undefined : JSON.stringify(corps),
+      headers: corps === undefined || formulaire ? undefined : { "Content-Type": "application/json" },
+      body: corps === undefined ? undefined : formulaire ? corps : JSON.stringify(corps),
       // Envoie le cookie de session (back-office) avec la requête
       credentials: "include",
     });

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { cacheLife } from "next/cache";
 import { PageHero } from "@/components/layout/PageHero";
 import { PublicationsFeed } from "@/components/publications/PublicationsFeed";
-import { chargerPublications } from "@/lib/fil-publications";
+import { chargerPublications, type DonneesPublications } from "@/lib/fil-publications";
 
 export const metadata: Metadata = {
   title: "Publications : arrivages, départs groupage, événements",
@@ -10,8 +11,22 @@ export const metadata: Metadata = {
   alternates: { canonical: "/publications" },
 };
 
+/**
+ * Données du HTML pré-généré (SEO), mises en cache quelques minutes.
+ * Si l'API ne répond pas, la page s'affiche vide puis le navigateur recharge les données.
+ */
+async function donneesInitiales(): Promise<DonneesPublications> {
+  "use cache";
+  cacheLife("minutes");
+  try {
+    return await chargerPublications();
+  } catch {
+    return { publications: [], commentaires: [], departs: [] };
+  }
+}
+
 export default async function PublicationsPage() {
-  const initiales = await chargerPublications();
+  const initiales = await donneesInitiales();
 
   return (
     <>

@@ -24,7 +24,8 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
-    "admin:creer": "tsx scripts/creer-admin.ts"
+    "admin:creer": "tsx scripts/creer-admin.ts",
+    "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^12.0.1",
@@ -38,7 +39,9 @@
     "argon2": "^0.45.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "cloudinary": "^2.11.0",
     "cookie-parser": "^1.4.7",
+    "google-auth-library": "^11.3.4",
     "pg": "^8.23.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
@@ -50,6 +53,7 @@
     "@nestjs/testing": "^12.0.1",
     "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.0",
+    "@types/multer": "^2.3.0",
     "@types/node": "^24.0.0",
     "@types/pg": "^8.23.1",
     "@types/supertest": "^7.0.0",

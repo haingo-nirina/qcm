@@ -23,7 +23,10 @@ export function LoginForm() {
   const titreRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
-    getSessionAdmin().then((s) => s && router.replace(suivant));
+    // Déjà connecté : on passe directement au back-office. API injoignable : on reste sur le formulaire.
+    getSessionAdmin()
+      .then((s) => s && router.replace(suivant))
+      .catch(() => {});
   }, [router, suivant]);
 
   function basculer(m: "connexion" | "oubli") {

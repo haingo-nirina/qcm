@@ -1,14 +1,15 @@
 "use client";
 
-import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
-import { connexion } from "@/services/auth";
-import type { Id, MethodeConnexion, Session } from "@/types";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { connexionGoogle, deconnexion, getSession } from "@/services/auth";
+import type { Id, Session } from "@/types";
 import { LoginModal } from "./LoginModal";
 
 interface AuthContextValue {
   session: Session | null;
   /** Ouvre la fenêtre de connexion ; après connexion, le focus ira sur le champ de cette publication. */
   ouvrirConnexion: (publicationId: Id) => void;
+  deconnecter: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -20,22 +21,34 @@ export function useAuth() {
 }
 
 /**
- * Session du visiteur (connexion SIMULÉE pour l'instant, conservée en mémoire seulement)
- * et fenêtre de connexion Facebook / Google / e-mail.
+ * Session du visiteur (cookie httpOnly de 30 jours posé par l'API, relue au chargement de la page)
+ * et fenêtre de connexion.
  */
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [ouverte, setOuverte] = useState(false);
   const [cible, setCible] = useState<Id | null>(null);
 
+  useEffect(() => {
+    let actif = true;
+    getSession()
+      .then((s) => actif && setSession(s))
+      .catch(() => {
+        /* API injoignable : le visiteur reste déconnecté */
+      });
+    return () => {
+      actif = false;
+    };
+  }, []);
+
   const ouvrirConnexion = useCallback((publicationId: Id) => {
     setCible(publicationId);
     setOuverte(true);
   }, []);
 
-  const connecter = useCallback(
-    async (methode: MethodeConnexion, infos?: { nom?: string; email?: string }) => {
-      const s = await connexion(methode, infos);
+  const avecGoogle = useCallback(
+    async (credential: string) => {
+      const s = await connexionGoogle(credential);
       setSession(s);
       setOuverte(false);
       // Place le curseur dans la zone de commentaire de la publication d'origine.
@@ -46,12 +59,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [cible],
   );
 
-  const value = useMemo(() => ({ session, ouvrirConnexion }), [session, ouvrirConnexion]);
+  const deconnecter = useCallback(async () => {
+    await deconnexion();
+    setSession(null);
+  }, []);
+
+  const value = useMemo(() => ({ session, ouvrirConnexion, deconnecter }), [session, ouvrirConnexion, deconnecter]);
 
   return (
     <AuthContext.Provider value={value}>
       {children}
-      <LoginModal ouverte={ouverte} onFermer={() => setOuverte(false)} onConnexion={connecter} />
+      <LoginModal ouverte={ouverte} onFermer={() => setOuverte(false)} onGoogle={avecGoogle} />
     </AuthContext.Provider>
   );
 }

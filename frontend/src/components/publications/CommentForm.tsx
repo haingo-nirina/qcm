@@ -38,7 +38,7 @@ export function CommentForm({
     setEnvoi(true);
     setErreur(null);
     try {
-      const c = await ajouterCommentaire({ publication_id: publicationId, contenu: texte }, session);
+      const c = await ajouterCommentaire({ publication_id: publicationId, contenu: texte });
       onEnvoye(c);
       setTexte("");
     } catch (err) {

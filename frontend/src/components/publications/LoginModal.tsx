@@ -2,27 +2,35 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { FacebookIcon, GoogleIcon, Icon } from "@/components/ui/Icon";
+import { FacebookIcon, Icon } from "@/components/ui/Icon";
 import { images } from "@/lib/images";
-import type { MethodeConnexion } from "@/types";
+import { BoutonGoogle } from "./BoutonGoogle";
+
+/**
+ * Facebook et inscription par e-mail : pas encore branchés sur l'API.
+ * Passer à true quand leurs routes existeront.
+ */
+const AUTRES_CONNEXIONS = false;
 
 type Props = {
   ouverte: boolean;
   onFermer: () => void;
-  onConnexion: (methode: MethodeConnexion, infos?: { nom?: string; email?: string }) => Promise<void>;
+  /** Jeton renvoyé par Google, à vérifier par l'API. */
+  onGoogle: (credential: string) => Promise<void>;
 };
 
 const labelCls = "flex flex-col gap-1.5 text-sm font-semibold text-body";
 
 /**
  * Fenêtre « Connectez-vous pour commenter » (élément <dialog> natif : focus piégé,
- * touche Échap, arrière-plan inerte). Les trois connexions sont simulées.
+ * touche Échap, arrière-plan inerte). Connexion Google réelle ; Facebook et e-mail à venir.
  */
-export function LoginModal({ ouverte, onFermer, onConnexion }: Props) {
+export function LoginModal({ ouverte, onFermer, onGoogle }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
   const [mode, setMode] = useState<"inscription" | "connexion">("inscription");
-  const [enCours, setEnCours] = useState<MethodeConnexion | null>(null);
+  const [enCours, setEnCours] = useState<"google" | null>(null);
   const [info, setInfo] = useState<string | null>(null);
+  const [erreur, setErreur] = useState<string | null>(null);
 
   useEffect(() => {
     const d = ref.current;
@@ -31,10 +39,13 @@ export function LoginModal({ ouverte, onFermer, onConnexion }: Props) {
     if (!ouverte && d.open) d.close();
   }, [ouverte]);
 
-  async function lancer(methode: MethodeConnexion, infos?: { nom?: string; email?: string }) {
-    setEnCours(methode);
+  async function avecGoogle(credential: string) {
+    setEnCours("google");
+    setErreur(null);
     try {
-      await onConnexion(methode, infos);
+      await onGoogle(credential);
+    } catch (e) {
+      setErreur(e instanceof Error ? e.message : "La connexion a échoué. Réessayez.");
     } finally {
       setEnCours(null);
     }
@@ -42,8 +53,7 @@ export function LoginModal({ ouverte, onFermer, onConnexion }: Props) {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    lancer("email", { nom: String(data.get("nom") ?? ""), email: String(data.get("email") ?? "") });
+    setInfo("L’inscription par e-mail sera bientôt disponible.");
   }
 
   return (
@@ -72,25 +82,29 @@ export function LoginModal({ ouverte, onFermer, onConnexion }: Props) {
         </h2>
         <p className="m-0 mb-1.5 text-sm text-subtle">Une seule fois, en quelques secondes.</p>
 
+        {ouverte && <BoutonGoogle onJeton={avecGoogle} />}
+        {enCours === "google" && (
+          <p role="status" className="m-0 text-center text-sm text-subtle">
+            Connexion…
+          </p>
+        )}
+        {erreur && (
+          <p role="alert" className="m-0 text-center text-sm text-[#B42318]">
+            {erreur}
+          </p>
+        )}
+
+        {AUTRES_CONNEXIONS ? (
+          <>
         <button
           type="button"
           className="sso border-0 bg-[#1877F2] text-white"
           disabled={enCours !== null}
-          onClick={() => lancer("facebook")}
+          onClick={() => setInfo("La connexion Facebook sera bientôt disponible.")}
         >
           <FacebookIcon />
-          {enCours === "facebook" ? "Connexion…" : "Continuer avec Facebook"}
+          Continuer avec Facebook
         </button>
-        <button
-          type="button"
-          className="sso border-[1.5px] border-field bg-white text-[#1F2937]"
-          disabled={enCours !== null}
-          onClick={() => lancer("google")}
-        >
-          <GoogleIcon size={20} />
-          {enCours === "google" ? "Connexion…" : "Continuer avec Google"}
-        </button>
-
         <div className="my-1 flex items-center gap-3 text-[13px] text-subtle">
           <span aria-hidden="true" className="h-px flex-1 bg-line" />
           ou avec votre e-mail
@@ -128,7 +142,7 @@ export function LoginModal({ ouverte, onFermer, onConnexion }: Props) {
             />
           </label>
           <button type="submit" className="btn btn-n mt-1" disabled={enCours !== null}>
-            {enCours === "email" ? "Connexion…" : mode === "inscription" ? "Créer mon compte" : "Se connecter"}
+            {mode === "inscription" ? "Créer mon compte" : "Se connecter"}
           </button>
         </form>
 
@@ -157,6 +171,10 @@ export function LoginModal({ ouverte, onFermer, onConnexion }: Props) {
             Mot de passe oublié
           </button>
         </p>
+          </>
+        ) : (
+          <p className="m-0 text-center text-[13px] text-subtle">Connexion avec Facebook ou par e-mail : bientôt disponible.</p>
+        )}
         {info && (
           <p role="status" className="m-0 text-center text-[13px] text-subtle">
             {info}
