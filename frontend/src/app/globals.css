@@ -492,7 +492,7 @@
   position: absolute;
   inset: -4%;
   background-size: cover;
-  animation: kenburns 24s ease-in-out infinite alternate;
+  animation: kenburns 8s ease-in-out infinite alternate;
 }
 
 /* Page Publications : boutons et champs un peu plus compacts (comme la maquette) */

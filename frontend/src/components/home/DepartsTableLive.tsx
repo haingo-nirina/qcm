@@ -1,5 +1,6 @@
 "use client";
 
+import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { messagesWhatsApp } from "@/config/site";
@@ -80,15 +81,20 @@ export function DepartsTableLive({ initiaux }: { initiaux: DepartGroupageDetail[
                         <StatusBadge statut={d.statut} />
                       </td>
                       <td className="px-[22px] py-[18px] text-right">
-                        <a
-                          className="btn btn-o btn-sm whitespace-nowrap !px-[18px]"
-                          href={lienWhatsApp(messagesWhatsApp.reservation(d.point_depart.nom, cloture))}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`Réserver ma place – départ ${d.point_depart.nom}, clôture le ${cloture}`}
-                        >
-                          Réserver ma place
-                        </a>
+                        {d.statut === "ferme" ? (
+                          <span className="whitespace-nowrap text-sm font-semibold text-subtle">Clôturé</span>
+                        ) : (
+                          <a
+                            className="btn btn-o btn-sm whitespace-nowrap !px-[18px]"
+                            href={lienWhatsApp(messagesWhatsApp.reservation(d.point_depart.nom, cloture))}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Réserver ma place sur WhatsApp – départ ${d.point_depart.nom}, clôture le ${cloture}`}
+                          >
+                            <Icon name="whatsapp" size={18} />
+                            Réserver ma place
+                          </a>
+                        )}
                       </td>
                     </tr>
                   );
