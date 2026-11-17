@@ -7,18 +7,23 @@ const nextConfig: NextConfig = {
   },
   cacheComponents: true,
   images: {
-    // Seules les images de NOTRE compte Cloudinary sont acceptées par next/image
-    // (sans paramètre de requête : search vide)
-    remotePatterns: process.env.CLOUDINARY_CLOUD_NAME
-      ? [
-          {
-            protocol: "https",
-            hostname: "res.cloudinary.com",
-            pathname: `/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/**`,
-            search: "",
-          },
-        ]
-      : [],
+    // Images externes acceptées par next/image (sans paramètre de requête : search vide) :
+    // photos des publications (NOTRE compte Cloudinary) et photos de profil Google des commentateurs.
+    remotePatterns: [
+      ...(process.env.CLOUDINARY_CLOUD_NAME
+        ? [
+            {
+              protocol: "https" as const,
+              hostname: "res.cloudinary.com",
+              pathname: `/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/**`,
+              search: "",
+            },
+          ]
+        : []),
+      // Photos de profil Google : https://lh3.googleusercontent.com/a/… (et /a-/… pour les anciens comptes)
+      { protocol: "https", hostname: "lh3.googleusercontent.com", pathname: "/a/**", search: "" },
+      { protocol: "https", hostname: "lh3.googleusercontent.com", pathname: "/a-/**", search: "" },
+    ],
   },
   partialPrefetching: true,
   turbopack: {

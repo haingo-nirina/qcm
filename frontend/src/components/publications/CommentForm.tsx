@@ -16,7 +16,7 @@ export function CommentForm({
   publicationId: Id;
   onEnvoye: (c: CommentairePublic) => void;
 }) {
-  const { session, ouvrirConnexion } = useAuth();
+  const { session, ouvrirConnexion, deconnecter } = useAuth();
   const [texte, setTexte] = useState("");
   const [envoi, setEnvoi] = useState(false);
   const [erreur, setErreur] = useState<string | null>(null);
@@ -51,13 +51,25 @@ export function CommentForm({
   const champId = `commentaire-${publicationId}`;
   return (
     <form onSubmit={onSubmit} className="flex items-start gap-3">
-      <Avatar nom="Vous" couleur="facebook" />
+      <Avatar nom={session.utilisateur.nom} photo={session.utilisateur.photo_url} />
       <div className="flex min-w-0 flex-1 flex-col gap-2.5">
-        <label htmlFor={champId} className="flex flex-col gap-1.5 text-[13px] text-subtle">
-          <span>
-            <span className="sr-only">Votre commentaire – </span>Connecté via {libelleMethode[session.methode]}
-          </span>
-        </label>
+        <div className="flex flex-wrap items-baseline gap-x-1.5 text-[13px] text-subtle">
+          <label htmlFor={champId}>
+            <span className="sr-only">Votre commentaire – </span>
+            <strong className="font-semibold text-navy">{session.utilisateur.nom}</strong> · connecté via{" "}
+            {libelleMethode[session.methode]}
+          </label>
+          ·
+          <button
+            type="button"
+            className="cursor-pointer border-0 bg-transparent p-0 text-[13px] text-navy underline"
+            onClick={() => {
+              deconnecter().catch(() => setErreur("La déconnexion a échoué. Réessayez."));
+            }}
+          >
+            Se déconnecter
+          </button>
+        </div>
         <textarea
           id={champId}
           className="field resize-y"
