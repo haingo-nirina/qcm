@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { navigation } from "@/content/navigation";
 import { services } from "@/content/services";
 import { images } from "@/lib/images";
+import { NewsletterForm } from "./NewsletterForm";
 
 export function SiteFooter() {
   return (
@@ -52,6 +53,10 @@ export function SiteFooter() {
             )}
             <span>{siteConfig.ville}</span>
           </address>
+        </div>
+
+        <div className="border-t border-white/12 pt-7">
+          <NewsletterForm />
         </div>
 
         <div className="flex flex-wrap justify-between gap-2.5 border-t border-white/12 pt-[22px] text-sm">

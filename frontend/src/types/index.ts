@@ -251,3 +251,18 @@ export interface Session {
   utilisateur: Utilisateur;
   methode: MethodeConnexion;
 }
+
+/* ---------- abonnes (newsletter) ---------- */
+
+/** Adresse inscrite depuis le pied de page (le jeton de désabonnement n'est jamais renvoyé). */
+export interface Abonne {
+  id: Id;
+  email: string;
+  /** false : s'est désabonné(e) avec le lien d'un e-mail */
+  actif: boolean;
+  created_at: DateISO;
+  desabonne_le: DateISO | null;
+}
+
+/** Ce qui peut être envoyé par e-mail aux abonnés depuis le back-office. */
+export type TypeAlerteAbonnes = "publication" | "depart";

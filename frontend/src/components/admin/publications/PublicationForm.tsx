@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useAlerteAbonnes } from "@/components/admin/abonnes/useAlerteAbonnes";
 import { useToast } from "@/components/admin/ui/Toaster";
 import { libellesCategorie } from "@/lib/libelles";
 import { slugifier } from "@/lib/slug";
@@ -16,6 +17,7 @@ type Erreurs = Partial<Record<"titre" | "contenu" | "image", string>>;
  */
 export function PublicationForm({ publication, onFermer }: { publication: Publication | null; onFermer: () => void }) {
   const toast = useToast();
+  const proposerAlerte = useAlerteAbonnes();
   const p = publication;
   const [titre, setTitre] = useState(p?.titre ?? "");
   const [categorie, setCategorie] = useState<CategoriePublication>(p?.categorie ?? "arrivage");
@@ -67,8 +69,7 @@ export function PublicationForm({ publication, onFermer }: { publication: Public
         }
       }
       const saisie = { titre, categorie, contenu, image_url, statut, commentaires_ouverts: ouverts, commentaires_moderes: moderes };
-      if (p) await modifierPublication(p.id, saisie);
-      else await creerPublication(saisie);
+      const enregistree = p ? await modifierPublication(p.id, saisie) : await creerPublication(saisie);
       toast.succes(
         statut === "publie"
           ? p
@@ -77,6 +78,10 @@ export function PublicationForm({ publication, onFermer }: { publication: Public
           : "Brouillon enregistré (non visible sur le site).",
       );
       onFermer();
+      // Mise en ligne (nouvelle publication ou brouillon publié) : proposer l'envoi aux abonnés
+      if (statut === "publie" && !dejaPubliee) {
+        void proposerAlerte("publication", enregistree.id, <>la publication « {enregistree.titre} »</>);
+      }
     } catch (err) {
       toast.erreur(err);
     } finally {

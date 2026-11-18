@@ -2,9 +2,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { MailModule } from '@nestjs/mail';
 import { createObserveModule } from '@nestjs/observe';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
+import { AbonnesModule } from './abonnes/abonnes.module.js';
+import { transportMail } from './abonnes/transport-mail.js';
 import { AdministrateursModule } from './administrateurs/administrateurs.module.js';
 import { AuthVisiteurModule } from './auth-visiteur/auth-visiteur.module.js';
 import { AuthAdminModule } from './auth-admin/auth-admin.module.js';
@@ -29,8 +32,16 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
       throttlers: [{ ttl: 60_000, limit: 120 }],
       errorMessage: 'Trop de tentatives. Patientez une minute avant de réessayer.',
     }),
+    // E-mails aux abonnés. Lit MAIL_TRANSPORT au démarrage : un réglage manquant arrête l'application.
+    MailModule.forRootAsync({
+      useFactory: () => ({
+        transport: transportMail(),
+        from: process.env.MAIL_FROM ?? 'Quick Cargo Madagascar <noreply@quickcargomadagascar.mg>',
+      }),
+    }),
     AuthAdminModule,
     AuthVisiteurModule,
+    AbonnesModule,
     AdministrateursModule,
     DemandesDevisModule,
     DepartsModule,

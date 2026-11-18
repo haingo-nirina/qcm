@@ -12,7 +12,9 @@ datasource db {
   provider = "postgresql"
 }
 
-/* ---------- pays / points_depart ---------- */
+/**
+ * ---------- pays / points_depart ----------
+ */
 
 model Pays {
   id   Int    @id @default(autoincrement())
@@ -37,7 +39,9 @@ model PointDepart {
   @@map("points_depart")
 }
 
-/* ---------- departs_groupage ---------- */
+/**
+ * ---------- departs_groupage ----------
+ */
 
 enum StatutDepart {
   ouvert
@@ -48,14 +52,16 @@ enum StatutDepart {
 }
 
 model DepartGroupage {
-  id              Int          @id @default(autoincrement())
-  point_depart_id Int
-  date_cloture    DateTime     @db.Date
-  arrivee_estimee DateTime     @db.Date
-  statut          StatutDepart @default(ouvert)
-  visible         Boolean      @default(true)
-  created_at      DateTime     @default(now()) @db.Timestamptz(3)
-  updated_at      DateTime     @updatedAt @db.Timestamptz(3)
+  id                 Int          @id @default(autoincrement())
+  point_depart_id    Int
+  date_cloture       DateTime     @db.Date
+  arrivee_estimee    DateTime     @db.Date
+  statut             StatutDepart @default(ouvert)
+  visible            Boolean      @default(true)
+  /// Dernier envoi de l'alerte e-mail aux abonnés (null : jamais envoyée)
+  abonnes_alertes_le DateTime?    @db.Timestamptz(3)
+  created_at         DateTime     @default(now()) @db.Timestamptz(3)
+  updated_at         DateTime     @updatedAt @db.Timestamptz(3)
 
   point_depart   PointDepart    @relation(fields: [point_depart_id], references: [id], onDelete: Restrict)
   demandes_devis DemandeDevis[]
@@ -64,7 +70,9 @@ model DepartGroupage {
   @@map("departs_groupage")
 }
 
-/* ---------- utilisateurs / comptes_sociaux ---------- */
+/**
+ * ---------- utilisateurs / comptes_sociaux ----------
+ */
 
 model Utilisateur {
   id                 Int      @id @default(autoincrement())
@@ -125,7 +133,9 @@ model CompteSocial {
   @@map("comptes_sociaux")
 }
 
-/* ---------- publications ---------- */
+/**
+ * ---------- publications ----------
+ */
 
 enum CategoriePublication {
   arrivage
@@ -156,6 +166,8 @@ model Publication {
   /// « Valider les commentaires avant affichage »
   commentaires_moderes Boolean              @default(true)
   publie_le            DateTime?            @db.Timestamptz(3)
+  /// Dernier envoi de l'alerte e-mail aux abonnés (null : jamais envoyée)
+  abonnes_alertes_le   DateTime?            @db.Timestamptz(3)
   created_at           DateTime             @default(now()) @db.Timestamptz(3)
   updated_at           DateTime             @updatedAt @db.Timestamptz(3)
 
@@ -165,7 +177,9 @@ model Publication {
   @@map("publications")
 }
 
-/* ---------- commentaires ---------- */
+/**
+ * ---------- commentaires ----------
+ */
 
 enum StatutCommentaire {
   en_attente
@@ -194,7 +208,9 @@ model Commentaire {
   @@map("commentaires")
 }
 
-/* ---------- experiences_clients ---------- */
+/**
+ * ---------- experiences_clients ----------
+ */
 
 /// Témoignage laissé par un visiteur connecté sur la page « Expérience client ».
 /// Toujours créé « en_attente » : il n'est affiché qu'après validation dans le back-office.
@@ -214,7 +230,29 @@ model ExperienceClient {
   @@map("experiences_clients")
 }
 
-/* ---------- demandes_devis ---------- */
+/**
+ * ---------- abonnes (newsletter) ----------
+ */
+
+/// Adresse inscrite depuis le pied de page du site pour recevoir les nouveautés
+/// (publications, départs groupage). Un désabonnement garde la ligne (actif = false).
+model Abonne {
+  id                  Int       @id @default(autoincrement())
+  /// En minuscules, sans espaces
+  email               String    @unique
+  /// Jeton secret du lien « Se désabonner » présent dans chaque e-mail
+  jeton_desabonnement String    @unique
+  actif               Boolean   @default(true)
+  created_at          DateTime  @default(now()) @db.Timestamptz(3)
+  desabonne_le        DateTime? @db.Timestamptz(3)
+
+  @@index([actif])
+  @@map("abonnes")
+}
+
+/**
+ * ---------- demandes_devis ----------
+ */
 
 enum SourceDevis {
   formulaire
@@ -248,7 +286,9 @@ model DemandeDevis {
   @@map("demandes_devis")
 }
 
-/* ---------- administrateurs ---------- */
+/**
+ * ---------- administrateurs ----------
+ */
 
 enum RoleAdmin {
   admin

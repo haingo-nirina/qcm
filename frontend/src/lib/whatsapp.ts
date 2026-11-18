@@ -1,9 +1,14 @@
 import { messagesWhatsApp, siteConfig } from "@/config/site";
 
-/** Construit un lien wa.me avec un message pré-rempli. */
+/** Lien wa.me vers le WhatsApp de l'entreprise, avec un message pré-rempli (devis, réservation…). */
 export function lienWhatsApp(message: string = messagesWhatsApp.devis): string {
   const numero = siteConfig.whatsapp.replace(/\D/g, "");
   return `https://wa.me/${numero}?text=${encodeURIComponent(message)}`;
+}
+
+/** Partage : WhatsApp s'ouvre SANS destinataire, le visiteur choisit à qui envoyer le message. */
+export function lienPartageWhatsApp(message: string): string {
+  return `https://wa.me/?text=${encodeURIComponent(message)}`;
 }
 
 /**

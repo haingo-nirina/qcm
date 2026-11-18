@@ -23,7 +23,8 @@ export function Presentation() {
           fournisseur à la livraison, pour que vous puissiez vous concentrer sur votre activité.
         </p>
         <p className="m-0 text-[17px] leading-[1.75] text-muted">
-          [Historique de l’entreprise : année de création, mission, chiffres clés vérifiés à compléter.]
+          QCM (Quick Cargo Madagascar) est une société spécialisée en logistique maritime, avec plus de
+          20&nbsp;ans d’expérience et d’expertise dans le domaine de l’importation maritime.
         </p>
       </div>
     </div>

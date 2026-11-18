@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useAlerteAbonnes } from "@/components/admin/abonnes/useAlerteAbonnes";
 import { useToast } from "@/components/admin/ui/Toaster";
-import { formatPeriode } from "@/lib/dates";
+import { formatDateCourte, formatPeriode } from "@/lib/dates";
 import { libellesStatutDepart } from "@/lib/libelles";
 import { creerDepart, modifierDepart } from "@/services/departs";
 import type { DepartGroupageDetail, Pays, StatutDepart } from "@/types";
@@ -23,6 +24,7 @@ export function DepartForm({
   onFermer: () => void;
 }) {
   const toast = useToast();
+  const proposerAlerte = useAlerteAbonnes();
   const d = depart;
   const [paysId, setPaysId] = useState(d?.pays.id ?? pays[0]?.id ?? 1);
   const [ville, setVille] = useState(d?.point_depart.nom ?? "");
@@ -63,9 +65,21 @@ export function DepartForm({
     try {
       const saisie = { pays_id: paysId, point_depart_nom: ville, date_cloture: cloture, arrivee_estimee: arrivee, statut, visible };
       if (d) await modifierDepart(d.id, saisie);
-      else await creerDepart(saisie);
+      const nouveau = d ? null : await creerDepart(saisie);
       toast.succes(d ? "Départ modifié." : visible ? "Départ ajouté : il s’affiche sur l’accueil." : "Départ ajouté (masqué sur le site).");
       onFermer();
+      // Nouveau départ affiché et ouvert : proposer l'envoi aux abonnés
+      if (nouveau && visible && statut !== "ferme") {
+        const nomPays = pays.find((x) => x.id === paysId)?.nom;
+        void proposerAlerte(
+          "depart",
+          nouveau.id,
+          <>
+            le nouveau départ <strong>{ville.trim()}</strong>
+            {nomPays && <> ({nomPays})</>}, clôture le {formatDateCourte(cloture)},
+          </>,
+        );
+      }
     } catch (err) {
       toast.erreur(err);
     } finally {

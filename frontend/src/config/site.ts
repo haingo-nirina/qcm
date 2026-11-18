@@ -3,8 +3,8 @@ interface SiteConfig {
   slogan: string;
   url: string;
   whatsapp: string;
-  telephone: string;
-  telephoneLien: string;
+  /** Numéros pour les appels : texte affiché + numéro du lien « tel: » (format international). */
+  telephones: { affiche: string; lien: string }[];
   email: string;
   adresseBureaux: string;
   adresseDepot: string;
@@ -14,6 +14,14 @@ interface SiteConfig {
   carteGoogleMapsEmbed: string;
   itineraireUrl: string;
 }
+
+/** Adresse de QCM affichée sur le site. */
+const ADRESSE_QCM = "Lot III U 1 H Anosizato Est (route vers Ankadimbahoka)";
+/**
+ * Repère de QCM dans Google Maps : nom de la fiche Google « Quick Cargo Madagascar (QCM) » (Entrepôt)
+ * + son Plus Code 3G34+XM, pour que l'épingle tombe exactement sur l'entrepôt (RN4, Anosizato Est).
+ */
+const RECHERCHE_MAPS = encodeURIComponent("Quick Cargo Madagascar (QCM), 3G34+XM Antananarivo");
 
 /**
  * Réglages du site Quick Cargo Madagascar : SEUL fichier à modifier pour les coordonnées.
@@ -26,25 +34,33 @@ export const siteConfig: SiteConfig = {
   /** URL publique du site (balises SEO, sitemap). À définir dans .env : NEXT_PUBLIC_SITE_URL */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
 
-  /** Numéro WhatsApp au format international, sans espaces ni « + » (ex. 261341234567). Vide = l'utilisateur choisit le destinataire. */
-  whatsapp: "",
+  /**
+   * Numéro WhatsApp Business de l'entreprise, au format international sans « + ».
+   * Tous les boutons WhatsApp du site ouvrent une conversation avec ce numéro.
+   * L'équipe le partage sur plusieurs téléphones via « Appareils connectés » de WhatsApp Business.
+   * ⚠️ NUMÉROS DE TEST (032 11 242 35…) : à remplacer par les vrais avant la mise en ligne
+   *    (vrais numéros prévus : 032 11 242 20 et 038 16 242 16).
+   */
+  whatsapp: "261321124235",
 
-  /** Téléphone affiché et numéro utilisé dans le lien « tel: » (format international). */
-  telephone: "[+261 XX XX XXX XX]",
-  telephoneLien: "",
+  telephones: [
+    { affiche: "+261 32 11 242 35", lien: "+261321124235" },
+    { affiche: "+261 34 31 424 68", lien: "+261343142468" },
+    { affiche: "+261 32 11 242 33", lien: "+261321124233" },
+  ],
 
   email: "[adresse@email]",
 
-  adresseBureaux: "[Adresse des bureaux], Antananarivo",
-  adresseDepot: "[Adresse complète du dépôt]",
+  adresseBureaux: `${ADRESSE_QCM}, Antananarivo`,
+  adresseDepot: ADRESSE_QCM,
   ville: "Antananarivo, Madagascar",
   horairesDepot: "[Horaires d’ouverture]",
   horairesEquipe: "[jours et horaires d’ouverture]",
 
-  /** Carte Google Maps : URL « intégrer une carte » (src de l'iframe). Vide = emplacement réservé. */
-  carteGoogleMapsEmbed: "",
-  /** Lien « Itinéraire » vers Google Maps. Vide = bouton masqué. */
-  itineraireUrl: "",
+  /** Carte Google Maps intégrée (src de l'iframe), centrée sur ADRESSE_QCM. Vide = emplacement réservé. */
+  carteGoogleMapsEmbed: `https://maps.google.com/maps?q=${RECHERCHE_MAPS}&z=16&hl=fr&output=embed`,
+  /** Lien « Itinéraire » : ouvre Google Maps avec l'itinéraire jusqu'à ADRESSE_QCM. Vide = bouton masqué. */
+  itineraireUrl: `https://www.google.com/maps/dir/?api=1&destination=${RECHERCHE_MAPS}`,
 };
 
 /** Messages WhatsApp pré-remplis. */

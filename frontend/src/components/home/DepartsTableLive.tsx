@@ -26,9 +26,6 @@ export function DepartsTableLive({ initiaux }: { initiaux: DepartGroupageDetail[
               Réservez votre place avant la date de clôture : vos marchandises partent avec le prochain conteneur.
             </p>
           </SectionHeading>
-          <span className="inline-flex items-center gap-2 rounded-full bg-orange-bg px-3.5 py-2 text-[13px] font-semibold text-orange-ink">
-            Dates d’exemple · mises à jour depuis le back-office
-          </span>
         </div>
 
         {departs.length === 0 ? (

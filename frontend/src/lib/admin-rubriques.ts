@@ -22,6 +22,7 @@ export const rubriquesAdmin: RubriqueAdmin[] = [
   { href: "/admin/commentaires", libelle: "Commentaires", description: "Valider, refuser ou répondre aux commentaires", icone: "❞", roles: tous, badge: "commentaires_en_attente" },
   { href: "/admin/experiences-clients", libelle: "Expériences clients", description: "Valider les témoignages avant leur affichage sur le site", icone: "★", roles: tous, badge: "experiences_en_attente" },
   { href: "/admin/departs", libelle: "Départs groupage", description: "Les départs affichés sur l’accueil et la page Publications", icone: "⇄", roles: admin },
+  { href: "/admin/abonnes", libelle: "Abonnés", description: "Adresses inscrites pour recevoir les nouveautés par e-mail", icone: "@", roles: admin },
   { href: "/admin/devis", libelle: "Demandes de devis", description: "Demandes reçues depuis le formulaire de contact", icone: "✉", roles: tous, badge: "devis_nouveaux" },
   { href: "/admin/administrateurs", libelle: "Administrateurs", description: "Comptes de l’équipe QCM et leurs droits", icone: "◉", roles: admin },
 ];

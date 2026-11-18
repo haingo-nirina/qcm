@@ -5,6 +5,7 @@ import { DestinationsPreview } from "@/components/home/DestinationsPreview";
 import { HomeHero } from "@/components/home/HomeHero";
 import { ServicesPreview } from "@/components/home/ServicesPreview";
 import { TestimonialsPreview } from "@/components/home/TestimonialsPreview";
+import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 import { CtaBanner } from "@/components/ui/CtaBanner";
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function AccueilPage() {
       <DepartsTable />
       <DestinationsPreview />
       <AboutPreview />
+      <WhyChooseUs />
       <TestimonialsPreview />
       <CtaBanner
         variant="accueil"

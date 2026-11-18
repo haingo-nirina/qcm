@@ -25,12 +25,14 @@
     "db:deploy": "prisma migrate deploy",
     "db:studio": "prisma studio",
     "admin:creer": "tsx scripts/creer-admin.ts",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "mail:tester": "tsx scripts/tester-mail.ts"
   },
   "dependencies": {
     "@nestjs/common": "^12.0.1",
     "@nestjs/config": "^12.1.1",
     "@nestjs/core": "^12.0.1",
+    "@nestjs/mail": "0.0.2",
     "@nestjs/observe": "^0.3.0",
     "@nestjs/platform-express": "^12.0.1",
     "@nestjs/throttler": "^6.8.0",

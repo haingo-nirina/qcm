@@ -27,9 +27,8 @@ export function AboutPreview() {
             className="[&_h2]:text-[clamp(2rem,3.4vw,2.8rem)]"
           />
           <p className="m-0 text-[17px] leading-[1.75] text-muted">
-            Quick Cargo Madagascar accompagne les commerçants et les entreprises malgaches dans leurs
-            importations depuis la Chine, Dubaï, l’Inde et l’Indonésie, du choix du fournisseur jusqu’à la
-            livraison.
+            QCM (Quick Cargo Madagascar) est une société spécialisée en logistique maritime, avec plus de
+            20&nbsp;ans d’expérience et d’expertise dans le domaine de l’importation maritime.
           </p>
           <ul className="m-0 grid list-none grid-cols-2 gap-3 p-0">
             {valeurs.map((v) => (
