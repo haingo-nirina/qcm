@@ -1,5 +1,6 @@
 "use client";
 
+import { NewsletterForm } from "@/components/layout/NewsletterForm";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StatusBadge } from "@/components/ui/StatusBadge";
@@ -100,6 +101,26 @@ export function DepartsTableLive({ initiaux }: { initiaux: DepartGroupageDetail[
             </table>
           </div>
         )}
+
+        <div className="rv flex flex-col gap-6 rounded-3xl border border-line bg-page p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-start gap-4 md:max-w-[420px]">
+            <span
+              aria-hidden="true"
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-orange-bg text-orange-text"
+            >
+              <Icon name="email" size={22} />
+            </span>
+            <p className="m-0 text-[15px] leading-[1.6] text-muted">
+              Pas de départ qui vous convient ? Recevez une alerte par e-mail dès qu’un nouveau départ groupage est ouvert.
+            </p>
+          </div>
+          <NewsletterForm
+            theme="clair"
+            titre="Être alerté du prochain départ"
+            description="Un e-mail à chaque nouveau départ ou publication, désabonnement en un clic."
+            className="md:max-w-[440px]"
+          />
+        </div>
       </div>
     </section>
   );
