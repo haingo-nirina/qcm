@@ -6,6 +6,12 @@ export const urlSite = () => (process.env.FRONTEND_URL ?? 'http://localhost:3000
 /** Adresse publique de l'API (désabonnement en un clic depuis la messagerie). */
 const urlApi = () => (process.env.API_URL ?? `http://localhost:${process.env.PORT ?? 3001}`).replace(/\/$/, '');
 
+/** Adresse seule de l'expéditeur (MAIL_FROM peut valoir « Nom <adresse> »). */
+const adresseExpediteur = () => {
+  const from = process.env.MAIL_FROM ?? 'noreply@quickcargomadagascar.mg';
+  return from.match(/<([^>]+)>/)?.[1] ?? from.trim();
+};
+
 const CATEGORIES: Record<CategoriePublication, string> = {
   arrivage: 'Arrivage',
   depart_groupage: 'Départ groupage',
@@ -59,6 +65,10 @@ export function alerteBienvenue(): Alerte {
       <p style="margin:0 0 12px">
         Vous recevrez un e-mail à chaque nouvelle publication (arrivages, événements, actualités)
         et à chaque nouveau départ groupage depuis la Chine, Dubaï, l’Inde et l’Indonésie.
+      </p>
+      <p style="margin:0 0 12px">
+        Pour ne manquer aucune alerte, ajoutez <strong>${adresseExpediteur()}</strong> à vos contacts :
+        nos e-mails arriveront ainsi directement dans votre boîte de réception.
       </p>
       ${bouton(`${urlSite()}/#departs`, 'Voir les prochains départs')}
       <p style="margin:16px 0 0;font-size:13px;color:#5A6987">
