@@ -52,8 +52,8 @@ export const siteConfig: SiteConfig = {
   adresseBureaux: `${ADRESSE_QCM}, Antananarivo`,
   adresseDepot: ADRESSE_QCM,
   ville: "Antananarivo, Madagascar",
-  horairesDepot: "[Horaires d’ouverture]",
-  horairesEquipe: "[jours et horaires d’ouverture]",
+  horairesDepot: "Ouvert de 9h à 17h",
+  horairesEquipe: "de 9h à 17h",
 
   /** Carte Google Maps intégrée (src de l'iframe), centrée sur ADRESSE_QCM. Vide = emplacement réservé. */
   carteGoogleMapsEmbed: `https://maps.google.com/maps?q=${RECHERCHE_MAPS}&z=16&hl=fr&output=embed`,

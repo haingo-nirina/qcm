@@ -32,7 +32,7 @@ export function ContactInfo() {
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3 rounded-[28px] bg-navy px-7 py-8 text-white">
         <h2 className="m-0 text-[22px]">Contact QCM</h2>
-        <p className="m-0 leading-[1.6] text-mist">Notre équipe vous répond du {siteConfig.horairesEquipe}.</p>
+        <p className="m-0 leading-[1.6] text-mist">Notre équipe vous répond {siteConfig.horairesEquipe}.</p>
       </div>
       {siteConfig.telephones.map((t) => (
         <a key={t.lien} className={carte} href={`tel:${t.lien}`}>
