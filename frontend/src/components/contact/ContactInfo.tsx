@@ -36,7 +36,7 @@ export function ContactInfo() {
       </div>
       {siteConfig.telephones.map((t) => (
         <a key={t.lien} className={carte} href={`tel:${t.lien}`}>
-          <Ligne icone="telephone" label="Téléphone" valeur={t.affiche} />
+          <Ligne icone="telephone" label={t.nom ? `Téléphone · ${t.nom}` : "Téléphone"} valeur={t.affiche} />
         </a>
       ))}
       {emailValide ? (

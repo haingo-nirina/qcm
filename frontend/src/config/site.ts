@@ -3,8 +3,8 @@ interface SiteConfig {
   slogan: string;
   url: string;
   whatsapp: string;
-  /** Numéros pour les appels : texte affiché + numéro du lien « tel: » (format international). */
-  telephones: { affiche: string; lien: string }[];
+  /** Numéros pour les appels : texte affiché + numéro du lien « tel: » (format international) + contact (facultatif). */
+  telephones: { affiche: string; lien: string; nom?: string }[];
   email: string;
   adresseBureaux: string;
   adresseDepot: string;
@@ -38,18 +38,16 @@ export const siteConfig: SiteConfig = {
    * Numéro WhatsApp Business de l'entreprise, au format international sans « + ».
    * Tous les boutons WhatsApp du site ouvrent une conversation avec ce numéro.
    * L'équipe le partage sur plusieurs téléphones via « Appareils connectés » de WhatsApp Business.
-   * ⚠️ NUMÉROS DE TEST (032 11 242 35…) : à remplacer par les vrais avant la mise en ligne
-   *    (vrais numéros prévus : 032 11 242 20 et 038 16 242 16).
    */
-  whatsapp: "261321124235",
+  whatsapp: "261321124220",
 
   telephones: [
-    { affiche: "+261 32 11 242 35", lien: "+261321124235" },
-    { affiche: "+261 34 31 424 68", lien: "+261343142468" },
-    { affiche: "+261 32 11 242 33", lien: "+261321124233" },
+    { affiche: "+261 32 11 242 40", lien: "+261321124240", nom: "M. Toavina" },
+    { affiche: "+261 32 11 242 20", lien: "+261321124220", nom: "Mme Anicha" },
+    { affiche: "+261 38 16 242 16", lien: "+261381624216", nom: "M. Bourhan" },
   ],
 
-  email: "[adresse@email]",
+  email: "comerciale@quickcargomadagascar.mg",
 
   adresseBureaux: `${ADRESSE_QCM}, Antananarivo`,
   adresseDepot: ADRESSE_QCM,

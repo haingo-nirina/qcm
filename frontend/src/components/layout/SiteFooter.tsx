@@ -44,6 +44,7 @@ export function SiteFooter() {
             {siteConfig.telephones.map((t) => (
               <a key={t.lien} href={`tel:${t.lien}`}>
                 {t.affiche}
+                {t.nom && <span className="text-mist"> · {t.nom}</span>}
               </a>
             ))}
             {siteConfig.email.includes("@") && !siteConfig.email.startsWith("[") ? (
