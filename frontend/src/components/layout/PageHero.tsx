@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 type Props = {
@@ -17,6 +17,8 @@ type Props = {
   /** Dégradé moins opaque sur la droite (Services) */
   shade?: number;
   titleMaxWidth?: number;
+  /** Contenu supplémentaire sous l'introduction (ex. liste à puces) */
+  children?: ReactNode;
 };
 
 /**
@@ -33,6 +35,7 @@ export function PageHero({
   paddingBottom = 70,
   shade = 0.4,
   titleMaxWidth,
+  children,
 }: Props) {
   return (
     <section
@@ -75,6 +78,7 @@ export function PageHero({
           {title}
         </h1>
         <p className="up d3 m-0 max-w-[620px] text-lg leading-[1.6] text-sky">{intro}</p>
+        {children}
       </div>
     </section>
   );

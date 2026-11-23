@@ -27,6 +27,13 @@ const traits = {
       <path d="M5 15v-5h14v5M9 10V6h6v4M12 3v3" />
     </>
   ),
+  livraison: (
+    <>
+      <path d="M2 6h11v10H2zM13 9h4.5l3.5 3.5V16h-8" />
+      <circle cx="6" cy="17.5" r="1.8" />
+      <circle cx="17" cy="17.5" r="1.8" />
+    </>
+  ),
   douane: (
     <>
       <rect x="5" y="4" width="14" height="17" rx="2" />

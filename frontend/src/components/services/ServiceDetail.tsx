@@ -37,6 +37,7 @@ export function ServiceDetail({ service, inverse }: Props) {
         <h2 id={titreId} className="m-0 text-[clamp(1.75rem,3vw,34px)] text-navy">
           {service.titre}
         </h2>
+        <p className="m-0 font-display text-[19px] font-semibold leading-[1.5] text-orange-text">{service.resume}</p>
         <p className="m-0 text-[17px] leading-[1.75] text-muted">{service.description}</p>
         <ul className="m-0 flex list-none flex-col gap-2.5 p-0 text-body">
           {service.points.map((point) => (
@@ -46,6 +47,9 @@ export function ServiceDetail({ service, inverse }: Props) {
             </li>
           ))}
         </ul>
+        {service.conclusion && (
+          <p className="m-0 text-[17px] font-semibold leading-[1.75] text-navy">{service.conclusion}</p>
+        )}
       </div>
     </article>
   );
