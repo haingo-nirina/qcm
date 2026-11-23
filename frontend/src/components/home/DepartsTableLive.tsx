@@ -3,16 +3,13 @@
 import { NewsletterForm } from "@/components/layout/NewsletterForm";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { StatusBadge } from "@/components/ui/StatusBadge";
-import { messagesWhatsApp } from "@/config/site";
-import { formatDateCourte, formatPeriode } from "@/lib/dates";
-import { lienWhatsApp } from "@/lib/whatsapp";
+import { formatDateCourte } from "@/lib/dates";
 import { useDonnees } from "@/lib/useDonnees";
 import { getDeparts } from "@/services/departs";
 import type { DepartGroupageDetail } from "@/types";
 
 /**
- * Tableau « Prochains départs groupage » avec réservation par WhatsApp.
+ * Tableau « Prochains départs groupage ».
  * Affiche d'abord les départs rendus par le serveur, puis suit les modifications du back-office.
  */
 export function DepartsTableLive({ initiaux }: { initiaux: DepartGroupageDetail[] }) {
@@ -40,16 +37,11 @@ export function DepartsTableLive({ initiaux }: { initiaux: DepartGroupageDetail[
             role="region"
             aria-label="Tableau des prochains départs (défilement horizontal possible)"
           >
-            <table className="w-full min-w-[760px] border-collapse bg-white text-[15px]">
+            <table className="w-full min-w-[480px] border-collapse bg-white text-[15px]">
               <thead>
                 <tr className="bg-navy text-left text-white">
                   <th scope="col" className="px-[22px] py-[18px] font-semibold">Départ</th>
                   <th scope="col" className="px-[22px] py-[18px] font-semibold">Clôture des réceptions</th>
-                  <th scope="col" className="px-[22px] py-[18px] font-semibold">Arrivée estimée</th>
-                  <th scope="col" className="px-[22px] py-[18px] font-semibold">Statut</th>
-                  <th scope="col" className="px-[22px] py-[18px] font-semibold">
-                    <span className="sr-only">Action</span>
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -73,26 +65,6 @@ export function DepartsTableLive({ initiaux }: { initiaux: DepartGroupageDetail[
                       </th>
                       <td className="px-[22px] py-[18px] font-semibold text-ink">
                         <time dateTime={d.date_cloture}>{cloture}</time>
-                      </td>
-                      <td className="px-[22px] py-[18px] text-muted">{formatPeriode(d.arrivee_estimee)}</td>
-                      <td className="px-[22px] py-[18px]">
-                        <StatusBadge statut={d.statut} />
-                      </td>
-                      <td className="px-[22px] py-[18px] text-right">
-                        {d.statut === "ferme" ? (
-                          <span className="whitespace-nowrap text-sm font-semibold text-subtle">Clôturé</span>
-                        ) : (
-                          <a
-                            className="btn btn-o btn-sm whitespace-nowrap !px-[18px]"
-                            href={lienWhatsApp(messagesWhatsApp.reservation(d.point_depart.nom, cloture))}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={`Réserver ma place sur WhatsApp – départ ${d.point_depart.nom}, clôture le ${cloture}`}
-                          >
-                            <Icon name="whatsapp" size={18} />
-                            Réserver ma place
-                          </a>
-                        )}
                       </td>
                     </tr>
                   );

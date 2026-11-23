@@ -9,8 +9,7 @@ interface SiteConfig {
   adresseBureaux: string;
   adresseDepot: string;
   ville: string;
-  horairesDepot: string;
-  horairesEquipe: string;
+  horaires: string;
   carteGoogleMapsEmbed: string;
   itineraireUrl: string;
 }
@@ -42,18 +41,17 @@ export const siteConfig: SiteConfig = {
   whatsapp: "261321124220",
 
   telephones: [
-    { affiche: "+261 32 11 242 40", lien: "+261321124240", nom: "M. Toavina" },
-    { affiche: "+261 32 11 242 20", lien: "+261321124220", nom: "Mme Anicha" },
     { affiche: "+261 38 16 242 16", lien: "+261381624216", nom: "M. Bourhan" },
+    { affiche: "+261 32 11 242 20", lien: "+261321124220", nom: "Mme Anicha" },
+    { affiche: "+261 32 11 242 40", lien: "+261321124240", nom: "M. Toavina" },
   ],
 
-  email: "comerciale@quickcargomadagascar.mg",
+  email: "commercial@quickcargomadagascar.mg",
 
   adresseBureaux: `${ADRESSE_QCM}, Antananarivo`,
   adresseDepot: ADRESSE_QCM,
   ville: "Antananarivo, Madagascar",
-  horairesDepot: "Ouvert de 9h à 17h",
-  horairesEquipe: "de 9h à 17h",
+  horaires: "Ouvert du lundi au vendredi de 8h à 17h et le samedi de 8h30 à 13h",
 
   /** Carte Google Maps intégrée (src de l'iframe), centrée sur ADRESSE_QCM. Vide = emplacement réservé. */
   carteGoogleMapsEmbed: `https://maps.google.com/maps?q=${RECHERCHE_MAPS}&z=16&hl=fr&output=embed`,

@@ -26,7 +26,7 @@ export function DepotAddress() {
         </address>
         <p className="m-0 flex items-start gap-3 leading-[1.6] text-sky">
           <Icon name="horloge" size={22} strokeWidth={1.8} className="mt-0.5 shrink-0 text-orange" />
-          <span>{siteConfig.horairesDepot}</span>
+          <span>{siteConfig.horaires}</span>
         </p>
         <div className="mt-1.5 flex flex-wrap gap-3">
           <Link className="btn btn-o" href="/contact">
