@@ -236,6 +236,302 @@
     width: 100%;
   }
 
+  /* ==== Équipe (page À propos) ==== */
+  .team-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 46px;
+    padding: 0 8px 0 18px;
+    border-radius: 999px;
+    border: 1.5px solid var(--color-line);
+    background: #ffffff;
+    color: var(--color-navy);
+    font: 600 14px var(--font-display);
+    cursor: pointer;
+    transition:
+      background 0.25s,
+      color 0.25s,
+      border-color 0.25s,
+      transform 0.25s,
+      box-shadow 0.25s;
+  }
+  .team-tab:hover {
+    border-color: var(--color-orange);
+    transform: translateY(-2px);
+  }
+  .team-tab[aria-pressed="true"] {
+    background: #0a2463;
+    border-color: #0a2463;
+    color: #ffffff;
+    box-shadow: 0 12px 28px rgba(10, 36, 99, 0.25);
+  }
+  .team-count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 28px;
+    height: 28px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: var(--color-soft);
+    color: var(--color-navy);
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .team-tab[aria-pressed="true"] .team-count {
+    background: #f58a07;
+    color: var(--color-navy-deep);
+  }
+
+  /* Carte : 260–280 px de large, 430 px de haut */
+  .team-item {
+    flex: 0 1 280px;
+    min-width: 260px;
+  }
+  .team-flip {
+    position: relative;
+    height: 430px;
+    perspective: 1400px;
+    transition: transform 0.45s var(--ease-out-soft);
+  }
+  .team-inner {
+    position: relative;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.8s var(--ease-out-soft);
+  }
+  .team-flip.is-flipped .team-inner {
+    transform: rotateY(180deg);
+  }
+  .team-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    overflow: hidden;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  .team-flip.is-flipped .team-front,
+  .team-flip:not(.is-flipped) .team-back {
+    pointer-events: none;
+  }
+
+  /* Recto */
+  .team-front {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--color-line);
+    background: #ffffff;
+    font: inherit;
+    color: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      box-shadow 0.35s,
+      border-color 0.35s;
+  }
+  .team-front:focus-visible {
+    outline-offset: 3px;
+  }
+  .team-visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    flex: none;
+    height: 300px;
+    overflow: hidden;
+    background:
+      radial-gradient(rgba(255, 255, 255, 0.16) 1.4px, transparent 1.8px) 0 0 / 18px 18px,
+      linear-gradient(160deg, #0a2463, #2a54c2);
+  }
+  /* Reflet lumineux qui se promène lentement sur le fond à points */
+  .team-visual::after {
+    content: "";
+    position: absolute;
+    top: -35%;
+    left: -35%;
+    width: 85%;
+    height: 85%;
+    border-radius: 999px;
+    background: radial-gradient(closest-side, rgba(255, 255, 255, 0.2), transparent);
+    animation: team-glow 9s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  .team-halo {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 244px;
+    height: 244px;
+  }
+  .team-arc,
+  .team-full {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #000 calc(100% - 3px));
+  }
+  /* Arc partiel en rotation (7 s par tour)… */
+  .team-arc {
+    background: conic-gradient(from 0deg, transparent 0 35%, rgba(245, 138, 7, 0.35) 60%, #f58a07 100%);
+    animation: team-spin 7s linear infinite;
+  }
+  /* …qui devient un cercle complet au survol / sous le projecteur */
+  .team-full {
+    background: #f58a07;
+    opacity: 0;
+    transform: scale(0.95);
+    transition:
+      opacity 0.45s,
+      transform 0.45s var(--ease-out-soft);
+  }
+  .team-portrait {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    flex: none;
+    overflow: hidden;
+    border-radius: 999px;
+  }
+  .team-portrait-lg {
+    width: 210px;
+    height: 210px;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .team-portrait-sm {
+    width: 56px;
+    height: 56px;
+    border: 2px solid rgba(6, 26, 71, 0.25);
+    background: var(--color-navy);
+  }
+  .team-initiale {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1;
+    color: #ffffff;
+    font-size: 84px;
+  }
+  .team-portrait-sm .team-initiale {
+    font-size: 22px;
+  }
+  .team-photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    transition: transform 0.6s var(--ease-out-soft);
+  }
+  .team-text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 16px 18px;
+  }
+  .team-bar {
+    width: 32px;
+    height: 3px;
+    margin-top: 8px;
+    border-radius: 999px;
+    background: var(--color-orange);
+    transition: width 0.45s var(--ease-out-soft);
+  }
+  .team-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 2;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: var(--color-orange);
+    color: var(--color-navy-deep);
+    font: 600 12px var(--font-display);
+    box-shadow: 0 6px 16px rgba(245, 138, 7, 0.4);
+    opacity: 0;
+    transform: translateY(-6px) scale(0.9);
+    transition:
+      opacity 0.35s,
+      transform 0.35s var(--ease-out-soft);
+  }
+  .team-badge-touch {
+    display: none;
+  }
+  @media (hover: none) {
+    .team-badge-hover {
+      display: none;
+    }
+    .team-badge-touch {
+      display: inline;
+    }
+  }
+
+  /* Survol et projecteur */
+  .team-item:hover .team-flip,
+  .team-item.is-spot .team-flip {
+    transform: translateY(-10px);
+  }
+  .team-item:hover .team-front {
+    box-shadow: 0 28px 60px rgba(10, 36, 99, 0.18);
+  }
+  .team-item.is-spot .team-front {
+    border-color: var(--color-orange);
+    box-shadow:
+      0 0 0 2px var(--color-orange),
+      0 26px 56px rgba(245, 138, 7, 0.35);
+  }
+  .team-item:hover .team-full,
+  .team-item.is-spot .team-full,
+  .team-front:focus-visible .team-full {
+    opacity: 1;
+    transform: none;
+  }
+  .team-item:hover .team-portrait-lg .team-photo,
+  .team-item.is-spot .team-portrait-lg .team-photo {
+    transform: scale(1.08);
+  }
+  .team-item:hover .team-bar,
+  .team-item.is-spot .team-bar {
+    width: 72px;
+  }
+  .team-item.is-spot .team-badge {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Verso */
+  .team-back {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 24px 22px;
+    background: #f58a07;
+    color: #061a47;
+    transform: rotateY(180deg);
+    box-shadow: 0 26px 56px rgba(245, 138, 7, 0.35);
+  }
+  .team-back .btn {
+    padding-inline: 16px;
+  }
+  .team-retour {
+    background: transparent;
+    color: #061a47;
+    border: 1.5px solid rgba(6, 26, 71, 0.55);
+  }
+  .team-retour:hover {
+    background: rgba(6, 26, 71, 0.08);
+    color: #061a47;
+  }
+
+
   /* Champs de formulaire */
   .field {
     width: 100%;
@@ -467,6 +763,46 @@
 /* NB : « rv » se pose sur un conteneur, jamais sur une « .card » (l'animation
    bloquerait l'effet de survol transform). */
 
+/* Équipe : apparition à durée fixe (déclenchée par TeamGrid à l'entrée dans l'écran),
+   pour que chaque carte finisse toujours à opacity: 1. */
+@keyframes team-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes team-net {
+  from {
+    filter: blur(6px);
+  }
+  to {
+    filter: blur(0);
+  }
+}
+@keyframes team-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes team-glow {
+  to {
+    transform: translate(85%, 75%);
+  }
+}
+.team-grid[data-anim="on"] .team-item:not(.is-in) {
+  opacity: 0;
+}
+.team-item.is-in {
+  animation: team-in 0.6s var(--ease-out-soft) var(--d, 0ms) both;
+}
+.team-item.is-in .team-portrait-lg {
+  animation: team-net 0.6s var(--ease-out-soft) var(--d, 0ms) both;
+}
+
 .shine {
   background: linear-gradient(90deg, #f58a07, #ffc266, #f58a07);
   background-size: 200% auto;
@@ -642,6 +978,8 @@
     opacity: 1 !important;
     transform: none !important;
   }
+  .team-arc,
+  .team-visual::after,
   .float,
   .shine,
   .route,
@@ -666,5 +1004,22 @@
   .card:hover,
   .btn:hover {
     transform: none;
+  }
+  /* Équipe : apparition sans mouvement, pas de flip 3D (le verso remplace simplement le recto) */
+  .team-item.is-in,
+  .team-item.is-in .team-portrait-lg {
+    animation: none !important;
+  }
+  .team-grid[data-anim="on"] .team-item:not(.is-in) {
+    opacity: 1;
+  }
+  .team-item:hover .team-flip,
+  .team-flip.is-flipped .team-inner,
+  .team-back {
+    transform: none;
+  }
+  .team-flip:not(.is-flipped) .team-back,
+  .team-flip.is-flipped .team-front {
+    visibility: hidden;
   }
 }
