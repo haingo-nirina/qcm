@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { messagesWhatsApp, siteConfig } from "@/config/site";
 import { formatDateLongue } from "@/lib/dates";
@@ -40,10 +41,15 @@ type Props = {
   ouvertParDefaut?: boolean;
   /** Image chargée en priorité (première publication, visible sans défiler) */
   prioritaire?: boolean;
+  /**
+   * Affichée seule sur sa page (/publications/[slug]) : le titre est déjà le h1 de la bannière,
+   * la carte n'en répète pas.
+   */
+  detail?: boolean;
 };
 
 /** Une publication : image, catégorie, texte, partage WhatsApp et fil de commentaires. */
-export function PublicationCard({ publication: p, commentaires, ouvertParDefaut, prioritaire }: Props) {
+export function PublicationCard({ publication: p, commentaires, ouvertParDefaut, prioritaire, detail }: Props) {
   const [ouvert, setOuvert] = useState(Boolean(ouvertParDefaut));
   const [enAttente, setEnAttente] = useState<CommentairePublic[]>([]);
   // Un commentaire « en attente » affiché localement disparaît de cette liste dès qu'il est approuvé.
@@ -51,12 +57,12 @@ export function PublicationCard({ publication: p, commentaires, ouvertParDefaut,
   const n = commentaires.length;
   const libelle = n === 0 ? "Commenter" : n === 1 ? "1 commentaire" : `${n} commentaires`;
   const zoneId = `commentaires-${p.id}`;
-  const lienPartage = lienPartageWhatsApp(`${messagesWhatsApp.partage(p.titre)}\n${siteConfig.url}/publications#${p.slug}`);
+  const lienPartage = lienPartageWhatsApp(`${messagesWhatsApp.partage(p.titre)}\n${siteConfig.url}/publications/${p.slug}`);
 
   return (
     <article
       id={p.slug}
-      aria-labelledby={`titre-${p.slug}`}
+      aria-labelledby={detail ? "titre-page" : `titre-${p.slug}`}
       className="post scroll-mt-6 overflow-hidden rounded-3xl bg-white shadow-[0_6px_24px_rgba(10,36,99,.07)]"
     >
       {p.image_url && (
@@ -86,9 +92,13 @@ export function PublicationCard({ publication: p, commentaires, ouvertParDefaut,
             )}
           </span>
         </div>
-        <h2 id={`titre-${p.slug}`} className="m-0 text-[clamp(1.4rem,2.4vw,26px)] leading-[1.25] text-navy">
-          {p.titre}
-        </h2>
+        {!detail && (
+          <h2 id={`titre-${p.slug}`} className="m-0 text-[clamp(1.4rem,2.4vw,26px)] leading-[1.25] text-navy">
+            <Link href={`/publications/${p.slug}`} className="text-inherit no-underline hover:text-orange-text">
+              {p.titre}
+            </Link>
+          </h2>
+        )}
         <p className="m-0 whitespace-pre-line leading-[1.7] text-muted">{p.contenu}</p>
 
         <div className="flex flex-wrap gap-2.5 border-t border-line pt-3.5">

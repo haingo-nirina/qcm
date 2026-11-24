@@ -1,9 +1,10 @@
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { RetourHaut } from "@/components/layout/RetourHaut";
 import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 
-/** Habillage du site public : en-tête, pied de page, bouton WhatsApp flottant. */
+/** Habillage du site public : en-tête, pied de page, boutons flottants (retour en haut, WhatsApp). */
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
     <>
@@ -18,6 +19,7 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
         {children}
       </main>
       <SiteFooter />
+      <RetourHaut />
       <WhatsAppFloat />
       <RevealOnScroll />
     </>

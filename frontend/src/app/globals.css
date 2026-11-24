@@ -38,6 +38,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* L'en-tête est fixe : les ancres (#…) s'arrêtent sous lui. */
+    scroll-padding-top: 84px;
   }
   body {
     margin: 0;
@@ -975,6 +977,49 @@
   }
   100% {
     transform: scale(1);
+  }
+}
+
+/* Barre de lecture (page d'une publication) : se remplit avec le défilement de la page.
+   Masquée sur les navigateurs qui ne gèrent pas les animations pilotées par le scroll. */
+.progression-lecture {
+  display: none;
+}
+@supports (animation-timeline: scroll()) {
+  .progression-lecture {
+    display: block;
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-orange), var(--color-orange-light));
+    box-shadow: 0 0 10px rgba(255, 140, 0, 0.55);
+    transform-origin: 0 50%;
+    animation: progression-lecture linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes progression-lecture {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Squelettes de chargement (loading.tsx) : reflet qui balaie le bloc */
+.squelette {
+  background: linear-gradient(90deg, #e6ecf7 0%, #f3f6fc 40%, #e6ecf7 80%) 0 0 / 200% 100%;
+  animation: squelette 1.4s linear infinite;
+}
+.squelette-sombre {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.18) 40%, rgba(255, 255, 255, 0.08) 80%) 0 0 / 200% 100%;
+  animation: squelette 1.4s linear infinite;
+}
+@keyframes squelette {
+  to {
+    background-position: -200% 0;
   }
 }
 

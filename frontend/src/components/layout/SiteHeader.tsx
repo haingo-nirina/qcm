@@ -8,6 +8,8 @@ import { navigation } from "@/content/navigation";
 import { lienWhatsApp } from "@/lib/whatsapp";
 import { Icon } from "@/components/ui/Icon";
 import { images } from "@/lib/images";
+import { cn } from "@/lib/cn";
+import { useDefile } from "@/lib/useDefile";
 
 function estActif(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
@@ -16,11 +18,15 @@ function estActif(pathname: string, href: string) {
 /**
  * En-tête commun, posé par-dessus la bannière de chaque page (fond bleu nuit / photo).
  * Menu complet sur grand écran, menu « hamburger » en dessous de 1280 px.
+ * Il reste fixé en haut : dès qu'on défile, il se réduit et prend un fond bleu nuit.
  */
 export function SiteHeader() {
   const pathname = usePathname();
   const [ouvert, setOuvert] = useState(false);
   const boutonRef = useRef<HTMLButtonElement>(null);
+  // Au défilement : en-tête plus compact, sur fond bleu nuit avec une ombre.
+  const compact = useDefile(40);
+  const plein = compact || ouvert;
 
   // Ferme le menu mobile à chaque changement de page.
   const [pageVue, setPageVue] = useState(pathname);
@@ -43,10 +49,21 @@ export function SiteHeader() {
   }, [ouvert]);
 
   return (
-    <header id="haut" className="absolute inset-x-0 top-0 z-30 text-white">
+    <header
+      id="haut"
+      className={cn(
+        "fixed inset-x-0 top-0 z-40 text-white transition-[background-color,box-shadow,backdrop-filter] duration-300",
+        plein
+          ? "bg-navy-deep/92 shadow-[0_10px_30px_rgba(6,26,71,.35)] backdrop-blur-md"
+          : "bg-transparent",
+      )}
+    >
       <nav
         aria-label="Navigation principale"
-        className="section-x container-qcm flex items-center justify-between gap-[18px] py-[22px]"
+        className={cn(
+          "section-x container-qcm flex items-center justify-between gap-[18px] transition-[padding] duration-300",
+          compact ? "py-2.5" : "py-[22px]",
+        )}
       >
         <Link
           href="/"
@@ -58,7 +75,10 @@ export function SiteHeader() {
             alt="Quick Cargo Madagascar – la clef de votre réussite"
             preload
             sizes="130px"
-            className="block h-12 w-auto sm:h-16"
+            className={cn(
+              "block w-auto transition-[height] duration-300",
+              compact ? "h-10 sm:h-12" : "h-12 sm:h-16",
+            )}
           />
         </Link>
 
@@ -96,7 +116,7 @@ export function SiteHeader() {
       <div
         id="menu-mobile"
         hidden={!ouvert}
-        className="section-x xl:hidden"
+        className="section-x max-h-[calc(100dvh-90px)] overflow-y-auto pb-4 xl:hidden"
       >
         <div className="pop container-qcm flex flex-col gap-1 rounded-3xl border border-white/15 bg-navy-deep/95 p-4 shadow-[0_30px_60px_rgba(0,0,0,.35)] backdrop-blur-md">
           {navigation.map((item) => {

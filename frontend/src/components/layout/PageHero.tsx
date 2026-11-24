@@ -5,6 +5,8 @@ import { cn } from "@/lib/cn";
 type Props = {
   /** Libellé de la page dans le fil d'Ariane */
   crumb: string;
+  /** Niveau intermédiaire du fil d'Ariane (ex. « Publications » sur la page d'une publication) */
+  parent?: { href: string; label: string };
   title: string;
   intro: string;
   /** Image de fond (zoom lent) et cadrage */
@@ -27,6 +29,7 @@ type Props = {
  */
 export function PageHero({
   crumb,
+  parent,
   title,
   intro,
   image,
@@ -66,6 +69,11 @@ export function PageHero({
       >
         <nav aria-label="Fil d’Ariane" className="crumb up d1 text-sm text-mist">
           <Link href="/">Accueil</Link> <span aria-hidden="true">›</span>{" "}
+          {parent && (
+            <>
+              <Link href={parent.href}>{parent.label}</Link> <span aria-hidden="true">›</span>{" "}
+            </>
+          )}
           <span aria-current="page" className="text-orange-light">
             {crumb}
           </span>
