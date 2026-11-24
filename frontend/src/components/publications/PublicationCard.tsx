@@ -6,7 +6,8 @@ import { messagesWhatsApp, siteConfig } from "@/config/site";
 import { formatDateLongue } from "@/lib/dates";
 import { lienPartageWhatsApp } from "@/lib/whatsapp";
 import { libellesCategorie } from "@/lib/libelles";
-import type { CommentairePublic, Publication } from "@/types";
+import type { CommentairePublic, PublicationPublique } from "@/types";
+import { BoutonCoeur } from "./BoutonCoeur";
 import { CommentForm } from "./CommentForm";
 import { CommentItem, LogoRond } from "./CommentItem";
 import { PendingComment } from "./PendingComment";
@@ -33,7 +34,7 @@ function IconePartage() {
 }
 
 type Props = {
-  publication: Publication;
+  publication: PublicationPublique;
   commentaires: CommentairePublic[];
   /** Commentaires dépliés au chargement (la première publication) */
   ouvertParDefaut?: boolean;
@@ -91,6 +92,7 @@ export function PublicationCard({ publication: p, commentaires, ouvertParDefaut,
         <p className="m-0 whitespace-pre-line leading-[1.7] text-muted">{p.contenu}</p>
 
         <div className="flex flex-wrap gap-2.5 border-t border-line pt-3.5">
+          <BoutonCoeur cible="publications" id={p.id} base={p.nb_coeurs} variante="publication" />
           <button
             type="button"
             className="btn btn-l"

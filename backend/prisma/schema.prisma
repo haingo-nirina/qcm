@@ -172,6 +172,7 @@ model Publication {
   updated_at           DateTime             @updatedAt @db.Timestamptz(3)
 
   commentaires Commentaire[]
+  reactions    ReactionPublication[]
 
   @@index([statut, publie_le])
   @@map("publications")
@@ -200,12 +201,46 @@ model Commentaire {
   reponse_le     DateTime?         @db.Timestamptz(3)
   created_at     DateTime          @default(now()) @db.Timestamptz(3)
 
-  publication Publication @relation(fields: [publication_id], references: [id], onDelete: Cascade)
-  utilisateur Utilisateur @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade)
+  publication Publication           @relation(fields: [publication_id], references: [id], onDelete: Cascade)
+  utilisateur Utilisateur           @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade)
+  reactions   ReactionCommentaire[]
 
   @@index([publication_id, statut])
   @@index([statut, created_at])
   @@map("commentaires")
+}
+
+/**
+ * ---------- reactions (cœurs) ----------
+ */
+
+/// « J'aime » (cœur) sur une publication. Ouvert à tous, sans connexion : le visiteur est reconnu
+/// par un cookie aléatoire dont seule l'empreinte SHA-256 est stockée (un cœur par navigateur).
+model ReactionPublication {
+  id             Int      @id @default(autoincrement())
+  publication_id Int
+  reacteur_hash  String   @db.Char(64)
+  created_at     DateTime @default(now()) @db.Timestamptz(3)
+
+  publication Publication @relation(fields: [publication_id], references: [id], onDelete: Cascade)
+
+  @@unique([publication_id, reacteur_hash])
+  @@index([reacteur_hash])
+  @@map("reactions_publications")
+}
+
+/// Cœur sur un commentaire publié (même principe que ReactionPublication).
+model ReactionCommentaire {
+  id             Int      @id @default(autoincrement())
+  commentaire_id Int
+  reacteur_hash  String   @db.Char(64)
+  created_at     DateTime @default(now()) @db.Timestamptz(3)
+
+  commentaire Commentaire @relation(fields: [commentaire_id], references: [id], onDelete: Cascade)
+
+  @@unique([commentaire_id, reacteur_hash])
+  @@index([reacteur_hash])
+  @@map("reactions_commentaires")
 }
 
 /**

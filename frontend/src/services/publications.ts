@@ -1,5 +1,5 @@
 import { validerImage } from "@/lib/image";
-import type { CommentairePublic, Id, Publication, PublicationAdmin, PublicationSaisie } from "@/types";
+import type { CommentairePublic, Id, Publication, PublicationAdmin, PublicationPublique, PublicationSaisie } from "@/types";
 import { api, ErreurApi } from "./api";
 import { signalerChangement } from "./evenements";
 
@@ -9,8 +9,8 @@ import { signalerChangement } from "./evenements";
  * Publications publiées, de la plus récente à la plus ancienne.
  * API : GET /api/publications
  */
-export function getPublications(): Promise<Publication[]> {
-  return api.get<Publication[]>("/publications");
+export function getPublications(): Promise<PublicationPublique[]> {
+  return api.get<PublicationPublique[]>("/publications");
 }
 
 /**

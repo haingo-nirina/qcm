@@ -103,6 +103,7 @@ export function PublicationsGestion() {
                   <th scope="col">Catégorie</th>
                   <th scope="col">Date</th>
                   <th scope="col">Statut</th>
+                  <th scope="col">Cœurs</th>
                   <th scope="col">Commentaires</th>
                   <th scope="col">Actions</th>
                 </tr>
@@ -114,6 +115,9 @@ export function PublicationsGestion() {
                     <td>{libellesCategorie[p.categorie]}</td>
                     <td className="whitespace-nowrap text-[#5A6987]">{p.publie_le ? formatDateCourte(p.publie_le) : "—"}</td>
                     <td>{p.statut === "publie" ? <Pill ton="vert">Publié</Pill> : <Pill ton="gris">Brouillon</Pill>}</td>
+                    <td className="whitespace-nowrap">
+                      <span aria-hidden="true" className="text-[#ED4956]">♥</span> {p.nb_coeurs}
+                    </td>
                     <td>
                       {p.nb_commentaires}
                       {p.nb_commentaires_en_attente > 0 && (

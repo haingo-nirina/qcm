@@ -47,7 +47,7 @@ export class CommentairesPublicController {
     if (!auteur || auteur.bloque) {
       throw new ForbiddenException('Votre compte ne peut plus publier de commentaires.');
     }
-    return this.prisma.commentaire.create({
+    const commentaire = await this.prisma.commentaire.create({
       data: {
         publication_id: id,
         utilisateur_id: auteur.id,
@@ -56,5 +56,6 @@ export class CommentairesPublicController {
       },
       include: { utilisateur: { select: { id: true, nom: true, photo_url: true } } },
     });
+    return { ...commentaire, nb_coeurs: 0 };
   }
 }

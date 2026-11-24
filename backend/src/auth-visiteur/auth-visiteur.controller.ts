@@ -24,7 +24,7 @@ class ConnexionGoogleDto {
   credential: string;
 }
 
-const optionsCookie = (): CookieOptions => ({
+export const optionsCookie = (): CookieOptions => ({
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
   sameSite: 'lax',

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { images } from "@/lib/images";
 import { initiales } from "@/lib/initiales";
 import type { CommentairePublic } from "@/types";
+import { BoutonCoeur } from "./BoutonCoeur";
 import { TimeAgo } from "./TimeAgo";
 
 /** Logo QCM rond (auteur des publications et des réponses officielles). */
@@ -49,6 +50,9 @@ export function CommentItem({ commentaire: c }: { commentaire: CommentairePublic
             </span>
           </div>
           <p className="m-0 mt-1.5 leading-[1.6] text-body">{c.contenu}</p>
+        </div>
+        <div className="flex shrink-0 items-start pt-2">
+          <BoutonCoeur cible="commentaires" id={c.id} base={c.nb_coeurs} variante="commentaire" />
         </div>
       </div>
       {c.reponse_qcm && (

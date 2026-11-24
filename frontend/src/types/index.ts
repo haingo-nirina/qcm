@@ -95,6 +95,11 @@ export interface Publication {
   updated_at: DateISO;
 }
 
+/** Publication du site public, avec son nombre de cœurs. */
+export interface PublicationPublique extends Publication {
+  nb_coeurs: number;
+}
+
 /** Données saisies dans le formulaire du back-office (le slug et les dates sont calculés). */
 export type PublicationSaisie = Pick<
   Publication,
@@ -103,6 +108,7 @@ export type PublicationSaisie = Pick<
 
 /** Ligne du tableau « Publications » du back-office. */
 export interface PublicationAdmin extends Publication {
+  nb_coeurs: number;
   /** Commentaires publiés */
   nb_commentaires: number;
   nb_commentaires_en_attente: number;
@@ -127,6 +133,21 @@ export interface Commentaire {
 
 export interface CommentairePublic extends Commentaire {
   utilisateur: AuteurPublic;
+  nb_coeurs: number;
+}
+
+/* ---------- réactions (cœurs) ---------- */
+
+/** Contenus aimés par ce navigateur (reconnu par un cookie, sans connexion). */
+export interface MesCoeurs {
+  publications: Id[];
+  commentaires: Id[];
+}
+
+/** Réponse après un cœur ajouté ou retiré. */
+export interface EtatCoeur {
+  aime: boolean;
+  nb_coeurs: number;
 }
 
 /** Commentaire vu par la modération : auteur complet, moyen de connexion et publication concernée. */

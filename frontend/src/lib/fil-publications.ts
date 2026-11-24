@@ -1,9 +1,9 @@
 import { getDeparts } from "@/services/departs";
 import { getCommentairesPublies, getPublications } from "@/services/publications";
-import type { CommentairePublic, DepartGroupageDetail, Publication } from "@/types";
+import type { CommentairePublic, DepartGroupageDetail, PublicationPublique } from "@/types";
 
 export interface DonneesPublications {
-  publications: Publication[];
+  publications: PublicationPublique[];
   commentaires: CommentairePublic[][];
   departs: DepartGroupageDetail[];
 }

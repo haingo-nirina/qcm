@@ -36,7 +36,9 @@ const prisma = {
       let l = [...pubs];
       if (a?.where?.statut) l = l.filter((p) => p.statut === a.where!.statut && p.publie_le);
       if (a?.where?.slug) l = l.filter((p) => p.slug.startsWith(a.where!.slug!.startsWith));
-      return l.sort((x, y) => (y.publie_le?.getTime() ?? 0) - (x.publie_le?.getTime() ?? 0));
+      return l
+        .sort((x, y) => (y.publie_le?.getTime() ?? 0) - (x.publie_le?.getTime() ?? 0))
+        .map((p) => ({ ...p, _count: { reactions: p.id === 1 ? 3 : 0 } }));
     },
     findFirst: async ({ where }: { where: { id: number; statut: string } }) =>
       pubs.find((p) => p.id === where.id && p.statut === where.statut) ?? null,
@@ -57,7 +59,7 @@ const prisma = {
   },
   commentaire: {
     findMany: async ({ where }: { where: { publication_id: number } }) =>
-      commentaires.filter((c) => c.publication_id === where.publication_id),
+      commentaires.filter((c) => c.publication_id === where.publication_id).map((c) => ({ ...c, _count: { reactions: 2 } })),
     groupBy: async () => [{ publication_id: 1, statut: 'en_attente', _count: { _all: 2 } }],
   },
 };
@@ -107,13 +109,16 @@ describe('Publications et images', () => {
   it('public : commentaires validés, sans l’e-mail de l’auteur ; 404 pour un brouillon', async () => {
     const r = await srv().get('/api/publications/1/commentaires').expect(200);
     expect(r.body[0].utilisateur).toEqual({ id: 9, nom: 'Rakoto', photo_url: null });
+    expect(r.body[0]).toMatchObject({ nb_coeurs: 2 });
+    expect(r.body[0]._count).toBeUndefined();
     await srv().get('/api/publications/2/commentaires').expect(404);
   });
 
   it('admin : liste avec compteurs, brouillons compris ; modérateur refusé', async () => {
     const r = await srv().get('/api/admin/publications').set('Cookie', 'qcm_admin_session=admin').expect(200);
     expect(r.body).toHaveLength(2);
-    expect(r.body[0]).toMatchObject({ id: 1, nb_commentaires_en_attente: 2 });
+    expect(r.body[0]).toMatchObject({ id: 1, nb_commentaires_en_attente: 2, nb_coeurs: 3 });
+    expect(r.body[0]._count).toBeUndefined();
     await srv().get('/api/admin/publications').set('Cookie', 'qcm_admin_session=modo').expect(403);
   });
 

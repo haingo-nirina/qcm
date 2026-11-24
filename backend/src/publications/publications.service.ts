@@ -17,11 +17,14 @@ export class PublicationsService {
 
   /* ---------- Site public ---------- */
 
-  listerPubliees() {
-    return this.prisma.publication.findMany({
+  /** Publications en ligne avec leur nombre de cœurs. */
+  async listerPubliees() {
+    const pubs = await this.prisma.publication.findMany({
       where: { statut: 'publie', publie_le: { not: null } },
       orderBy: { publie_le: 'desc' },
+      include: { _count: { select: { reactions: true } } },
     });
+    return pubs.map(({ _count, ...p }) => ({ ...p, nb_coeurs: _count.reactions }));
   }
 
   /** Commentaires validés d'une publication EN LIGNE (jamais ceux d'un brouillon). */
@@ -31,12 +34,16 @@ export class PublicationsService {
       select: { id: true },
     });
     if (!pub) throw new NotFoundException('Publication introuvable.');
-    return this.prisma.commentaire.findMany({
+    const commentaires = await this.prisma.commentaire.findMany({
       where: { publication_id: publicationId, statut: 'publie' },
       orderBy: { created_at: 'desc' },
-      // Jamais l'e-mail ni le numéro de l'auteur
-      include: { utilisateur: { select: { id: true, nom: true, photo_url: true } } },
+      include: {
+        // Jamais l'e-mail ni le numéro de l'auteur
+        utilisateur: { select: { id: true, nom: true, photo_url: true } },
+        _count: { select: { reactions: true } },
+      },
     });
+    return commentaires.map(({ _count, ...c }) => ({ ...c, nb_coeurs: _count.reactions }));
   }
 
   /* ---------- Back-office ---------- */
@@ -44,7 +51,7 @@ export class PublicationsService {
   /** Publiées (plus récentes d'abord), puis brouillons (derniers modifiés d'abord), avec les compteurs. */
   async listerAdmin() {
     const [publications, compteurs] = await Promise.all([
-      this.prisma.publication.findMany(),
+      this.prisma.publication.findMany({ include: { _count: { select: { reactions: true } } } }),
       this.prisma.commentaire.groupBy({
         by: ['publication_id', 'statut'],
         where: { statut: { in: ['publie', 'en_attente'] } },
@@ -55,8 +62,9 @@ export class PublicationsService {
       compteurs.find((c) => c.publication_id === id && c.statut === statut)?._count._all ?? 0;
     const cle = (p: Publication) => (p.publie_le ?? p.updated_at).getTime();
     return publications
-      .map((p) => ({
+      .map(({ _count, ...p }) => ({
         ...p,
+        nb_coeurs: _count.reactions,
         nb_commentaires: nb(p.id, 'publie'),
         nb_commentaires_en_attente: nb(p.id, 'en_attente'),
       }))

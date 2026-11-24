@@ -14,6 +14,7 @@ import { AuthAdminModule } from './auth-admin/auth-admin.module.js';
 import { ImagesModule } from './images/images.module.js';
 import { PublicationsModule } from './publications/publications.module.js';
 import { CommentairesModule } from './commentaires/commentaires.module.js';
+import { ReactionsModule } from './reactions/reactions.module.js';
 import { DepartsModule } from './departs/departs.module.js';
 import { ExperiencesClientsModule } from './experiences-clients/experiences-clients.module.js';
 import { DemandesDevisModule } from './demandes-devis/demandes-devis.module.js';
@@ -48,6 +49,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     ImagesModule,
     PublicationsModule,
     CommentairesModule,
+    ReactionsModule,
     ExperiencesClientsModule,
     // Distributed tracing, auto-correlated logs, request/job metrics, error
     // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com,
