@@ -218,7 +218,10 @@ export function TeamGrid() {
     return () => window.clearInterval(id);
   }, [projecteurActif, liste]);
 
-  const options: Array<{ id: Filtre; libelle: string }> = [{ id: "tous", libelle: "Tous" }, ...servicesEquipe];
+  const options: Array<{ id: Filtre; libelle: string }> = [
+    { id: "tous", libelle: "Tous" },
+    ...servicesEquipe.filter((s) => equipe.some((m) => m.service === s.id)),
+  ];
 
   return (
     <section aria-labelledby="titre-equipe" className="flex flex-col gap-9">
@@ -229,26 +232,28 @@ export function TeamGrid() {
         </p>
       </div>
 
-      <div role="group" aria-label="Filtrer l’équipe par service" className="flex flex-wrap justify-center gap-2.5">
-        {options.map((o) => {
-          const nombre = o.id === "tous" ? equipe.length : equipe.filter((m) => m.service === o.id).length;
-          return (
-            <button
-              key={o.id}
-              type="button"
-              className="team-tab"
-              aria-pressed={filtre === o.id}
-              onClick={() => changerFiltre(o.id)}
-            >
-              {o.libelle}
-              <span className="team-count">
-                {nombre}
-                <span className="sr-only"> {nombre > 1 ? "personnes" : "personne"}</span>
-              </span>
-            </button>
-          );
-        })}
-      </div>
+      {options.length > 2 && (
+        <div role="group" aria-label="Filtrer l’équipe par service" className="flex flex-wrap justify-center gap-2.5">
+          {options.map((o) => {
+            const nombre = o.id === "tous" ? equipe.length : equipe.filter((m) => m.service === o.id).length;
+            return (
+              <button
+                key={o.id}
+                type="button"
+                className="team-tab"
+                aria-pressed={filtre === o.id}
+                onClick={() => changerFiltre(o.id)}
+              >
+                {o.libelle}
+                <span className="team-count">
+                  {nombre}
+                  <span className="sr-only"> {nombre > 1 ? "personnes" : "personne"}</span>
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       <ul
         key={filtre}
