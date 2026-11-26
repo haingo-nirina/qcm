@@ -234,6 +234,7 @@ export type UtilisateurWhereInput = {
   created_at?: Prisma.DateTimeFilter<"Utilisateur"> | Date | string
   comptes_sociaux?: Prisma.CompteSocialListRelationFilter
   commentaires?: Prisma.CommentaireListRelationFilter
+  experiences?: Prisma.ExperienceClientListRelationFilter
   sessions?: Prisma.SessionUtilisateurListRelationFilter
 }
 
@@ -247,6 +248,7 @@ export type UtilisateurOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   comptes_sociaux?: Prisma.CompteSocialOrderByRelationAggregateInput
   commentaires?: Prisma.CommentaireOrderByRelationAggregateInput
+  experiences?: Prisma.ExperienceClientOrderByRelationAggregateInput
   sessions?: Prisma.SessionUtilisateurOrderByRelationAggregateInput
 }
 
@@ -263,6 +265,7 @@ export type UtilisateurWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"Utilisateur"> | Date | string
   comptes_sociaux?: Prisma.CompteSocialListRelationFilter
   commentaires?: Prisma.CommentaireListRelationFilter
+  experiences?: Prisma.ExperienceClientListRelationFilter
   sessions?: Prisma.SessionUtilisateurListRelationFilter
 }, "id" | "email">
 
@@ -303,6 +306,7 @@ export type UtilisateurCreateInput = {
   created_at?: Date | string
   comptes_sociaux?: Prisma.CompteSocialCreateNestedManyWithoutUtilisateurInput
   commentaires?: Prisma.CommentaireCreateNestedManyWithoutUtilisateurInput
+  experiences?: Prisma.ExperienceClientCreateNestedManyWithoutUtilisateurInput
   sessions?: Prisma.SessionUtilisateurCreateNestedManyWithoutUtilisateurInput
 }
 
@@ -316,6 +320,7 @@ export type UtilisateurUncheckedCreateInput = {
   created_at?: Date | string
   comptes_sociaux?: Prisma.CompteSocialUncheckedCreateNestedManyWithoutUtilisateurInput
   commentaires?: Prisma.CommentaireUncheckedCreateNestedManyWithoutUtilisateurInput
+  experiences?: Prisma.ExperienceClientUncheckedCreateNestedManyWithoutUtilisateurInput
   sessions?: Prisma.SessionUtilisateurUncheckedCreateNestedManyWithoutUtilisateurInput
 }
 
@@ -328,6 +333,7 @@ export type UtilisateurUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comptes_sociaux?: Prisma.CompteSocialUpdateManyWithoutUtilisateurNestedInput
   commentaires?: Prisma.CommentaireUpdateManyWithoutUtilisateurNestedInput
+  experiences?: Prisma.ExperienceClientUpdateManyWithoutUtilisateurNestedInput
   sessions?: Prisma.SessionUtilisateurUpdateManyWithoutUtilisateurNestedInput
 }
 
@@ -341,6 +347,7 @@ export type UtilisateurUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comptes_sociaux?: Prisma.CompteSocialUncheckedUpdateManyWithoutUtilisateurNestedInput
   commentaires?: Prisma.CommentaireUncheckedUpdateManyWithoutUtilisateurNestedInput
+  experiences?: Prisma.ExperienceClientUncheckedUpdateManyWithoutUtilisateurNestedInput
   sessions?: Prisma.SessionUtilisateurUncheckedUpdateManyWithoutUtilisateurNestedInput
 }
 
@@ -462,6 +469,20 @@ export type UtilisateurUpdateOneRequiredWithoutCommentairesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UtilisateurUpdateToOneWithWhereWithoutCommentairesInput, Prisma.UtilisateurUpdateWithoutCommentairesInput>, Prisma.UtilisateurUncheckedUpdateWithoutCommentairesInput>
 }
 
+export type UtilisateurCreateNestedOneWithoutExperiencesInput = {
+  create?: Prisma.XOR<Prisma.UtilisateurCreateWithoutExperiencesInput, Prisma.UtilisateurUncheckedCreateWithoutExperiencesInput>
+  connectOrCreate?: Prisma.UtilisateurCreateOrConnectWithoutExperiencesInput
+  connect?: Prisma.UtilisateurWhereUniqueInput
+}
+
+export type UtilisateurUpdateOneRequiredWithoutExperiencesNestedInput = {
+  create?: Prisma.XOR<Prisma.UtilisateurCreateWithoutExperiencesInput, Prisma.UtilisateurUncheckedCreateWithoutExperiencesInput>
+  connectOrCreate?: Prisma.UtilisateurCreateOrConnectWithoutExperiencesInput
+  upsert?: Prisma.UtilisateurUpsertWithoutExperiencesInput
+  connect?: Prisma.UtilisateurWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UtilisateurUpdateToOneWithWhereWithoutExperiencesInput, Prisma.UtilisateurUpdateWithoutExperiencesInput>, Prisma.UtilisateurUncheckedUpdateWithoutExperiencesInput>
+}
+
 export type UtilisateurCreateWithoutSessionsInput = {
   nom: string
   email: string
@@ -471,6 +492,7 @@ export type UtilisateurCreateWithoutSessionsInput = {
   created_at?: Date | string
   comptes_sociaux?: Prisma.CompteSocialCreateNestedManyWithoutUtilisateurInput
   commentaires?: Prisma.CommentaireCreateNestedManyWithoutUtilisateurInput
+  experiences?: Prisma.ExperienceClientCreateNestedManyWithoutUtilisateurInput
 }
 
 export type UtilisateurUncheckedCreateWithoutSessionsInput = {
@@ -483,6 +505,7 @@ export type UtilisateurUncheckedCreateWithoutSessionsInput = {
   created_at?: Date | string
   comptes_sociaux?: Prisma.CompteSocialUncheckedCreateNestedManyWithoutUtilisateurInput
   commentaires?: Prisma.CommentaireUncheckedCreateNestedManyWithoutUtilisateurInput
+  experiences?: Prisma.ExperienceClientUncheckedCreateNestedManyWithoutUtilisateurInput
 }
 
 export type UtilisateurCreateOrConnectWithoutSessionsInput = {
@@ -510,6 +533,7 @@ export type UtilisateurUpdateWithoutSessionsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comptes_sociaux?: Prisma.CompteSocialUpdateManyWithoutUtilisateurNestedInput
   commentaires?: Prisma.CommentaireUpdateManyWithoutUtilisateurNestedInput
+  experiences?: Prisma.ExperienceClientUpdateManyWithoutUtilisateurNestedInput
 }
 
 export type UtilisateurUncheckedUpdateWithoutSessionsInput = {
@@ -522,6 +546,7 @@ export type UtilisateurUncheckedUpdateWithoutSessionsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comptes_sociaux?: Prisma.CompteSocialUncheckedUpdateManyWithoutUtilisateurNestedInput
   commentaires?: Prisma.CommentaireUncheckedUpdateManyWithoutUtilisateurNestedInput
+  experiences?: Prisma.ExperienceClientUncheckedUpdateManyWithoutUtilisateurNestedInput
 }
 
 export type UtilisateurCreateWithoutComptes_sociauxInput = {
@@ -532,6 +557,7 @@ export type UtilisateurCreateWithoutComptes_sociauxInput = {
   bloque?: boolean
   created_at?: Date | string
   commentaires?: Prisma.CommentaireCreateNestedManyWithoutUtilisateurInput
+  experiences?: Prisma.ExperienceClientCreateNestedManyWithoutUtilisateurInput
   sessions?: Prisma.SessionUtilisateurCreateNestedManyWithoutUtilisateurInput
 }
 
@@ -544,6 +570,7 @@ export type UtilisateurUncheckedCreateWithoutComptes_sociauxInput = {
   bloque?: boolean
   created_at?: Date | string
   commentaires?: Prisma.CommentaireUncheckedCreateNestedManyWithoutUtilisateurInput
+  experiences?: Prisma.ExperienceClientUncheckedCreateNestedManyWithoutUtilisateurInput
   sessions?: Prisma.SessionUtilisateurUncheckedCreateNestedManyWithoutUtilisateurInput
 }
 
@@ -571,6 +598,7 @@ export type UtilisateurUpdateWithoutComptes_sociauxInput = {
   bloque?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   commentaires?: Prisma.CommentaireUpdateManyWithoutUtilisateurNestedInput
+  experiences?: Prisma.ExperienceClientUpdateManyWithoutUtilisateurNestedInput
   sessions?: Prisma.SessionUtilisateurUpdateManyWithoutUtilisateurNestedInput
 }
 
@@ -583,6 +611,7 @@ export type UtilisateurUncheckedUpdateWithoutComptes_sociauxInput = {
   bloque?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   commentaires?: Prisma.CommentaireUncheckedUpdateManyWithoutUtilisateurNestedInput
+  experiences?: Prisma.ExperienceClientUncheckedUpdateManyWithoutUtilisateurNestedInput
   sessions?: Prisma.SessionUtilisateurUncheckedUpdateManyWithoutUtilisateurNestedInput
 }
 
@@ -594,6 +623,7 @@ export type UtilisateurCreateWithoutCommentairesInput = {
   bloque?: boolean
   created_at?: Date | string
   comptes_sociaux?: Prisma.CompteSocialCreateNestedManyWithoutUtilisateurInput
+  experiences?: Prisma.ExperienceClientCreateNestedManyWithoutUtilisateurInput
   sessions?: Prisma.SessionUtilisateurCreateNestedManyWithoutUtilisateurInput
 }
 
@@ -606,6 +636,7 @@ export type UtilisateurUncheckedCreateWithoutCommentairesInput = {
   bloque?: boolean
   created_at?: Date | string
   comptes_sociaux?: Prisma.CompteSocialUncheckedCreateNestedManyWithoutUtilisateurInput
+  experiences?: Prisma.ExperienceClientUncheckedCreateNestedManyWithoutUtilisateurInput
   sessions?: Prisma.SessionUtilisateurUncheckedCreateNestedManyWithoutUtilisateurInput
 }
 
@@ -633,6 +664,7 @@ export type UtilisateurUpdateWithoutCommentairesInput = {
   bloque?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comptes_sociaux?: Prisma.CompteSocialUpdateManyWithoutUtilisateurNestedInput
+  experiences?: Prisma.ExperienceClientUpdateManyWithoutUtilisateurNestedInput
   sessions?: Prisma.SessionUtilisateurUpdateManyWithoutUtilisateurNestedInput
 }
 
@@ -645,6 +677,73 @@ export type UtilisateurUncheckedUpdateWithoutCommentairesInput = {
   bloque?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comptes_sociaux?: Prisma.CompteSocialUncheckedUpdateManyWithoutUtilisateurNestedInput
+  experiences?: Prisma.ExperienceClientUncheckedUpdateManyWithoutUtilisateurNestedInput
+  sessions?: Prisma.SessionUtilisateurUncheckedUpdateManyWithoutUtilisateurNestedInput
+}
+
+export type UtilisateurCreateWithoutExperiencesInput = {
+  nom: string
+  email: string
+  telephone_whatsapp?: string | null
+  photo_url?: string | null
+  bloque?: boolean
+  created_at?: Date | string
+  comptes_sociaux?: Prisma.CompteSocialCreateNestedManyWithoutUtilisateurInput
+  commentaires?: Prisma.CommentaireCreateNestedManyWithoutUtilisateurInput
+  sessions?: Prisma.SessionUtilisateurCreateNestedManyWithoutUtilisateurInput
+}
+
+export type UtilisateurUncheckedCreateWithoutExperiencesInput = {
+  id?: number
+  nom: string
+  email: string
+  telephone_whatsapp?: string | null
+  photo_url?: string | null
+  bloque?: boolean
+  created_at?: Date | string
+  comptes_sociaux?: Prisma.CompteSocialUncheckedCreateNestedManyWithoutUtilisateurInput
+  commentaires?: Prisma.CommentaireUncheckedCreateNestedManyWithoutUtilisateurInput
+  sessions?: Prisma.SessionUtilisateurUncheckedCreateNestedManyWithoutUtilisateurInput
+}
+
+export type UtilisateurCreateOrConnectWithoutExperiencesInput = {
+  where: Prisma.UtilisateurWhereUniqueInput
+  create: Prisma.XOR<Prisma.UtilisateurCreateWithoutExperiencesInput, Prisma.UtilisateurUncheckedCreateWithoutExperiencesInput>
+}
+
+export type UtilisateurUpsertWithoutExperiencesInput = {
+  update: Prisma.XOR<Prisma.UtilisateurUpdateWithoutExperiencesInput, Prisma.UtilisateurUncheckedUpdateWithoutExperiencesInput>
+  create: Prisma.XOR<Prisma.UtilisateurCreateWithoutExperiencesInput, Prisma.UtilisateurUncheckedCreateWithoutExperiencesInput>
+  where?: Prisma.UtilisateurWhereInput
+}
+
+export type UtilisateurUpdateToOneWithWhereWithoutExperiencesInput = {
+  where?: Prisma.UtilisateurWhereInput
+  data: Prisma.XOR<Prisma.UtilisateurUpdateWithoutExperiencesInput, Prisma.UtilisateurUncheckedUpdateWithoutExperiencesInput>
+}
+
+export type UtilisateurUpdateWithoutExperiencesInput = {
+  nom?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  telephone_whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloque?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  comptes_sociaux?: Prisma.CompteSocialUpdateManyWithoutUtilisateurNestedInput
+  commentaires?: Prisma.CommentaireUpdateManyWithoutUtilisateurNestedInput
+  sessions?: Prisma.SessionUtilisateurUpdateManyWithoutUtilisateurNestedInput
+}
+
+export type UtilisateurUncheckedUpdateWithoutExperiencesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  nom?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  telephone_whatsapp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  photo_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bloque?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  comptes_sociaux?: Prisma.CompteSocialUncheckedUpdateManyWithoutUtilisateurNestedInput
+  commentaires?: Prisma.CommentaireUncheckedUpdateManyWithoutUtilisateurNestedInput
   sessions?: Prisma.SessionUtilisateurUncheckedUpdateManyWithoutUtilisateurNestedInput
 }
 
@@ -656,12 +755,14 @@ export type UtilisateurUncheckedUpdateWithoutCommentairesInput = {
 export type UtilisateurCountOutputType = {
   comptes_sociaux: number
   commentaires: number
+  experiences: number
   sessions: number
 }
 
 export type UtilisateurCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   comptes_sociaux?: boolean | UtilisateurCountOutputTypeCountComptes_sociauxArgs
   commentaires?: boolean | UtilisateurCountOutputTypeCountCommentairesArgs
+  experiences?: boolean | UtilisateurCountOutputTypeCountExperiencesArgs
   sessions?: boolean | UtilisateurCountOutputTypeCountSessionsArgs
 }
 
@@ -692,6 +793,13 @@ export type UtilisateurCountOutputTypeCountCommentairesArgs<ExtArgs extends runt
 /**
  * UtilisateurCountOutputType without action
  */
+export type UtilisateurCountOutputTypeCountExperiencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ExperienceClientWhereInput
+}
+
+/**
+ * UtilisateurCountOutputType without action
+ */
 export type UtilisateurCountOutputTypeCountSessionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SessionUtilisateurWhereInput
 }
@@ -707,6 +815,7 @@ export type UtilisateurSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   created_at?: boolean
   comptes_sociaux?: boolean | Prisma.Utilisateur$comptes_sociauxArgs<ExtArgs>
   commentaires?: boolean | Prisma.Utilisateur$commentairesArgs<ExtArgs>
+  experiences?: boolean | Prisma.Utilisateur$experiencesArgs<ExtArgs>
   sessions?: boolean | Prisma.Utilisateur$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["utilisateur"]>
@@ -745,6 +854,7 @@ export type UtilisateurOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UtilisateurInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   comptes_sociaux?: boolean | Prisma.Utilisateur$comptes_sociauxArgs<ExtArgs>
   commentaires?: boolean | Prisma.Utilisateur$commentairesArgs<ExtArgs>
+  experiences?: boolean | Prisma.Utilisateur$experiencesArgs<ExtArgs>
   sessions?: boolean | Prisma.Utilisateur$sessionsArgs<ExtArgs>
   _count?: boolean | Prisma.UtilisateurCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -756,6 +866,7 @@ export type $UtilisateurPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     comptes_sociaux: Prisma.$CompteSocialPayload<ExtArgs>[]
     commentaires: Prisma.$CommentairePayload<ExtArgs>[]
+    experiences: Prisma.$ExperienceClientPayload<ExtArgs>[]
     sessions: Prisma.$SessionUtilisateurPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -765,7 +876,7 @@ export type $UtilisateurPayload<ExtArgs extends runtime.Types.Extensions.Interna
     telephone_whatsapp: string | null
     photo_url: string | null
     /**
-     * Auteur bloqué par la modération : il ne peut plus commenter
+     * Auteur bloqué par la modération : il ne peut plus commenter ni partager d'expérience
      */
     bloque: boolean
     created_at: Date
@@ -1165,6 +1276,7 @@ export interface Prisma__UtilisateurClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   comptes_sociaux<T extends Prisma.Utilisateur$comptes_sociauxArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Utilisateur$comptes_sociauxArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompteSocialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   commentaires<T extends Prisma.Utilisateur$commentairesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Utilisateur$commentairesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentairePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  experiences<T extends Prisma.Utilisateur$experiencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Utilisateur$experiencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ExperienceClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.Utilisateur$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Utilisateur$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionUtilisateurPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1640,6 +1752,30 @@ export type Utilisateur$commentairesArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.CommentaireScalarFieldEnum | Prisma.CommentaireScalarFieldEnum[]
+}
+
+/**
+ * Utilisateur.experiences
+ */
+export type Utilisateur$experiencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ExperienceClient
+   */
+  select?: Prisma.ExperienceClientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ExperienceClient
+   */
+  omit?: Prisma.ExperienceClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ExperienceClientInclude<ExtArgs> | null
+  where?: Prisma.ExperienceClientWhereInput
+  orderBy?: Prisma.ExperienceClientOrderByWithRelationInput | Prisma.ExperienceClientOrderByWithRelationInput[]
+  cursor?: Prisma.ExperienceClientWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ExperienceClientScalarFieldEnum | Prisma.ExperienceClientScalarFieldEnum[]
 }
 
 /**

@@ -405,6 +405,10 @@ export const ModelName = {
   CompteSocial: 'CompteSocial',
   Publication: 'Publication',
   Commentaire: 'Commentaire',
+  ReactionPublication: 'ReactionPublication',
+  ReactionCommentaire: 'ReactionCommentaire',
+  ExperienceClient: 'ExperienceClient',
+  Abonne: 'Abonne',
   DemandeDevis: 'DemandeDevis',
   Administrateur: 'Administrateur',
   SessionAdmin: 'SessionAdmin'
@@ -423,7 +427,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "pays" | "pointDepart" | "departGroupage" | "utilisateur" | "sessionUtilisateur" | "compteSocial" | "publication" | "commentaire" | "demandeDevis" | "administrateur" | "sessionAdmin"
+    modelProps: "pays" | "pointDepart" | "departGroupage" | "utilisateur" | "sessionUtilisateur" | "compteSocial" | "publication" | "commentaire" | "reactionPublication" | "reactionCommentaire" | "experienceClient" | "abonne" | "demandeDevis" | "administrateur" | "sessionAdmin"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1019,6 +1023,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ReactionPublication: {
+      payload: Prisma.$ReactionPublicationPayload<ExtArgs>
+      fields: Prisma.ReactionPublicationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReactionPublicationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReactionPublicationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload>
+        }
+        findFirst: {
+          args: Prisma.ReactionPublicationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReactionPublicationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload>
+        }
+        findMany: {
+          args: Prisma.ReactionPublicationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload>[]
+        }
+        create: {
+          args: Prisma.ReactionPublicationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload>
+        }
+        createMany: {
+          args: Prisma.ReactionPublicationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReactionPublicationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload>[]
+        }
+        delete: {
+          args: Prisma.ReactionPublicationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload>
+        }
+        update: {
+          args: Prisma.ReactionPublicationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReactionPublicationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReactionPublicationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReactionPublicationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReactionPublicationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionPublicationPayload>
+        }
+        aggregate: {
+          args: Prisma.ReactionPublicationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReactionPublication>
+        }
+        groupBy: {
+          args: Prisma.ReactionPublicationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReactionPublicationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReactionPublicationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReactionPublicationCountAggregateOutputType> | number
+        }
+      }
+    }
+    ReactionCommentaire: {
+      payload: Prisma.$ReactionCommentairePayload<ExtArgs>
+      fields: Prisma.ReactionCommentaireFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReactionCommentaireFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReactionCommentaireFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload>
+        }
+        findFirst: {
+          args: Prisma.ReactionCommentaireFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReactionCommentaireFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload>
+        }
+        findMany: {
+          args: Prisma.ReactionCommentaireFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload>[]
+        }
+        create: {
+          args: Prisma.ReactionCommentaireCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload>
+        }
+        createMany: {
+          args: Prisma.ReactionCommentaireCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReactionCommentaireCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload>[]
+        }
+        delete: {
+          args: Prisma.ReactionCommentaireDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload>
+        }
+        update: {
+          args: Prisma.ReactionCommentaireUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload>
+        }
+        deleteMany: {
+          args: Prisma.ReactionCommentaireDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReactionCommentaireUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReactionCommentaireUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload>[]
+        }
+        upsert: {
+          args: Prisma.ReactionCommentaireUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReactionCommentairePayload>
+        }
+        aggregate: {
+          args: Prisma.ReactionCommentaireAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReactionCommentaire>
+        }
+        groupBy: {
+          args: Prisma.ReactionCommentaireGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReactionCommentaireGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReactionCommentaireCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReactionCommentaireCountAggregateOutputType> | number
+        }
+      }
+    }
+    ExperienceClient: {
+      payload: Prisma.$ExperienceClientPayload<ExtArgs>
+      fields: Prisma.ExperienceClientFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ExperienceClientFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ExperienceClientFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload>
+        }
+        findFirst: {
+          args: Prisma.ExperienceClientFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ExperienceClientFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload>
+        }
+        findMany: {
+          args: Prisma.ExperienceClientFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload>[]
+        }
+        create: {
+          args: Prisma.ExperienceClientCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload>
+        }
+        createMany: {
+          args: Prisma.ExperienceClientCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ExperienceClientCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload>[]
+        }
+        delete: {
+          args: Prisma.ExperienceClientDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload>
+        }
+        update: {
+          args: Prisma.ExperienceClientUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload>
+        }
+        deleteMany: {
+          args: Prisma.ExperienceClientDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ExperienceClientUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ExperienceClientUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload>[]
+        }
+        upsert: {
+          args: Prisma.ExperienceClientUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ExperienceClientPayload>
+        }
+        aggregate: {
+          args: Prisma.ExperienceClientAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateExperienceClient>
+        }
+        groupBy: {
+          args: Prisma.ExperienceClientGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExperienceClientGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ExperienceClientCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ExperienceClientCountAggregateOutputType> | number
+        }
+      }
+    }
+    Abonne: {
+      payload: Prisma.$AbonnePayload<ExtArgs>
+      fields: Prisma.AbonneFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AbonneFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AbonneFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload>
+        }
+        findFirst: {
+          args: Prisma.AbonneFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AbonneFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload>
+        }
+        findMany: {
+          args: Prisma.AbonneFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload>[]
+        }
+        create: {
+          args: Prisma.AbonneCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload>
+        }
+        createMany: {
+          args: Prisma.AbonneCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AbonneCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload>[]
+        }
+        delete: {
+          args: Prisma.AbonneDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload>
+        }
+        update: {
+          args: Prisma.AbonneUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload>
+        }
+        deleteMany: {
+          args: Prisma.AbonneDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AbonneUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AbonneUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload>[]
+        }
+        upsert: {
+          args: Prisma.AbonneUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AbonnePayload>
+        }
+        aggregate: {
+          args: Prisma.AbonneAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAbonne>
+        }
+        groupBy: {
+          args: Prisma.AbonneGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AbonneGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AbonneCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AbonneCountAggregateOutputType> | number
+        }
+      }
+    }
     DemandeDevis: {
       payload: Prisma.$DemandeDevisPayload<ExtArgs>
       fields: Prisma.DemandeDevisFieldRefs
@@ -1305,6 +1605,7 @@ export const DepartGroupageScalarFieldEnum = {
   arrivee_estimee: 'arrivee_estimee',
   statut: 'statut',
   visible: 'visible',
+  abonnes_alertes_le: 'abonnes_alertes_le',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -1360,6 +1661,7 @@ export const PublicationScalarFieldEnum = {
   commentaires_ouverts: 'commentaires_ouverts',
   commentaires_moderes: 'commentaires_moderes',
   publie_le: 'publie_le',
+  abonnes_alertes_le: 'abonnes_alertes_le',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -1379,6 +1681,50 @@ export const CommentaireScalarFieldEnum = {
 } as const
 
 export type CommentaireScalarFieldEnum = (typeof CommentaireScalarFieldEnum)[keyof typeof CommentaireScalarFieldEnum]
+
+
+export const ReactionPublicationScalarFieldEnum = {
+  id: 'id',
+  publication_id: 'publication_id',
+  reacteur_hash: 'reacteur_hash',
+  created_at: 'created_at'
+} as const
+
+export type ReactionPublicationScalarFieldEnum = (typeof ReactionPublicationScalarFieldEnum)[keyof typeof ReactionPublicationScalarFieldEnum]
+
+
+export const ReactionCommentaireScalarFieldEnum = {
+  id: 'id',
+  commentaire_id: 'commentaire_id',
+  reacteur_hash: 'reacteur_hash',
+  created_at: 'created_at'
+} as const
+
+export type ReactionCommentaireScalarFieldEnum = (typeof ReactionCommentaireScalarFieldEnum)[keyof typeof ReactionCommentaireScalarFieldEnum]
+
+
+export const ExperienceClientScalarFieldEnum = {
+  id: 'id',
+  utilisateur_id: 'utilisateur_id',
+  texte: 'texte',
+  entreprise: 'entreprise',
+  statut: 'statut',
+  created_at: 'created_at'
+} as const
+
+export type ExperienceClientScalarFieldEnum = (typeof ExperienceClientScalarFieldEnum)[keyof typeof ExperienceClientScalarFieldEnum]
+
+
+export const AbonneScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  jeton_desabonnement: 'jeton_desabonnement',
+  actif: 'actif',
+  created_at: 'created_at',
+  desabonne_le: 'desabonne_le'
+} as const
+
+export type AbonneScalarFieldEnum = (typeof AbonneScalarFieldEnum)[keyof typeof AbonneScalarFieldEnum]
 
 
 export const DemandeDevisScalarFieldEnum = {
@@ -1788,6 +2134,10 @@ export type GlobalOmitConfig = {
   compteSocial?: Prisma.CompteSocialOmit
   publication?: Prisma.PublicationOmit
   commentaire?: Prisma.CommentaireOmit
+  reactionPublication?: Prisma.ReactionPublicationOmit
+  reactionCommentaire?: Prisma.ReactionCommentaireOmit
+  experienceClient?: Prisma.ExperienceClientOmit
+  abonne?: Prisma.AbonneOmit
   demandeDevis?: Prisma.DemandeDevisOmit
   administrateur?: Prisma.AdministrateurOmit
   sessionAdmin?: Prisma.SessionAdminOmit

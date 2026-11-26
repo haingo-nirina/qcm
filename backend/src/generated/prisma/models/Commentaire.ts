@@ -250,6 +250,7 @@ export type CommentaireWhereInput = {
   created_at?: Prisma.DateTimeFilter<"Commentaire"> | Date | string
   publication?: Prisma.XOR<Prisma.PublicationScalarRelationFilter, Prisma.PublicationWhereInput>
   utilisateur?: Prisma.XOR<Prisma.UtilisateurScalarRelationFilter, Prisma.UtilisateurWhereInput>
+  reactions?: Prisma.ReactionCommentaireListRelationFilter
 }
 
 export type CommentaireOrderByWithRelationInput = {
@@ -263,6 +264,7 @@ export type CommentaireOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   publication?: Prisma.PublicationOrderByWithRelationInput
   utilisateur?: Prisma.UtilisateurOrderByWithRelationInput
+  reactions?: Prisma.ReactionCommentaireOrderByRelationAggregateInput
 }
 
 export type CommentaireWhereUniqueInput = Prisma.AtLeast<{
@@ -279,6 +281,7 @@ export type CommentaireWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"Commentaire"> | Date | string
   publication?: Prisma.XOR<Prisma.PublicationScalarRelationFilter, Prisma.PublicationWhereInput>
   utilisateur?: Prisma.XOR<Prisma.UtilisateurScalarRelationFilter, Prisma.UtilisateurWhereInput>
+  reactions?: Prisma.ReactionCommentaireListRelationFilter
 }, "id">
 
 export type CommentaireOrderByWithAggregationInput = {
@@ -319,6 +322,7 @@ export type CommentaireCreateInput = {
   created_at?: Date | string
   publication: Prisma.PublicationCreateNestedOneWithoutCommentairesInput
   utilisateur: Prisma.UtilisateurCreateNestedOneWithoutCommentairesInput
+  reactions?: Prisma.ReactionCommentaireCreateNestedManyWithoutCommentaireInput
 }
 
 export type CommentaireUncheckedCreateInput = {
@@ -330,6 +334,7 @@ export type CommentaireUncheckedCreateInput = {
   reponse_qcm?: string | null
   reponse_le?: Date | string | null
   created_at?: Date | string
+  reactions?: Prisma.ReactionCommentaireUncheckedCreateNestedManyWithoutCommentaireInput
 }
 
 export type CommentaireUpdateInput = {
@@ -340,6 +345,7 @@ export type CommentaireUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publication?: Prisma.PublicationUpdateOneRequiredWithoutCommentairesNestedInput
   utilisateur?: Prisma.UtilisateurUpdateOneRequiredWithoutCommentairesNestedInput
+  reactions?: Prisma.ReactionCommentaireUpdateManyWithoutCommentaireNestedInput
 }
 
 export type CommentaireUncheckedUpdateInput = {
@@ -351,6 +357,7 @@ export type CommentaireUncheckedUpdateInput = {
   reponse_qcm?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reponse_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ReactionCommentaireUncheckedUpdateManyWithoutCommentaireNestedInput
 }
 
 export type CommentaireCreateManyInput = {
@@ -436,6 +443,11 @@ export type CommentaireSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   publication_id?: Prisma.SortOrder
   utilisateur_id?: Prisma.SortOrder
+}
+
+export type CommentaireScalarRelationFilter = {
+  is?: Prisma.CommentaireWhereInput
+  isNot?: Prisma.CommentaireWhereInput
 }
 
 export type CommentaireCreateNestedManyWithoutUtilisateurInput = {
@@ -526,6 +538,20 @@ export type EnumStatutCommentaireFieldUpdateOperationsInput = {
   set?: $Enums.StatutCommentaire
 }
 
+export type CommentaireCreateNestedOneWithoutReactionsInput = {
+  create?: Prisma.XOR<Prisma.CommentaireCreateWithoutReactionsInput, Prisma.CommentaireUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.CommentaireCreateOrConnectWithoutReactionsInput
+  connect?: Prisma.CommentaireWhereUniqueInput
+}
+
+export type CommentaireUpdateOneRequiredWithoutReactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CommentaireCreateWithoutReactionsInput, Prisma.CommentaireUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.CommentaireCreateOrConnectWithoutReactionsInput
+  upsert?: Prisma.CommentaireUpsertWithoutReactionsInput
+  connect?: Prisma.CommentaireWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CommentaireUpdateToOneWithWhereWithoutReactionsInput, Prisma.CommentaireUpdateWithoutReactionsInput>, Prisma.CommentaireUncheckedUpdateWithoutReactionsInput>
+}
+
 export type CommentaireCreateWithoutUtilisateurInput = {
   contenu: string
   statut?: $Enums.StatutCommentaire
@@ -533,6 +559,7 @@ export type CommentaireCreateWithoutUtilisateurInput = {
   reponse_le?: Date | string | null
   created_at?: Date | string
   publication: Prisma.PublicationCreateNestedOneWithoutCommentairesInput
+  reactions?: Prisma.ReactionCommentaireCreateNestedManyWithoutCommentaireInput
 }
 
 export type CommentaireUncheckedCreateWithoutUtilisateurInput = {
@@ -543,6 +570,7 @@ export type CommentaireUncheckedCreateWithoutUtilisateurInput = {
   reponse_qcm?: string | null
   reponse_le?: Date | string | null
   created_at?: Date | string
+  reactions?: Prisma.ReactionCommentaireUncheckedCreateNestedManyWithoutCommentaireInput
 }
 
 export type CommentaireCreateOrConnectWithoutUtilisateurInput = {
@@ -592,6 +620,7 @@ export type CommentaireCreateWithoutPublicationInput = {
   reponse_le?: Date | string | null
   created_at?: Date | string
   utilisateur: Prisma.UtilisateurCreateNestedOneWithoutCommentairesInput
+  reactions?: Prisma.ReactionCommentaireCreateNestedManyWithoutCommentaireInput
 }
 
 export type CommentaireUncheckedCreateWithoutPublicationInput = {
@@ -602,6 +631,7 @@ export type CommentaireUncheckedCreateWithoutPublicationInput = {
   reponse_qcm?: string | null
   reponse_le?: Date | string | null
   created_at?: Date | string
+  reactions?: Prisma.ReactionCommentaireUncheckedCreateNestedManyWithoutCommentaireInput
 }
 
 export type CommentaireCreateOrConnectWithoutPublicationInput = {
@@ -630,6 +660,64 @@ export type CommentaireUpdateManyWithWhereWithoutPublicationInput = {
   data: Prisma.XOR<Prisma.CommentaireUpdateManyMutationInput, Prisma.CommentaireUncheckedUpdateManyWithoutPublicationInput>
 }
 
+export type CommentaireCreateWithoutReactionsInput = {
+  contenu: string
+  statut?: $Enums.StatutCommentaire
+  reponse_qcm?: string | null
+  reponse_le?: Date | string | null
+  created_at?: Date | string
+  publication: Prisma.PublicationCreateNestedOneWithoutCommentairesInput
+  utilisateur: Prisma.UtilisateurCreateNestedOneWithoutCommentairesInput
+}
+
+export type CommentaireUncheckedCreateWithoutReactionsInput = {
+  id?: number
+  publication_id: number
+  utilisateur_id: number
+  contenu: string
+  statut?: $Enums.StatutCommentaire
+  reponse_qcm?: string | null
+  reponse_le?: Date | string | null
+  created_at?: Date | string
+}
+
+export type CommentaireCreateOrConnectWithoutReactionsInput = {
+  where: Prisma.CommentaireWhereUniqueInput
+  create: Prisma.XOR<Prisma.CommentaireCreateWithoutReactionsInput, Prisma.CommentaireUncheckedCreateWithoutReactionsInput>
+}
+
+export type CommentaireUpsertWithoutReactionsInput = {
+  update: Prisma.XOR<Prisma.CommentaireUpdateWithoutReactionsInput, Prisma.CommentaireUncheckedUpdateWithoutReactionsInput>
+  create: Prisma.XOR<Prisma.CommentaireCreateWithoutReactionsInput, Prisma.CommentaireUncheckedCreateWithoutReactionsInput>
+  where?: Prisma.CommentaireWhereInput
+}
+
+export type CommentaireUpdateToOneWithWhereWithoutReactionsInput = {
+  where?: Prisma.CommentaireWhereInput
+  data: Prisma.XOR<Prisma.CommentaireUpdateWithoutReactionsInput, Prisma.CommentaireUncheckedUpdateWithoutReactionsInput>
+}
+
+export type CommentaireUpdateWithoutReactionsInput = {
+  contenu?: Prisma.StringFieldUpdateOperationsInput | string
+  statut?: Prisma.EnumStatutCommentaireFieldUpdateOperationsInput | $Enums.StatutCommentaire
+  reponse_qcm?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reponse_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  publication?: Prisma.PublicationUpdateOneRequiredWithoutCommentairesNestedInput
+  utilisateur?: Prisma.UtilisateurUpdateOneRequiredWithoutCommentairesNestedInput
+}
+
+export type CommentaireUncheckedUpdateWithoutReactionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  publication_id?: Prisma.IntFieldUpdateOperationsInput | number
+  utilisateur_id?: Prisma.IntFieldUpdateOperationsInput | number
+  contenu?: Prisma.StringFieldUpdateOperationsInput | string
+  statut?: Prisma.EnumStatutCommentaireFieldUpdateOperationsInput | $Enums.StatutCommentaire
+  reponse_qcm?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reponse_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type CommentaireCreateManyUtilisateurInput = {
   id?: number
   publication_id: number
@@ -647,6 +735,7 @@ export type CommentaireUpdateWithoutUtilisateurInput = {
   reponse_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   publication?: Prisma.PublicationUpdateOneRequiredWithoutCommentairesNestedInput
+  reactions?: Prisma.ReactionCommentaireUpdateManyWithoutCommentaireNestedInput
 }
 
 export type CommentaireUncheckedUpdateWithoutUtilisateurInput = {
@@ -657,6 +746,7 @@ export type CommentaireUncheckedUpdateWithoutUtilisateurInput = {
   reponse_qcm?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reponse_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ReactionCommentaireUncheckedUpdateManyWithoutCommentaireNestedInput
 }
 
 export type CommentaireUncheckedUpdateManyWithoutUtilisateurInput = {
@@ -686,6 +776,7 @@ export type CommentaireUpdateWithoutPublicationInput = {
   reponse_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   utilisateur?: Prisma.UtilisateurUpdateOneRequiredWithoutCommentairesNestedInput
+  reactions?: Prisma.ReactionCommentaireUpdateManyWithoutCommentaireNestedInput
 }
 
 export type CommentaireUncheckedUpdateWithoutPublicationInput = {
@@ -696,6 +787,7 @@ export type CommentaireUncheckedUpdateWithoutPublicationInput = {
   reponse_qcm?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   reponse_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ReactionCommentaireUncheckedUpdateManyWithoutCommentaireNestedInput
 }
 
 export type CommentaireUncheckedUpdateManyWithoutPublicationInput = {
@@ -709,6 +801,35 @@ export type CommentaireUncheckedUpdateManyWithoutPublicationInput = {
 }
 
 
+/**
+ * Count Type CommentaireCountOutputType
+ */
+
+export type CommentaireCountOutputType = {
+  reactions: number
+}
+
+export type CommentaireCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reactions?: boolean | CommentaireCountOutputTypeCountReactionsArgs
+}
+
+/**
+ * CommentaireCountOutputType without action
+ */
+export type CommentaireCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CommentaireCountOutputType
+   */
+  select?: Prisma.CommentaireCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * CommentaireCountOutputType without action
+ */
+export type CommentaireCountOutputTypeCountReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReactionCommentaireWhereInput
+}
+
 
 export type CommentaireSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -721,6 +842,8 @@ export type CommentaireSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   created_at?: boolean
   publication?: boolean | Prisma.PublicationDefaultArgs<ExtArgs>
   utilisateur?: boolean | Prisma.UtilisateurDefaultArgs<ExtArgs>
+  reactions?: boolean | Prisma.Commentaire$reactionsArgs<ExtArgs>
+  _count?: boolean | Prisma.CommentaireCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["commentaire"]>
 
 export type CommentaireSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -764,6 +887,8 @@ export type CommentaireOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type CommentaireInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   publication?: boolean | Prisma.PublicationDefaultArgs<ExtArgs>
   utilisateur?: boolean | Prisma.UtilisateurDefaultArgs<ExtArgs>
+  reactions?: boolean | Prisma.Commentaire$reactionsArgs<ExtArgs>
+  _count?: boolean | Prisma.CommentaireCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CommentaireIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   publication?: boolean | Prisma.PublicationDefaultArgs<ExtArgs>
@@ -779,6 +904,7 @@ export type $CommentairePayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     publication: Prisma.$PublicationPayload<ExtArgs>
     utilisateur: Prisma.$UtilisateurPayload<ExtArgs>
+    reactions: Prisma.$ReactionCommentairePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1188,6 +1314,7 @@ export interface Prisma__CommentaireClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   publication<T extends Prisma.PublicationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PublicationDefaultArgs<ExtArgs>>): Prisma.Prisma__PublicationClient<runtime.Types.Result.GetResult<Prisma.$PublicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   utilisateur<T extends Prisma.UtilisateurDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UtilisateurDefaultArgs<ExtArgs>>): Prisma.Prisma__UtilisateurClient<runtime.Types.Result.GetResult<Prisma.$UtilisateurPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  reactions<T extends Prisma.Commentaire$reactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Commentaire$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReactionCommentairePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1623,6 +1750,30 @@ export type CommentaireDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Commentaires to delete.
    */
   limit?: number
+}
+
+/**
+ * Commentaire.reactions
+ */
+export type Commentaire$reactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReactionCommentaire
+   */
+  select?: Prisma.ReactionCommentaireSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReactionCommentaire
+   */
+  omit?: Prisma.ReactionCommentaireOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReactionCommentaireInclude<ExtArgs> | null
+  where?: Prisma.ReactionCommentaireWhereInput
+  orderBy?: Prisma.ReactionCommentaireOrderByWithRelationInput | Prisma.ReactionCommentaireOrderByWithRelationInput[]
+  cursor?: Prisma.ReactionCommentaireWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReactionCommentaireScalarFieldEnum | Prisma.ReactionCommentaireScalarFieldEnum[]
 }
 
 /**

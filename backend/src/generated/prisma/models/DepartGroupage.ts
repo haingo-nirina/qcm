@@ -43,6 +43,7 @@ export type DepartGroupageMinAggregateOutputType = {
   arrivee_estimee: Date | null
   statut: $Enums.StatutDepart | null
   visible: boolean | null
+  abonnes_alertes_le: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -54,6 +55,7 @@ export type DepartGroupageMaxAggregateOutputType = {
   arrivee_estimee: Date | null
   statut: $Enums.StatutDepart | null
   visible: boolean | null
+  abonnes_alertes_le: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -65,6 +67,7 @@ export type DepartGroupageCountAggregateOutputType = {
   arrivee_estimee: number
   statut: number
   visible: number
+  abonnes_alertes_le: number
   created_at: number
   updated_at: number
   _all: number
@@ -88,6 +91,7 @@ export type DepartGroupageMinAggregateInputType = {
   arrivee_estimee?: true
   statut?: true
   visible?: true
+  abonnes_alertes_le?: true
   created_at?: true
   updated_at?: true
 }
@@ -99,6 +103,7 @@ export type DepartGroupageMaxAggregateInputType = {
   arrivee_estimee?: true
   statut?: true
   visible?: true
+  abonnes_alertes_le?: true
   created_at?: true
   updated_at?: true
 }
@@ -110,6 +115,7 @@ export type DepartGroupageCountAggregateInputType = {
   arrivee_estimee?: true
   statut?: true
   visible?: true
+  abonnes_alertes_le?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -208,6 +214,7 @@ export type DepartGroupageGroupByOutputType = {
   arrivee_estimee: Date
   statut: $Enums.StatutDepart
   visible: boolean
+  abonnes_alertes_le: Date | null
   created_at: Date
   updated_at: Date
   _count: DepartGroupageCountAggregateOutputType | null
@@ -242,6 +249,7 @@ export type DepartGroupageWhereInput = {
   arrivee_estimee?: Prisma.DateTimeFilter<"DepartGroupage"> | Date | string
   statut?: Prisma.EnumStatutDepartFilter<"DepartGroupage"> | $Enums.StatutDepart
   visible?: Prisma.BoolFilter<"DepartGroupage"> | boolean
+  abonnes_alertes_le?: Prisma.DateTimeNullableFilter<"DepartGroupage"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"DepartGroupage"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"DepartGroupage"> | Date | string
   point_depart?: Prisma.XOR<Prisma.PointDepartScalarRelationFilter, Prisma.PointDepartWhereInput>
@@ -255,6 +263,7 @@ export type DepartGroupageOrderByWithRelationInput = {
   arrivee_estimee?: Prisma.SortOrder
   statut?: Prisma.SortOrder
   visible?: Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   point_depart?: Prisma.PointDepartOrderByWithRelationInput
@@ -271,6 +280,7 @@ export type DepartGroupageWhereUniqueInput = Prisma.AtLeast<{
   arrivee_estimee?: Prisma.DateTimeFilter<"DepartGroupage"> | Date | string
   statut?: Prisma.EnumStatutDepartFilter<"DepartGroupage"> | $Enums.StatutDepart
   visible?: Prisma.BoolFilter<"DepartGroupage"> | boolean
+  abonnes_alertes_le?: Prisma.DateTimeNullableFilter<"DepartGroupage"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"DepartGroupage"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"DepartGroupage"> | Date | string
   point_depart?: Prisma.XOR<Prisma.PointDepartScalarRelationFilter, Prisma.PointDepartWhereInput>
@@ -284,6 +294,7 @@ export type DepartGroupageOrderByWithAggregationInput = {
   arrivee_estimee?: Prisma.SortOrder
   statut?: Prisma.SortOrder
   visible?: Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.DepartGroupageCountOrderByAggregateInput
@@ -303,6 +314,7 @@ export type DepartGroupageScalarWhereWithAggregatesInput = {
   arrivee_estimee?: Prisma.DateTimeWithAggregatesFilter<"DepartGroupage"> | Date | string
   statut?: Prisma.EnumStatutDepartWithAggregatesFilter<"DepartGroupage"> | $Enums.StatutDepart
   visible?: Prisma.BoolWithAggregatesFilter<"DepartGroupage"> | boolean
+  abonnes_alertes_le?: Prisma.DateTimeNullableWithAggregatesFilter<"DepartGroupage"> | Date | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"DepartGroupage"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"DepartGroupage"> | Date | string
 }
@@ -312,6 +324,7 @@ export type DepartGroupageCreateInput = {
   arrivee_estimee: Date | string
   statut?: $Enums.StatutDepart
   visible?: boolean
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   point_depart: Prisma.PointDepartCreateNestedOneWithoutDepartsInput
@@ -325,6 +338,7 @@ export type DepartGroupageUncheckedCreateInput = {
   arrivee_estimee: Date | string
   statut?: $Enums.StatutDepart
   visible?: boolean
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   demandes_devis?: Prisma.DemandeDevisUncheckedCreateNestedManyWithoutDepartInput
@@ -335,6 +349,7 @@ export type DepartGroupageUpdateInput = {
   arrivee_estimee?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   statut?: Prisma.EnumStatutDepartFieldUpdateOperationsInput | $Enums.StatutDepart
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   point_depart?: Prisma.PointDepartUpdateOneRequiredWithoutDepartsNestedInput
@@ -348,6 +363,7 @@ export type DepartGroupageUncheckedUpdateInput = {
   arrivee_estimee?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   statut?: Prisma.EnumStatutDepartFieldUpdateOperationsInput | $Enums.StatutDepart
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demandes_devis?: Prisma.DemandeDevisUncheckedUpdateManyWithoutDepartNestedInput
@@ -360,6 +376,7 @@ export type DepartGroupageCreateManyInput = {
   arrivee_estimee: Date | string
   statut?: $Enums.StatutDepart
   visible?: boolean
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -369,6 +386,7 @@ export type DepartGroupageUpdateManyMutationInput = {
   arrivee_estimee?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   statut?: Prisma.EnumStatutDepartFieldUpdateOperationsInput | $Enums.StatutDepart
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -380,6 +398,7 @@ export type DepartGroupageUncheckedUpdateManyInput = {
   arrivee_estimee?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   statut?: Prisma.EnumStatutDepartFieldUpdateOperationsInput | $Enums.StatutDepart
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -401,6 +420,7 @@ export type DepartGroupageCountOrderByAggregateInput = {
   arrivee_estimee?: Prisma.SortOrder
   statut?: Prisma.SortOrder
   visible?: Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -417,6 +437,7 @@ export type DepartGroupageMaxOrderByAggregateInput = {
   arrivee_estimee?: Prisma.SortOrder
   statut?: Prisma.SortOrder
   visible?: Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -428,6 +449,7 @@ export type DepartGroupageMinOrderByAggregateInput = {
   arrivee_estimee?: Prisma.SortOrder
   statut?: Prisma.SortOrder
   visible?: Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -496,6 +518,10 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type DepartGroupageCreateNestedOneWithoutDemandes_devisInput = {
   create?: Prisma.XOR<Prisma.DepartGroupageCreateWithoutDemandes_devisInput, Prisma.DepartGroupageUncheckedCreateWithoutDemandes_devisInput>
   connectOrCreate?: Prisma.DepartGroupageCreateOrConnectWithoutDemandes_devisInput
@@ -517,6 +543,7 @@ export type DepartGroupageCreateWithoutPoint_departInput = {
   arrivee_estimee: Date | string
   statut?: $Enums.StatutDepart
   visible?: boolean
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   demandes_devis?: Prisma.DemandeDevisCreateNestedManyWithoutDepartInput
@@ -528,6 +555,7 @@ export type DepartGroupageUncheckedCreateWithoutPoint_departInput = {
   arrivee_estimee: Date | string
   statut?: $Enums.StatutDepart
   visible?: boolean
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   demandes_devis?: Prisma.DemandeDevisUncheckedCreateNestedManyWithoutDepartInput
@@ -569,6 +597,7 @@ export type DepartGroupageScalarWhereInput = {
   arrivee_estimee?: Prisma.DateTimeFilter<"DepartGroupage"> | Date | string
   statut?: Prisma.EnumStatutDepartFilter<"DepartGroupage"> | $Enums.StatutDepart
   visible?: Prisma.BoolFilter<"DepartGroupage"> | boolean
+  abonnes_alertes_le?: Prisma.DateTimeNullableFilter<"DepartGroupage"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"DepartGroupage"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"DepartGroupage"> | Date | string
 }
@@ -578,6 +607,7 @@ export type DepartGroupageCreateWithoutDemandes_devisInput = {
   arrivee_estimee: Date | string
   statut?: $Enums.StatutDepart
   visible?: boolean
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   point_depart: Prisma.PointDepartCreateNestedOneWithoutDepartsInput
@@ -590,6 +620,7 @@ export type DepartGroupageUncheckedCreateWithoutDemandes_devisInput = {
   arrivee_estimee: Date | string
   statut?: $Enums.StatutDepart
   visible?: boolean
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -615,6 +646,7 @@ export type DepartGroupageUpdateWithoutDemandes_devisInput = {
   arrivee_estimee?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   statut?: Prisma.EnumStatutDepartFieldUpdateOperationsInput | $Enums.StatutDepart
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   point_depart?: Prisma.PointDepartUpdateOneRequiredWithoutDepartsNestedInput
@@ -627,6 +659,7 @@ export type DepartGroupageUncheckedUpdateWithoutDemandes_devisInput = {
   arrivee_estimee?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   statut?: Prisma.EnumStatutDepartFieldUpdateOperationsInput | $Enums.StatutDepart
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -637,6 +670,7 @@ export type DepartGroupageCreateManyPoint_departInput = {
   arrivee_estimee: Date | string
   statut?: $Enums.StatutDepart
   visible?: boolean
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -646,6 +680,7 @@ export type DepartGroupageUpdateWithoutPoint_departInput = {
   arrivee_estimee?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   statut?: Prisma.EnumStatutDepartFieldUpdateOperationsInput | $Enums.StatutDepart
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demandes_devis?: Prisma.DemandeDevisUpdateManyWithoutDepartNestedInput
@@ -657,6 +692,7 @@ export type DepartGroupageUncheckedUpdateWithoutPoint_departInput = {
   arrivee_estimee?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   statut?: Prisma.EnumStatutDepartFieldUpdateOperationsInput | $Enums.StatutDepart
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   demandes_devis?: Prisma.DemandeDevisUncheckedUpdateManyWithoutDepartNestedInput
@@ -668,6 +704,7 @@ export type DepartGroupageUncheckedUpdateManyWithoutPoint_departInput = {
   arrivee_estimee?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   statut?: Prisma.EnumStatutDepartFieldUpdateOperationsInput | $Enums.StatutDepart
   visible?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -710,6 +747,7 @@ export type DepartGroupageSelect<ExtArgs extends runtime.Types.Extensions.Intern
   arrivee_estimee?: boolean
   statut?: boolean
   visible?: boolean
+  abonnes_alertes_le?: boolean
   created_at?: boolean
   updated_at?: boolean
   point_depart?: boolean | Prisma.PointDepartDefaultArgs<ExtArgs>
@@ -724,6 +762,7 @@ export type DepartGroupageSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   arrivee_estimee?: boolean
   statut?: boolean
   visible?: boolean
+  abonnes_alertes_le?: boolean
   created_at?: boolean
   updated_at?: boolean
   point_depart?: boolean | Prisma.PointDepartDefaultArgs<ExtArgs>
@@ -736,6 +775,7 @@ export type DepartGroupageSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   arrivee_estimee?: boolean
   statut?: boolean
   visible?: boolean
+  abonnes_alertes_le?: boolean
   created_at?: boolean
   updated_at?: boolean
   point_depart?: boolean | Prisma.PointDepartDefaultArgs<ExtArgs>
@@ -748,11 +788,12 @@ export type DepartGroupageSelectScalar = {
   arrivee_estimee?: boolean
   statut?: boolean
   visible?: boolean
+  abonnes_alertes_le?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type DepartGroupageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "point_depart_id" | "date_cloture" | "arrivee_estimee" | "statut" | "visible" | "created_at" | "updated_at", ExtArgs["result"]["departGroupage"]>
+export type DepartGroupageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "point_depart_id" | "date_cloture" | "arrivee_estimee" | "statut" | "visible" | "abonnes_alertes_le" | "created_at" | "updated_at", ExtArgs["result"]["departGroupage"]>
 export type DepartGroupageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   point_depart?: boolean | Prisma.PointDepartDefaultArgs<ExtArgs>
   demandes_devis?: boolean | Prisma.DepartGroupage$demandes_devisArgs<ExtArgs>
@@ -778,6 +819,10 @@ export type $DepartGroupagePayload<ExtArgs extends runtime.Types.Extensions.Inte
     arrivee_estimee: Date
     statut: $Enums.StatutDepart
     visible: boolean
+    /**
+     * Dernier envoi de l'alerte e-mail aux abonnés (null : jamais envoyée)
+     */
+    abonnes_alertes_le: Date | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["departGroupage"]>
@@ -1211,6 +1256,7 @@ export interface DepartGroupageFieldRefs {
   readonly arrivee_estimee: Prisma.FieldRef<"DepartGroupage", 'DateTime'>
   readonly statut: Prisma.FieldRef<"DepartGroupage", 'StatutDepart'>
   readonly visible: Prisma.FieldRef<"DepartGroupage", 'Boolean'>
+  readonly abonnes_alertes_le: Prisma.FieldRef<"DepartGroupage", 'DateTime'>
   readonly created_at: Prisma.FieldRef<"DepartGroupage", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"DepartGroupage", 'DateTime'>
 }

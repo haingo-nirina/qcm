@@ -82,6 +82,29 @@ export type Publication = Prisma.PublicationModel
  */
 export type Commentaire = Prisma.CommentaireModel
 /**
+ * Model ReactionPublication
+ * « J'aime » (cœur) sur une publication. Ouvert à tous, sans connexion : le visiteur est reconnu
+ * par un cookie aléatoire dont seule l'empreinte SHA-256 est stockée (un cœur par navigateur).
+ */
+export type ReactionPublication = Prisma.ReactionPublicationModel
+/**
+ * Model ReactionCommentaire
+ * Cœur sur un commentaire publié (même principe que ReactionPublication).
+ */
+export type ReactionCommentaire = Prisma.ReactionCommentaireModel
+/**
+ * Model ExperienceClient
+ * Témoignage laissé par un visiteur connecté sur la page « Expérience client ».
+ * Toujours créé « en_attente » : il n'est affiché qu'après validation dans le back-office.
+ */
+export type ExperienceClient = Prisma.ExperienceClientModel
+/**
+ * Model Abonne
+ * Adresse inscrite depuis le pied de page du site pour recevoir les nouveautés
+ * (publications, départs groupage). Un désabonnement garde la ligne (actif = false).
+ */
+export type Abonne = Prisma.AbonneModel
+/**
  * Model DemandeDevis
  * 
  */

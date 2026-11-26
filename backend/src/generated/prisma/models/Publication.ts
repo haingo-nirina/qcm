@@ -45,6 +45,7 @@ export type PublicationMinAggregateOutputType = {
   commentaires_ouverts: boolean | null
   commentaires_moderes: boolean | null
   publie_le: Date | null
+  abonnes_alertes_le: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -60,6 +61,7 @@ export type PublicationMaxAggregateOutputType = {
   commentaires_ouverts: boolean | null
   commentaires_moderes: boolean | null
   publie_le: Date | null
+  abonnes_alertes_le: Date | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -75,6 +77,7 @@ export type PublicationCountAggregateOutputType = {
   commentaires_ouverts: number
   commentaires_moderes: number
   publie_le: number
+  abonnes_alertes_le: number
   created_at: number
   updated_at: number
   _all: number
@@ -100,6 +103,7 @@ export type PublicationMinAggregateInputType = {
   commentaires_ouverts?: true
   commentaires_moderes?: true
   publie_le?: true
+  abonnes_alertes_le?: true
   created_at?: true
   updated_at?: true
 }
@@ -115,6 +119,7 @@ export type PublicationMaxAggregateInputType = {
   commentaires_ouverts?: true
   commentaires_moderes?: true
   publie_le?: true
+  abonnes_alertes_le?: true
   created_at?: true
   updated_at?: true
 }
@@ -130,6 +135,7 @@ export type PublicationCountAggregateInputType = {
   commentaires_ouverts?: true
   commentaires_moderes?: true
   publie_le?: true
+  abonnes_alertes_le?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -232,6 +238,7 @@ export type PublicationGroupByOutputType = {
   commentaires_ouverts: boolean
   commentaires_moderes: boolean
   publie_le: Date | null
+  abonnes_alertes_le: Date | null
   created_at: Date
   updated_at: Date
   _count: PublicationCountAggregateOutputType | null
@@ -270,9 +277,11 @@ export type PublicationWhereInput = {
   commentaires_ouverts?: Prisma.BoolFilter<"Publication"> | boolean
   commentaires_moderes?: Prisma.BoolFilter<"Publication"> | boolean
   publie_le?: Prisma.DateTimeNullableFilter<"Publication"> | Date | string | null
+  abonnes_alertes_le?: Prisma.DateTimeNullableFilter<"Publication"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"Publication"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Publication"> | Date | string
   commentaires?: Prisma.CommentaireListRelationFilter
+  reactions?: Prisma.ReactionPublicationListRelationFilter
 }
 
 export type PublicationOrderByWithRelationInput = {
@@ -286,9 +295,11 @@ export type PublicationOrderByWithRelationInput = {
   commentaires_ouverts?: Prisma.SortOrder
   commentaires_moderes?: Prisma.SortOrder
   publie_le?: Prisma.SortOrderInput | Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   commentaires?: Prisma.CommentaireOrderByRelationAggregateInput
+  reactions?: Prisma.ReactionPublicationOrderByRelationAggregateInput
 }
 
 export type PublicationWhereUniqueInput = Prisma.AtLeast<{
@@ -305,9 +316,11 @@ export type PublicationWhereUniqueInput = Prisma.AtLeast<{
   commentaires_ouverts?: Prisma.BoolFilter<"Publication"> | boolean
   commentaires_moderes?: Prisma.BoolFilter<"Publication"> | boolean
   publie_le?: Prisma.DateTimeNullableFilter<"Publication"> | Date | string | null
+  abonnes_alertes_le?: Prisma.DateTimeNullableFilter<"Publication"> | Date | string | null
   created_at?: Prisma.DateTimeFilter<"Publication"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Publication"> | Date | string
   commentaires?: Prisma.CommentaireListRelationFilter
+  reactions?: Prisma.ReactionPublicationListRelationFilter
 }, "id" | "slug">
 
 export type PublicationOrderByWithAggregationInput = {
@@ -321,6 +334,7 @@ export type PublicationOrderByWithAggregationInput = {
   commentaires_ouverts?: Prisma.SortOrder
   commentaires_moderes?: Prisma.SortOrder
   publie_le?: Prisma.SortOrderInput | Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.PublicationCountOrderByAggregateInput
@@ -344,6 +358,7 @@ export type PublicationScalarWhereWithAggregatesInput = {
   commentaires_ouverts?: Prisma.BoolWithAggregatesFilter<"Publication"> | boolean
   commentaires_moderes?: Prisma.BoolWithAggregatesFilter<"Publication"> | boolean
   publie_le?: Prisma.DateTimeNullableWithAggregatesFilter<"Publication"> | Date | string | null
+  abonnes_alertes_le?: Prisma.DateTimeNullableWithAggregatesFilter<"Publication"> | Date | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Publication"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Publication"> | Date | string
 }
@@ -358,9 +373,11 @@ export type PublicationCreateInput = {
   commentaires_ouverts?: boolean
   commentaires_moderes?: boolean
   publie_le?: Date | string | null
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   commentaires?: Prisma.CommentaireCreateNestedManyWithoutPublicationInput
+  reactions?: Prisma.ReactionPublicationCreateNestedManyWithoutPublicationInput
 }
 
 export type PublicationUncheckedCreateInput = {
@@ -374,9 +391,11 @@ export type PublicationUncheckedCreateInput = {
   commentaires_ouverts?: boolean
   commentaires_moderes?: boolean
   publie_le?: Date | string | null
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
   commentaires?: Prisma.CommentaireUncheckedCreateNestedManyWithoutPublicationInput
+  reactions?: Prisma.ReactionPublicationUncheckedCreateNestedManyWithoutPublicationInput
 }
 
 export type PublicationUpdateInput = {
@@ -389,9 +408,11 @@ export type PublicationUpdateInput = {
   commentaires_ouverts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   commentaires_moderes?: Prisma.BoolFieldUpdateOperationsInput | boolean
   publie_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   commentaires?: Prisma.CommentaireUpdateManyWithoutPublicationNestedInput
+  reactions?: Prisma.ReactionPublicationUpdateManyWithoutPublicationNestedInput
 }
 
 export type PublicationUncheckedUpdateInput = {
@@ -405,9 +426,11 @@ export type PublicationUncheckedUpdateInput = {
   commentaires_ouverts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   commentaires_moderes?: Prisma.BoolFieldUpdateOperationsInput | boolean
   publie_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   commentaires?: Prisma.CommentaireUncheckedUpdateManyWithoutPublicationNestedInput
+  reactions?: Prisma.ReactionPublicationUncheckedUpdateManyWithoutPublicationNestedInput
 }
 
 export type PublicationCreateManyInput = {
@@ -421,6 +444,7 @@ export type PublicationCreateManyInput = {
   commentaires_ouverts?: boolean
   commentaires_moderes?: boolean
   publie_le?: Date | string | null
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -435,6 +459,7 @@ export type PublicationUpdateManyMutationInput = {
   commentaires_ouverts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   commentaires_moderes?: Prisma.BoolFieldUpdateOperationsInput | boolean
   publie_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -450,6 +475,7 @@ export type PublicationUncheckedUpdateManyInput = {
   commentaires_ouverts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   commentaires_moderes?: Prisma.BoolFieldUpdateOperationsInput | boolean
   publie_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -465,6 +491,7 @@ export type PublicationCountOrderByAggregateInput = {
   commentaires_ouverts?: Prisma.SortOrder
   commentaires_moderes?: Prisma.SortOrder
   publie_le?: Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -484,6 +511,7 @@ export type PublicationMaxOrderByAggregateInput = {
   commentaires_ouverts?: Prisma.SortOrder
   commentaires_moderes?: Prisma.SortOrder
   publie_le?: Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -499,6 +527,7 @@ export type PublicationMinOrderByAggregateInput = {
   commentaires_ouverts?: Prisma.SortOrder
   commentaires_moderes?: Prisma.SortOrder
   publie_le?: Prisma.SortOrder
+  abonnes_alertes_le?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -520,10 +549,6 @@ export type EnumStatutPublicationFieldUpdateOperationsInput = {
   set?: $Enums.StatutPublication
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type PublicationCreateNestedOneWithoutCommentairesInput = {
   create?: Prisma.XOR<Prisma.PublicationCreateWithoutCommentairesInput, Prisma.PublicationUncheckedCreateWithoutCommentairesInput>
   connectOrCreate?: Prisma.PublicationCreateOrConnectWithoutCommentairesInput
@@ -538,6 +563,20 @@ export type PublicationUpdateOneRequiredWithoutCommentairesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PublicationUpdateToOneWithWhereWithoutCommentairesInput, Prisma.PublicationUpdateWithoutCommentairesInput>, Prisma.PublicationUncheckedUpdateWithoutCommentairesInput>
 }
 
+export type PublicationCreateNestedOneWithoutReactionsInput = {
+  create?: Prisma.XOR<Prisma.PublicationCreateWithoutReactionsInput, Prisma.PublicationUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.PublicationCreateOrConnectWithoutReactionsInput
+  connect?: Prisma.PublicationWhereUniqueInput
+}
+
+export type PublicationUpdateOneRequiredWithoutReactionsNestedInput = {
+  create?: Prisma.XOR<Prisma.PublicationCreateWithoutReactionsInput, Prisma.PublicationUncheckedCreateWithoutReactionsInput>
+  connectOrCreate?: Prisma.PublicationCreateOrConnectWithoutReactionsInput
+  upsert?: Prisma.PublicationUpsertWithoutReactionsInput
+  connect?: Prisma.PublicationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PublicationUpdateToOneWithWhereWithoutReactionsInput, Prisma.PublicationUpdateWithoutReactionsInput>, Prisma.PublicationUncheckedUpdateWithoutReactionsInput>
+}
+
 export type PublicationCreateWithoutCommentairesInput = {
   titre: string
   slug: string
@@ -548,8 +587,10 @@ export type PublicationCreateWithoutCommentairesInput = {
   commentaires_ouverts?: boolean
   commentaires_moderes?: boolean
   publie_le?: Date | string | null
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
+  reactions?: Prisma.ReactionPublicationCreateNestedManyWithoutPublicationInput
 }
 
 export type PublicationUncheckedCreateWithoutCommentairesInput = {
@@ -563,8 +604,10 @@ export type PublicationUncheckedCreateWithoutCommentairesInput = {
   commentaires_ouverts?: boolean
   commentaires_moderes?: boolean
   publie_le?: Date | string | null
+  abonnes_alertes_le?: Date | string | null
   created_at?: Date | string
   updated_at?: Date | string
+  reactions?: Prisma.ReactionPublicationUncheckedCreateNestedManyWithoutPublicationInput
 }
 
 export type PublicationCreateOrConnectWithoutCommentairesInput = {
@@ -593,8 +636,10 @@ export type PublicationUpdateWithoutCommentairesInput = {
   commentaires_ouverts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   commentaires_moderes?: Prisma.BoolFieldUpdateOperationsInput | boolean
   publie_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ReactionPublicationUpdateManyWithoutPublicationNestedInput
 }
 
 export type PublicationUncheckedUpdateWithoutCommentairesInput = {
@@ -608,8 +653,92 @@ export type PublicationUncheckedUpdateWithoutCommentairesInput = {
   commentaires_ouverts?: Prisma.BoolFieldUpdateOperationsInput | boolean
   commentaires_moderes?: Prisma.BoolFieldUpdateOperationsInput | boolean
   publie_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reactions?: Prisma.ReactionPublicationUncheckedUpdateManyWithoutPublicationNestedInput
+}
+
+export type PublicationCreateWithoutReactionsInput = {
+  titre: string
+  slug: string
+  categorie: $Enums.CategoriePublication
+  contenu: string
+  image_url?: string | null
+  statut?: $Enums.StatutPublication
+  commentaires_ouverts?: boolean
+  commentaires_moderes?: boolean
+  publie_le?: Date | string | null
+  abonnes_alertes_le?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  commentaires?: Prisma.CommentaireCreateNestedManyWithoutPublicationInput
+}
+
+export type PublicationUncheckedCreateWithoutReactionsInput = {
+  id?: number
+  titre: string
+  slug: string
+  categorie: $Enums.CategoriePublication
+  contenu: string
+  image_url?: string | null
+  statut?: $Enums.StatutPublication
+  commentaires_ouverts?: boolean
+  commentaires_moderes?: boolean
+  publie_le?: Date | string | null
+  abonnes_alertes_le?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  commentaires?: Prisma.CommentaireUncheckedCreateNestedManyWithoutPublicationInput
+}
+
+export type PublicationCreateOrConnectWithoutReactionsInput = {
+  where: Prisma.PublicationWhereUniqueInput
+  create: Prisma.XOR<Prisma.PublicationCreateWithoutReactionsInput, Prisma.PublicationUncheckedCreateWithoutReactionsInput>
+}
+
+export type PublicationUpsertWithoutReactionsInput = {
+  update: Prisma.XOR<Prisma.PublicationUpdateWithoutReactionsInput, Prisma.PublicationUncheckedUpdateWithoutReactionsInput>
+  create: Prisma.XOR<Prisma.PublicationCreateWithoutReactionsInput, Prisma.PublicationUncheckedCreateWithoutReactionsInput>
+  where?: Prisma.PublicationWhereInput
+}
+
+export type PublicationUpdateToOneWithWhereWithoutReactionsInput = {
+  where?: Prisma.PublicationWhereInput
+  data: Prisma.XOR<Prisma.PublicationUpdateWithoutReactionsInput, Prisma.PublicationUncheckedUpdateWithoutReactionsInput>
+}
+
+export type PublicationUpdateWithoutReactionsInput = {
+  titre?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  categorie?: Prisma.EnumCategoriePublicationFieldUpdateOperationsInput | $Enums.CategoriePublication
+  contenu?: Prisma.StringFieldUpdateOperationsInput | string
+  image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statut?: Prisma.EnumStatutPublicationFieldUpdateOperationsInput | $Enums.StatutPublication
+  commentaires_ouverts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commentaires_moderes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publie_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commentaires?: Prisma.CommentaireUpdateManyWithoutPublicationNestedInput
+}
+
+export type PublicationUncheckedUpdateWithoutReactionsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  titre?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  categorie?: Prisma.EnumCategoriePublicationFieldUpdateOperationsInput | $Enums.CategoriePublication
+  contenu?: Prisma.StringFieldUpdateOperationsInput | string
+  image_url?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statut?: Prisma.EnumStatutPublicationFieldUpdateOperationsInput | $Enums.StatutPublication
+  commentaires_ouverts?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  commentaires_moderes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  publie_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  abonnes_alertes_le?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  commentaires?: Prisma.CommentaireUncheckedUpdateManyWithoutPublicationNestedInput
 }
 
 
@@ -619,10 +748,12 @@ export type PublicationUncheckedUpdateWithoutCommentairesInput = {
 
 export type PublicationCountOutputType = {
   commentaires: number
+  reactions: number
 }
 
 export type PublicationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   commentaires?: boolean | PublicationCountOutputTypeCountCommentairesArgs
+  reactions?: boolean | PublicationCountOutputTypeCountReactionsArgs
 }
 
 /**
@@ -642,6 +773,13 @@ export type PublicationCountOutputTypeCountCommentairesArgs<ExtArgs extends runt
   where?: Prisma.CommentaireWhereInput
 }
 
+/**
+ * PublicationCountOutputType without action
+ */
+export type PublicationCountOutputTypeCountReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReactionPublicationWhereInput
+}
+
 
 export type PublicationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -654,9 +792,11 @@ export type PublicationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   commentaires_ouverts?: boolean
   commentaires_moderes?: boolean
   publie_le?: boolean
+  abonnes_alertes_le?: boolean
   created_at?: boolean
   updated_at?: boolean
   commentaires?: boolean | Prisma.Publication$commentairesArgs<ExtArgs>
+  reactions?: boolean | Prisma.Publication$reactionsArgs<ExtArgs>
   _count?: boolean | Prisma.PublicationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["publication"]>
 
@@ -671,6 +811,7 @@ export type PublicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   commentaires_ouverts?: boolean
   commentaires_moderes?: boolean
   publie_le?: boolean
+  abonnes_alertes_le?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["publication"]>
@@ -686,6 +827,7 @@ export type PublicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   commentaires_ouverts?: boolean
   commentaires_moderes?: boolean
   publie_le?: boolean
+  abonnes_alertes_le?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["publication"]>
@@ -701,13 +843,15 @@ export type PublicationSelectScalar = {
   commentaires_ouverts?: boolean
   commentaires_moderes?: boolean
   publie_le?: boolean
+  abonnes_alertes_le?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type PublicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titre" | "slug" | "categorie" | "contenu" | "image_url" | "statut" | "commentaires_ouverts" | "commentaires_moderes" | "publie_le" | "created_at" | "updated_at", ExtArgs["result"]["publication"]>
+export type PublicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "titre" | "slug" | "categorie" | "contenu" | "image_url" | "statut" | "commentaires_ouverts" | "commentaires_moderes" | "publie_le" | "abonnes_alertes_le" | "created_at" | "updated_at", ExtArgs["result"]["publication"]>
 export type PublicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   commentaires?: boolean | Prisma.Publication$commentairesArgs<ExtArgs>
+  reactions?: boolean | Prisma.Publication$reactionsArgs<ExtArgs>
   _count?: boolean | Prisma.PublicationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PublicationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -717,6 +861,7 @@ export type $PublicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
   name: "Publication"
   objects: {
     commentaires: Prisma.$CommentairePayload<ExtArgs>[]
+    reactions: Prisma.$ReactionPublicationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -735,6 +880,10 @@ export type $PublicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
      */
     commentaires_moderes: boolean
     publie_le: Date | null
+    /**
+     * Dernier envoi de l'alerte e-mail aux abonnés (null : jamais envoyée)
+     */
+    abonnes_alertes_le: Date | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["publication"]>
@@ -1132,6 +1281,7 @@ readonly fields: PublicationFieldRefs;
 export interface Prisma__PublicationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   commentaires<T extends Prisma.Publication$commentairesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Publication$commentairesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentairePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reactions<T extends Prisma.Publication$reactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Publication$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReactionPublicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1171,6 +1321,7 @@ export interface PublicationFieldRefs {
   readonly commentaires_ouverts: Prisma.FieldRef<"Publication", 'Boolean'>
   readonly commentaires_moderes: Prisma.FieldRef<"Publication", 'Boolean'>
   readonly publie_le: Prisma.FieldRef<"Publication", 'DateTime'>
+  readonly abonnes_alertes_le: Prisma.FieldRef<"Publication", 'DateTime'>
   readonly created_at: Prisma.FieldRef<"Publication", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Publication", 'DateTime'>
 }
@@ -1587,6 +1738,30 @@ export type Publication$commentairesArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.CommentaireScalarFieldEnum | Prisma.CommentaireScalarFieldEnum[]
+}
+
+/**
+ * Publication.reactions
+ */
+export type Publication$reactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ReactionPublication
+   */
+  select?: Prisma.ReactionPublicationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ReactionPublication
+   */
+  omit?: Prisma.ReactionPublicationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReactionPublicationInclude<ExtArgs> | null
+  where?: Prisma.ReactionPublicationWhereInput
+  orderBy?: Prisma.ReactionPublicationOrderByWithRelationInput | Prisma.ReactionPublicationOrderByWithRelationInput[]
+  cursor?: Prisma.ReactionPublicationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReactionPublicationScalarFieldEnum | Prisma.ReactionPublicationScalarFieldEnum[]
 }
 
 /**

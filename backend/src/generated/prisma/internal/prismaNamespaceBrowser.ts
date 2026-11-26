@@ -59,6 +59,10 @@ export const ModelName = {
   CompteSocial: 'CompteSocial',
   Publication: 'Publication',
   Commentaire: 'Commentaire',
+  ReactionPublication: 'ReactionPublication',
+  ReactionCommentaire: 'ReactionCommentaire',
+  ExperienceClient: 'ExperienceClient',
+  Abonne: 'Abonne',
   DemandeDevis: 'DemandeDevis',
   Administrateur: 'Administrateur',
   SessionAdmin: 'SessionAdmin'
@@ -105,6 +109,7 @@ export const DepartGroupageScalarFieldEnum = {
   arrivee_estimee: 'arrivee_estimee',
   statut: 'statut',
   visible: 'visible',
+  abonnes_alertes_le: 'abonnes_alertes_le',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -160,6 +165,7 @@ export const PublicationScalarFieldEnum = {
   commentaires_ouverts: 'commentaires_ouverts',
   commentaires_moderes: 'commentaires_moderes',
   publie_le: 'publie_le',
+  abonnes_alertes_le: 'abonnes_alertes_le',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
@@ -179,6 +185,50 @@ export const CommentaireScalarFieldEnum = {
 } as const
 
 export type CommentaireScalarFieldEnum = (typeof CommentaireScalarFieldEnum)[keyof typeof CommentaireScalarFieldEnum]
+
+
+export const ReactionPublicationScalarFieldEnum = {
+  id: 'id',
+  publication_id: 'publication_id',
+  reacteur_hash: 'reacteur_hash',
+  created_at: 'created_at'
+} as const
+
+export type ReactionPublicationScalarFieldEnum = (typeof ReactionPublicationScalarFieldEnum)[keyof typeof ReactionPublicationScalarFieldEnum]
+
+
+export const ReactionCommentaireScalarFieldEnum = {
+  id: 'id',
+  commentaire_id: 'commentaire_id',
+  reacteur_hash: 'reacteur_hash',
+  created_at: 'created_at'
+} as const
+
+export type ReactionCommentaireScalarFieldEnum = (typeof ReactionCommentaireScalarFieldEnum)[keyof typeof ReactionCommentaireScalarFieldEnum]
+
+
+export const ExperienceClientScalarFieldEnum = {
+  id: 'id',
+  utilisateur_id: 'utilisateur_id',
+  texte: 'texte',
+  entreprise: 'entreprise',
+  statut: 'statut',
+  created_at: 'created_at'
+} as const
+
+export type ExperienceClientScalarFieldEnum = (typeof ExperienceClientScalarFieldEnum)[keyof typeof ExperienceClientScalarFieldEnum]
+
+
+export const AbonneScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  jeton_desabonnement: 'jeton_desabonnement',
+  actif: 'actif',
+  created_at: 'created_at',
+  desabonne_le: 'desabonne_le'
+} as const
+
+export type AbonneScalarFieldEnum = (typeof AbonneScalarFieldEnum)[keyof typeof AbonneScalarFieldEnum]
 
 
 export const DemandeDevisScalarFieldEnum = {
